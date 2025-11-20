@@ -1,0 +1,75 @@
+spring:
+  # --------------------------------------------------------------------------
+  # 0. Nombre de la Aplicación
+  # --------------------------------------------------------------------------
+  application:
+    name: admision-academica
+
+  # --------------------------------------------------------------------------
+  # 1. Configuración de Spring Data JPA (PostgreSQL)
+  # --------------------------------------------------------------------------
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_academia
+    username: postgres
+    password: toor
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_ql: true
+    show-sql: true
+
+  # --------------------------------------------------------------------------
+  # 2. Configuración de Spring Data MongoDB
+  # --------------------------------------------------------------------------
+  data:
+    mongodb:
+      uri: mongodb+srv://juniorasmat40:OHRzVyyDEMS2JsHk@cluster0.ql7o2.mongodb.net/preprount_content?retryWrites=true&w=majority
+      # username: usuario_mongo
+      # password: contrasena_mongo
+
+# --------------------------------------------------------------------------
+# 3. Configuración de Seguridad JWT
+# --------------------------------------------------------------------------
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000
+      # refresh-token:
+      #   expiration: 604800000
+
+# --------------------------------------------------------------------------
+# 4. Configuración del Servidor
+# --------------------------------------------------------------------------
+server:
+  port: 8080
+
+# Genera una clave segura de 256 bits (32 bytes) y codif�cala en Base64
+#application.security.jwt.secret-key=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+#application.security.jwt.expiration=86400000 # 24 horas en milisegundos
+
+# (Fragmento de configuración Actuator)
+
+management:
+  # Exposición de Endpoints (Solo exponemos lo necesario)
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus # Exponemos el endpoint de métricas
+  # Configuración de métricas
+  metrics:
+    tags:
+      application: admision-academica # Etiqueta clave para identificar tu API en Grafana/Prometheus
+    distribution:
+      percentiles-histogram-enabled: true # Habilita percentiles para una mejor visualización de latencia
+
+  # Configuración de Latencia (Opcional, pero recomendado)
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      show-details: always # Muestra detalles de salud (DBs, etc.)

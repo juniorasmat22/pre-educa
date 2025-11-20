@@ -1,0 +1,56 @@
+package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Component;
+
+import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringMetadatoPreguntaRepository;
+import com.bootcodeperu.admision_academica.domain.model.MetadatoPregunta;
+import com.bootcodeperu.admision_academica.domain.repository.MetadatoPreguntaRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Component
+@RequiredArgsConstructor
+public class MetadatoPreguntaRepositoryImpl implements MetadatoPreguntaRepository {
+
+    private final SpringMetadatoPreguntaRepository springMetadatoPreguntaRepository;
+
+    @Override
+    public MetadatoPregunta save(MetadatoPregunta metadato) {
+        return springMetadatoPreguntaRepository.save(metadato);
+    }
+
+    @Override
+    public List<MetadatoPregunta> findByTemaIdAndNivel(Long temaId, String nivel) {
+        // Usa el método simple de Spring Data JPA
+        return springMetadatoPreguntaRepository.findByTemaIdAndNivel(temaId, nivel);
+    }
+
+    @Override
+    public Long countByTemaIdInAndTipoPregunta(List<Long> temaIds, String tipoPregunta) {
+        // Usa el método de conteo de Spring Data JPA
+        return springMetadatoPreguntaRepository.countByTemaIdInAndTipoPregunta(temaIds, tipoPregunta);
+    }
+
+    @Override
+    public List<MetadatoPregunta> findRandomByTemaIdInAndTipoPregunta(
+            List<Long> temaIds, 
+            String tipoPregunta, 
+            int limit) {
+        // Usa la consulta nativa de selección aleatoria
+        return springMetadatoPreguntaRepository.findRandomByTemaIdInAndTipoPregunta(temaIds, tipoPregunta, limit);
+    }
+
+    @Override
+    public Optional<MetadatoPregunta> findByMongoIdPregunta(String mongoId) {
+        return springMetadatoPreguntaRepository.findByMongoIdPregunta(mongoId);
+    }
+
+	@Override
+	public Optional<MetadatoPregunta> findById(Long id) {
+		// TODO Auto-generated method stub
+		return springMetadatoPreguntaRepository.findById(id);
+	}
+}
