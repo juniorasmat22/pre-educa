@@ -40,6 +40,7 @@ dependencies {
     runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5")
     // Micrometer/Prometheus: Formatea las métricas para que Prometheus las entienda
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+    implementation("me.paulschwarz:spring-dotenv:4.0.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")

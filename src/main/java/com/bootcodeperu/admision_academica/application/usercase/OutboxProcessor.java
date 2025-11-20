@@ -32,7 +32,7 @@ public class OutboxProcessor {
  // 1. Instancia estática y final del Logger
     private static final Logger log = LoggerFactory.getLogger(OutboxProcessor.class);
     // Se ejecuta cada 10 segundos
-    @Scheduled(fixedRate = 10000) 
+    @Scheduled(fixedRate = 60000) 
     @Transactional // Cada procesamiento es una transacción SQL
     public void processOutboxEvents() {
     	log.info("Iniciando procesamiento de eventos Outbox pendientes."); // Nivel INFO para el inicio del ciclo
