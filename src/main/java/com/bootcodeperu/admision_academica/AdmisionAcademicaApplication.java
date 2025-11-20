@@ -13,7 +13,7 @@ public class AdmisionAcademicaApplication {
 	public static void main(String[] args) {
 		Dotenv dotenv = Dotenv.configure()
                 .ignoreIfMissing()
-                .systemProperties()   // 👈 ESTO HACE QUE SPRING LO LEA
+                .systemProperties()
                 .load();
 		SpringApplication.run(AdmisionAcademicaApplication.class, args);
 	}

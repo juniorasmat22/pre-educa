@@ -1012,3 +1012,15 @@ Caused by: org.springframework.util.PlaceholderResolutionException: Could not re
 2025-11-19 22:44:18.645 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
 2025-11-19 22:45:18.648 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
 2025-11-19 22:45:18.655 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-11-19 22:46:18.644 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-11-19 22:46:18.650 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-11-19 22:47:18.641 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-11-19 22:47:18.647 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-11-19 22:47:47.271 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-11-19 22:47:47.284 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-19 22:47:47.287 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-11-19 22:47:47.369 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-19 22:47:47.370 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-11-19 22:47:47.397 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-19 22:47:47.401 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-19 22:47:47.404 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
