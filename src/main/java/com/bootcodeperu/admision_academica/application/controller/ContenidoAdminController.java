@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.ContenidoTeoria;
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
-import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.repository.PreguntaDetalleMongoRepository;
 import com.bootcodeperu.admision_academica.application.controller.dto.PreguntaCreationDTO;
 import com.bootcodeperu.admision_academica.application.controller.dto.outbox.OutboxPreguntaPayload;
 import com.bootcodeperu.admision_academica.application.service.ContenidoService;

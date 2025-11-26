@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.tema.TemaResponse;
 import com.bootcodeperu.admision_academica.application.service.ContenidoService;
 import com.bootcodeperu.admision_academica.application.service.EstructuraAcademicaService;
 import com.bootcodeperu.admision_academica.domain.model.Area;
 import com.bootcodeperu.admision_academica.domain.model.Curso;
 import com.bootcodeperu.admision_academica.domain.model.CursoArea;
-import com.bootcodeperu.admision_academica.domain.model.Tema;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +41,7 @@ public class EstructuraAcademicaController {
     // 3. Obtener los temas de un curso
     // GET /api/v1/estructura/cursos/1/temas
     @GetMapping("/cursos/{cursoId}/temas")
-    public ResponseEntity<List<Tema>> getTemasByCurso(@PathVariable Long cursoId) {
+    public ResponseEntity<List<TemaResponse>> getTemasByCurso(@PathVariable Long cursoId) {
         return ResponseEntity.ok(contenidoService.getTemasByCursoId(cursoId));
     }
     

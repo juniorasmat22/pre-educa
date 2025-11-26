@@ -3,9 +3,10 @@ package com.bootcodeperu.admision_academica.application.service;
 import java.util.List;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.ContenidoTeoria;
-import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.ContenidoTeoriaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.tema.TemaResponse;
 import com.bootcodeperu.admision_academica.domain.model.ProgresoTema;
-import com.bootcodeperu.admision_academica.domain.model.Tema;
 
 public interface ContenidoService {
 	/**
@@ -13,7 +14,7 @@ public interface ContenidoService {
      * @param cursoId ID del curso.
      * @return Lista de Temas.
      */
-    List<Tema> getTemasByCursoId(Long cursoId);
+    List<TemaResponse> getTemasByCursoId(Long cursoId);
 
     /**
      * Obtiene un conjunto de preguntas para práctica, filtradas por tema y nivel.
@@ -22,7 +23,7 @@ public interface ContenidoService {
      * @param nivel Nivel de dificultad ('Básico', 'Intermedio', 'Avanzado').
      * @return Lista de PreguntaDetalle.
      */
-    List<PreguntaDetalle> getPreguntasPractica(Long temaId, String nivel);
+    List<PreguntaDetalleResponse> getPreguntasPractica(Long temaId, String nivel);
 
     /**
      * Marca la teoría de un tema como completada y actualiza el progreso.
@@ -33,7 +34,7 @@ public interface ContenidoService {
     ProgresoTema completarTeoria(Long usuarioId, Long temaId);
     
     /** NUEVO MÉTODO **/
-    List<ContenidoTeoria> getContenidoTeoriaByTemaId(Long temaId);
+    List<ContenidoTeoriaResponse> getContenidoTeoriaByTemaId(Long temaId);
 
     /** NUEVO MÉTODO (para administración) **/
     ContenidoTeoria saveContenidoTeoria(ContenidoTeoria contenido);
