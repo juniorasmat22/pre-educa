@@ -2,19 +2,21 @@ package com.bootcodeperu.admision_academica.application.service;
 
 import java.util.List;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import com.bootcodeperu.admision_academica.domain.model.Permiso;
 import com.bootcodeperu.admision_academica.domain.model.Rol;
-import com.bootcodeperu.admision_academica.domain.model.Usuario;
 
 public interface SeguridadService {
     
     // Roles
     Rol saveRol(Rol rol);
-    List<Rol> findAllRoles();
+    List<RolResponse> findAllRoles();
     
     // Permisos
     Permiso savePermiso(Permiso permiso);
-    List<Permiso> findAllPermisos();
+    List<PermisoResponse> findAllPermisos();
     
     /**
      * Asigna un Rol existente a un Usuario.
@@ -22,5 +24,5 @@ public interface SeguridadService {
      * @param rolName Nombre del rol a asignar (Ej: ROLE_ESTUDIANTE).
      * @return Usuario actualizado.
      */
-    Usuario asignarRolAUsuario(Long userId, String rolName);
+    UsuarioResponse asignarRolAUsuario(Long userId, String rolName);
 }

@@ -1,9 +1,14 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import com.bootcodeperu.admision_academica.application.service.SeguridadService;
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
 import com.bootcodeperu.admision_academica.domain.model.Permiso;
@@ -23,15 +28,18 @@ public class SeguridadUseCase implements SeguridadService {
     private final RolRepository rolRepository;
     private final PermisoRepository permisoRepository;
     private final UsuarioRepository usuarioRepository;
-
+    private final ModelMapper modelMapper;
+    
     @Override
     public Rol saveRol(Rol rol) {
         return rolRepository.save(rol);
     }
 
     @Override
-    public List<Rol> findAllRoles() {
-        return rolRepository.findAll();
+    public List<RolResponse> findAllRoles() {
+    	return rolRepository.findAll().stream()
+                .map(rol -> modelMapper.map(rol, RolResponse.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -40,13 +48,15 @@ public class SeguridadUseCase implements SeguridadService {
     }
 
     @Override
-    public List<Permiso> findAllPermisos() {
-        return permisoRepository.findAll();
+    public List<PermisoResponse> findAllPermisos() {
+    	return permisoRepository.findAll().stream()
+                .map(permiso -> modelMapper.map(permiso, PermisoResponse.class))
+                .collect(Collectors.toList());
     }
     
     @Override
     @Transactional
-    public Usuario asignarRolAUsuario(Long userId, String rolName) {
+    public UsuarioResponse asignarRolAUsuario(Long userId, String rolName) {
         // 1. Obtener Usuario
         Usuario usuario = usuarioRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", userId));
@@ -57,6 +67,9 @@ public class SeguridadUseCase implements SeguridadService {
 
         // 3. Asignar y Guardar
         usuario.setRol(rol);
-        return usuarioRepository.save(usuario);
+        Usuario usuarioActualizado = usuarioRepository.save(usuario);
+        
+        // 4. Devolver DTO
+        return modelMapper.map(usuarioActualizado, UsuarioResponse.class);
     }
 }

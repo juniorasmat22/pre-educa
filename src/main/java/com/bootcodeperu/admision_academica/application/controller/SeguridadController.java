@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import com.bootcodeperu.admision_academica.application.service.SeguridadService;
 import com.bootcodeperu.admision_academica.domain.model.Permiso;
 import com.bootcodeperu.admision_academica.domain.model.Rol;
-import com.bootcodeperu.admision_academica.domain.model.Usuario;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +39,7 @@ public class SeguridadController {
  }
  
  @GetMapping("/roles")
- public ResponseEntity<List<Rol>> getAllRoles() {
+ public ResponseEntity<List<RolResponse>> getAllRoles() {
      return ResponseEntity.ok(seguridadService.findAllRoles());
  }
 
@@ -53,11 +54,11 @@ public class SeguridadController {
 
  // POST /api/v1/admin/seguridad/usuarios/5/asignar-rol
  @PutMapping("/usuarios/{userId}/asignar-rol")
- public ResponseEntity<Usuario> asignarRolAUsuario(
+ public ResponseEntity<UsuarioResponse> asignarRolAUsuario(
          @PathVariable Long userId,
          @RequestBody AsignacionRolRequest request) {
      
-     Usuario usuarioActualizado = seguridadService.asignarRolAUsuario(userId, request.rolName());
+     UsuarioResponse usuarioActualizado = seguridadService.asignarRolAUsuario(userId, request.rolName());
      return ResponseEntity.ok(usuarioActualizado);
  }
 }
