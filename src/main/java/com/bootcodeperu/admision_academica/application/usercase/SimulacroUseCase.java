@@ -90,7 +90,7 @@ public class SimulacroUseCase implements SimulacroService{
             mongoIdsSeleccionados.addAll(
                 metadatosSeleccionados.stream()
                         .map(MetadatoPregunta::getMongoIdPregunta)
-                        .collect(Collectors.toList())
+                        .toList()
             );
         }
 
@@ -105,13 +105,12 @@ public class SimulacroUseCase implements SimulacroService{
                 .collect(Collectors.toMap(PreguntaDetalle::getId, p -> p));
         
         // Mapear los IDs seleccionados al orden del examen
-        List<PreguntaDetalleResponse> examenCompleto = mongoIdsSeleccionados.stream()
+
+        return mongoIdsSeleccionados.stream()
                 .map(preguntasMap::get)
                 .filter(Objects::nonNull) // Filtrar si alguna pregunta no se encontró en Mongo (error de datos)
                 .map(p -> modelMapper.map(p, PreguntaDetalleResponse.class))
                 .collect(Collectors.toList());
-
-        return examenCompleto;
 	}
 
 	/**
