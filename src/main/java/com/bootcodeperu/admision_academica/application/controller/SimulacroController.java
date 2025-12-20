@@ -33,7 +33,6 @@ public class SimulacroController {
      List<PreguntaDetalleResponse> examen = simulacroService.generarExamenSimulacro(areaId);
      return ResponseEntity.ok(examen);
  }
-
  // POST /api/v1/simulacros/evaluar
  @PostMapping("/evaluar")
  public ResponseEntity<ResultadoSimulacroResponse> evaluarSimulacro(@RequestBody EvaluacionRequest request) {
