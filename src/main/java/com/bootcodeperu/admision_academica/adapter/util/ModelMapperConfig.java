@@ -3,7 +3,9 @@ package com.bootcodeperu.admision_academica.adapter.util;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ModelMapperConfig {
 	@Bean
     public ModelMapper modelMapper() {

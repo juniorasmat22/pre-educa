@@ -3,6 +3,8 @@ package com.bootcodeperu.admision_academica.application.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
 import com.bootcodeperu.admision_academica.application.service.SimulacroService;
-import com.bootcodeperu.admision_academica.domain.model.ResultadoSimulacro;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,15 +29,15 @@ public class SimulacroController {
 
  // GET /api/v1/simulacros/generar?areaId=1
  @GetMapping("/generar")
- public ResponseEntity<List<PreguntaDetalle>> generarSimulacro(@RequestParam Long areaId) {
-     List<PreguntaDetalle> examen = simulacroService.generarExamenSimulacro(areaId);
+ public ResponseEntity<List<PreguntaDetalleResponse>> generarSimulacro(@RequestParam Long areaId) {
+     List<PreguntaDetalleResponse> examen = simulacroService.generarExamenSimulacro(areaId);
      return ResponseEntity.ok(examen);
  }
 
  // POST /api/v1/simulacros/evaluar
  @PostMapping("/evaluar")
- public ResponseEntity<ResultadoSimulacro> evaluarSimulacro(@RequestBody EvaluacionRequest request) {
-     ResultadoSimulacro resultado = simulacroService.evaluarSimulacro(
+ public ResponseEntity<ResultadoSimulacroResponse> evaluarSimulacro(@RequestBody EvaluacionRequest request) {
+     ResultadoSimulacroResponse resultado = simulacroService.evaluarSimulacro(
              request.usuarioId(),
              request.areaId(),
              request.respuestas(),

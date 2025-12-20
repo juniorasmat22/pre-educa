@@ -7,6 +7,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
@@ -39,6 +44,8 @@ public class SimulacroUseCase implements SimulacroService{
     private final MetadatoPreguntaRepository metadatoPreguntaRepository;
     private final ResultadoSimulacroRepository resultadoSimulacroRepository;
     private final UsuarioRepository usuarioRepository;
+    private final ModelMapper modelMapper; // <<< INYECCIÓN
+    private final ObjectMapper objectMapper; // <<< INYECCIÓN para JSONB
 
     // Repositorio de MongoDB
     private final PreguntaDetalleMongoRepository preguntaDetalleMongoRepository;
@@ -47,7 +54,7 @@ public class SimulacroUseCase implements SimulacroService{
      * PASO 1: Genera un examen simulacro completo para un área de postulación.
      */
 	@Override
-	public List<PreguntaDetalle> generarExamenSimulacro(Long areaId) {
+	public List<PreguntaDetalleResponse> generarExamenSimulacro(Long areaId) {
 		// 1. Verificar Área
         Area area = areaRepository.findById(areaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Área", "id", areaId));
@@ -98,9 +105,10 @@ public class SimulacroUseCase implements SimulacroService{
                 .collect(Collectors.toMap(PreguntaDetalle::getId, p -> p));
         
         // Mapear los IDs seleccionados al orden del examen
-        List<PreguntaDetalle> examenCompleto = mongoIdsSeleccionados.stream()
+        List<PreguntaDetalleResponse> examenCompleto = mongoIdsSeleccionados.stream()
                 .map(preguntasMap::get)
                 .filter(Objects::nonNull) // Filtrar si alguna pregunta no se encontró en Mongo (error de datos)
+                .map(p -> modelMapper.map(p, PreguntaDetalleResponse.class))
                 .collect(Collectors.toList());
 
         return examenCompleto;
@@ -111,8 +119,8 @@ public class SimulacroUseCase implements SimulacroService{
      */
 	@Override
 	@Transactional // Asegura que la operación de guardar el resultado sea atómica
-	public ResultadoSimulacro evaluarSimulacro(Long usuarioId, Long areaId, Map<String, String> respuestas,
-			Integer tiempoTomado) {
+	public ResultadoSimulacroResponse evaluarSimulacro(Long usuarioId, Long areaId, Map<String, String> respuestas,
+                                                       Integer tiempoTomado) {
 		// 1. Verificar Usuario y Área
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", usuarioId));
@@ -172,13 +180,16 @@ public class SimulacroUseCase implements SimulacroService{
         resultado.setAreaEvaluada(area);
         resultado.setTiempoTomado(tiempoTomado);
         resultado.setPuntajeTotal(puntajeTotal);
-        
-        // Mapear la lista de Map a JsonNode (necesita un ObjectMapper de Jackson)
-        // Nota: En la implementación real, inyectarías ObjectMapper para este paso.
-        // resultado.setDetallesRespuestas(mapper.valueToTree(detallesRespuestasList));
 
+        // Mapear la lista de Map a JsonNode usando ObjectMapper para el campo JSONB/JdbcTypeCode(SqlTypes.JSON)
+        // Este paso es crucial para persistir el detalle del JSON en PostgreSQL.
+        JsonNode detallesJson = objectMapper.valueToTree(detallesRespuestasList);
+        resultado.setDetallesRespuestas(detallesJson);
+
+        ResultadoSimulacro resultadoGuardado = resultadoSimulacroRepository.save(resultado);
         // Retorna el resultado (asumiendo que los campos están configurados correctamente para JPA)
-        return resultadoSimulacroRepository.save(resultado);
+        // 5. Devolver DTO (Mapeo)
+        return modelMapper.map(resultadoGuardado, ResultadoSimulacroResponse.class);
 	}
 
 }
