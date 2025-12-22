@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,8 +8,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
+import com.bootcodeperu.admision_academica.application.service.ProgresoService;
+import com.bootcodeperu.admision_academica.domain.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
@@ -24,12 +29,6 @@ import com.bootcodeperu.admision_academica.domain.model.CursoArea;
 import com.bootcodeperu.admision_academica.domain.model.MetadatoPregunta;
 import com.bootcodeperu.admision_academica.domain.model.ResultadoSimulacro;
 import com.bootcodeperu.admision_academica.domain.model.Usuario;
-import com.bootcodeperu.admision_academica.domain.repository.AreaRepository;
-import com.bootcodeperu.admision_academica.domain.repository.CursoAreaRepository;
-import com.bootcodeperu.admision_academica.domain.repository.MetadatoPreguntaRepository;
-import com.bootcodeperu.admision_academica.domain.repository.ResultadoSimulacroRepository;
-import com.bootcodeperu.admision_academica.domain.repository.TemaRepository;
-import com.bootcodeperu.admision_academica.domain.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +45,8 @@ public class SimulacroUseCase implements SimulacroService{
     private final UsuarioRepository usuarioRepository;
     private final ModelMapper modelMapper; // <<< INYECCIÓN
     private final ObjectMapper objectMapper; // <<< INYECCIÓN para JSONB
-
+    private final ProgresoTemaRepository progresoTemaRepository;
+    private final ProgresoService progresoService;
     // Repositorio de MongoDB
     private final PreguntaDetalleMongoRepository preguntaDetalleMongoRepository;
 
@@ -144,7 +144,7 @@ public class SimulacroUseCase implements SimulacroService{
         // pero aquí se usa un puntaje base simple.
         double puntajeTotal = 0.0;
         int preguntasCorrectas = 0;
-        
+
         // Crear el JSON para detallesRespuestas
         List<Map<String, Object>> detallesRespuestasList = new ArrayList<>();
         for (PreguntaDetalle detalle : detalles) {
@@ -163,7 +163,11 @@ public class SimulacroUseCase implements SimulacroService{
             }
 
             puntajeTotal += puntajePregunta;
-
+            if (detalle.getIdTemaSQL() != null) {
+                // Enviamos 1.0 si es correcta, 0.0 si es incorrecta.
+                // El ProgresoService se encarga de promediarlo con los intentos anteriores.
+                progresoService.actualizarPuntajePromedio(usuarioId, detalle.getIdTemaSQL(), esCorrecta ? 1.0 : 0.0);
+            }
             // Construir el objeto de detalle para guardar
             Map<String, Object> detalleRespuesta = new HashMap<>();
             detalleRespuesta.put("mongoId", detalle.getId());
@@ -190,5 +194,48 @@ public class SimulacroUseCase implements SimulacroService{
         // 5. Devolver DTO (Mapeo)
         return modelMapper.map(resultadoGuardado, ResultadoSimulacroResponse.class);
 	}
+    @Override
+    public List<DebilidadTemaResponse> obtenerAnalisisDebilidades(Long usuarioId) {
+        // 1. La base de datos ya nos da SOLO lo que necesitamos (menos de 60%)
+        // Usamos 0.6 como umbral
+        return progresoTemaRepository.findByUsuarioIdAndPuntajePromedioLessThan(usuarioId, 0.6)
+                .stream()
+                .map(p -> new DebilidadTemaResponse(
+                        p.getTema().getCurso().getNombre(),
+                        p.getTema().getNombreTema(),
+                        p.getPuntajePromedio() * 100,
+                        p.getPuntajePromedio() < 0.4 ? "REFORZAR TEORÍA URGENTE" : "PRACTICAR MÁS EJERCICIOS"
+                ))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<RankingUsuarioResponse> obtenerTop10GlobalSemanal() {
+        LocalDateTime haceSieteDias = LocalDateTime.now().minusDays(7);
 
+        // Obtenemos los resultados destacados
+        List<Object[]> resultados = resultadoSimulacroRepository.findTop10Global(haceSieteDias);
+
+        return mapearARanking(resultados);
+    }
+
+    @Override
+    public List<RankingUsuarioResponse> obtenerRankingPorArea(Long areaId) {
+        List<Object[]> resultados = resultadoSimulacroRepository.findTop10ByArea(areaId);
+        return mapearARanking(resultados);
+    }
+
+    private List<RankingUsuarioResponse> mapearARanking(List<Object[]> resultados) {
+        List<RankingUsuarioResponse> ranking = new ArrayList<>();
+        for (int i = 0; i < resultados.size(); i++) {
+            Object[] row = resultados.get(i);
+            // row[0] = nombre, row[1] = puntaje, row[2] = carrera
+            ranking.add(new RankingUsuarioResponse(
+                    i + 1,
+                    (String) row[0],
+                    (Double) row[1],
+                    (String) row[2]
+            ));
+        }
+        return ranking;
+    }
 }

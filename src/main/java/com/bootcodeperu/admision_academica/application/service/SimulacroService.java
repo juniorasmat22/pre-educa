@@ -3,6 +3,8 @@ package com.bootcodeperu.admision_academica.application.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 
@@ -25,4 +27,7 @@ public interface SimulacroService {
      * @return El objeto ResultadoSimulacroResponse guardado con el puntaje final.
      */
     ResultadoSimulacroResponse evaluarSimulacro(Long usuarioId, Long areaId, Map<String, String> respuestas, Integer tiempoTomado);
+    List<DebilidadTemaResponse> obtenerAnalisisDebilidades(Long usuarioId);
+    List<RankingUsuarioResponse> obtenerTop10GlobalSemanal();
+    List<RankingUsuarioResponse> obtenerRankingPorArea(Long areaId);
 }

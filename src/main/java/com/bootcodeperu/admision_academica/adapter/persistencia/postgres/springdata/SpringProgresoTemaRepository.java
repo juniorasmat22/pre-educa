@@ -10,4 +10,6 @@ import com.bootcodeperu.admision_academica.domain.model.ProgresoTema;
 public interface SpringProgresoTemaRepository extends JpaRepository<ProgresoTema, Long> {
     Optional<ProgresoTema> findByUsuarioIdAndTemaId(Long usuarioId, Long temaId);
     List<ProgresoTema> findAllByUsuarioId(Long usuarioId);
+    // Spring Data genera: SELECT * FROM progreso_tema WHERE usuario_id = ? AND puntaje_promedio < ?
+    List<ProgresoTema> findByUsuarioIdAndPuntajePromedioLessThan(Long usuarioId, Double puntajePromedio);
 }

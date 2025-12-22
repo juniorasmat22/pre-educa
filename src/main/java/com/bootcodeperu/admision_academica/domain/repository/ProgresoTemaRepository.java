@@ -11,4 +11,6 @@ public interface ProgresoTemaRepository {
     Optional<ProgresoTema> findByUsuarioIdAndTemaId(Long usuarioId, Long temaId);
     // Obtener todo el progreso de un usuario.
     List<ProgresoTema> findAllByUsuarioId(Long usuarioId);
+    // Nueva consulta para analítica:
+    List<ProgresoTema> findByUsuarioIdAndPuntajePromedioLessThan(Long usuarioId, Double umbral);
 }

@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +34,14 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     public Optional<ResultadoSimulacro> findTopByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId) {
         // Llama al método nombrado para el resultado más reciente
         return springResultadoSimulacroRepository.findTopByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId);
+    }
+    @Override
+    public List<Object[]> findTop10Global(LocalDateTime fecha) {
+        return springResultadoSimulacroRepository.findTop10Global(fecha);
+    }
+
+    @Override
+    public List<Object[]> findTop10ByArea(Long areaId) {
+        return springResultadoSimulacroRepository.findTop10ByArea(areaId);
     }
 }

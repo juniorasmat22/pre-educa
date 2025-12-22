@@ -31,4 +31,9 @@ public class ProgresoTemaRepositoryImpl implements ProgresoTemaRepository {
     public List<ProgresoTema> findAllByUsuarioId(Long usuarioId) {
         return springProgresoTemaRepository.findAllByUsuarioId(usuarioId);
     }
+
+    @Override
+    public List<ProgresoTema> findByUsuarioIdAndPuntajePromedioLessThan(Long usuarioId, Double umbral) {
+        return springProgresoTemaRepository.findByUsuarioIdAndPuntajePromedioLessThan(usuarioId, umbral);
+    }
 }

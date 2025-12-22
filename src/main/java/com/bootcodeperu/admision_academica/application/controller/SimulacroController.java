@@ -3,15 +3,13 @@ package com.bootcodeperu.admision_academica.application.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import com.bootcodeperu.admision_academica.application.service.SimulacroService;
 
@@ -44,4 +42,21 @@ public class SimulacroController {
      );
      return ResponseEntity.ok(resultado);
  }
+    /**
+     * Devuelve los temas donde el alumno está fallando más
+     */
+    @GetMapping("/mis-debilidades/{usuarioId}")
+    @PreAuthorize("#usuarioId == authentication.principal.id")
+    public ResponseEntity<List<DebilidadTemaResponse>> getDebilidades(@PathVariable Long usuarioId) {
+        return ResponseEntity.ok(simulacroService.obtenerAnalisisDebilidades(usuarioId));
+    }
+    @GetMapping("/ranking/global")
+    public ResponseEntity<List<RankingUsuarioResponse>> getTopGlobal() {
+        return ResponseEntity.ok(simulacroService.obtenerTop10GlobalSemanal());
+    }
+
+    @GetMapping("/ranking/area/{areaId}")
+    public ResponseEntity<List<RankingUsuarioResponse>> getTopByArea(@PathVariable Long areaId) {
+        return ResponseEntity.ok(simulacroService.obtenerRankingPorArea(areaId));
+    }
 }
