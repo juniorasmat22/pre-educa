@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bootcodeperu.admision_academica.domain.model.ResultadoSimulacro;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ResultadoSimulacroRepository {
@@ -20,4 +19,5 @@ public interface ResultadoSimulacroRepository {
     // Métodos para el Ranking (sin @Query aquí)
     List<Object[]> findTop10Global(LocalDateTime fecha);
     List<Object[]> findTop10ByArea(Long areaId);
+    List<Double> findAllPuntajesByArea(@Param("areaId") Long areaId);
 }

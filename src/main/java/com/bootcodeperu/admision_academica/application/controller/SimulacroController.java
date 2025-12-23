@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticaComparativaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EvolucionPuntajeResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
@@ -58,5 +60,18 @@ public class SimulacroController {
     @GetMapping("/ranking/area/{areaId}")
     public ResponseEntity<List<RankingUsuarioResponse>> getTopByArea(@PathVariable Long areaId) {
         return ResponseEntity.ok(simulacroService.obtenerRankingPorArea(areaId));
+    }
+    @GetMapping("/historial-evolucion/{usuarioId}")
+    @PreAuthorize("#usuarioId == authentication.principal.id")
+    public ResponseEntity<List<EvolucionPuntajeResponse>> getEvolucion(@PathVariable Long usuarioId) {
+        List<EvolucionPuntajeResponse> evolucion = simulacroService.obtenerEvolucionEstudiante(usuarioId);
+        return ResponseEntity.ok(evolucion);
+    }
+    @GetMapping("/analitica/comparativa/{usuarioId}/{areaId}")
+    @PreAuthorize("#usuarioId == authentication.principal.id")
+    public ResponseEntity<EstadisticaComparativaResponse> getComparativa(
+            @PathVariable Long usuarioId,
+            @PathVariable Long areaId) {
+        return ResponseEntity.ok(simulacroService.obtenerPercentilEstudiante(usuarioId, areaId));
     }
 }

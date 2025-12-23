@@ -17,7 +17,6 @@ public interface SpringResultadoSimulacroRepository extends JpaRepository<Result
 
     // Spring Data JPA lo implementa automáticamente para obtener el más reciente:
     Optional<ResultadoSimulacro> findTopByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
-    // Archivo: SpringResultadoSimulacroRepository.java
     @Query(value = "SELECT u.nombre, MAX(r.puntaje_total) as maxPuntaje, u.carrera_deseada " +
             "FROM resultado_simulacro r " +
             "JOIN usuario u ON r.id_usuario = u.id " +
@@ -26,12 +25,15 @@ public interface SpringResultadoSimulacroRepository extends JpaRepository<Result
             "ORDER BY maxPuntaje DESC LIMIT 10", nativeQuery = true)
     List<Object[]> findTop10ByArea(@Param("areaId") Long areaId);
 
-    // Archivo: src/main/java/.../adapter/persistencia/postgres/springdata/SpringResultadoSimulacroRepository.java
+
     @Query("SELECT r.usuario.nombre, MAX(r.puntajeTotal) as maxPuntaje, r.usuario.carreraDeseada " +
             "FROM ResultadoSimulacro r " +
             "WHERE r.fechaEvaluacion >= :fecha " +
             "GROUP BY r.usuario.id, r.usuario.nombre, r.usuario.carreraDeseada " +
             "ORDER BY maxPuntaje DESC")
     List<Object[]> findTop10Global(@Param("fecha") LocalDateTime fecha);
-
+    @Query("SELECT r.puntajeTotal FROM ResultadoSimulacro r " +
+            "WHERE r.areaEvaluada.id = :areaId " +
+            "ORDER BY r.puntajeTotal ASC")
+    List<Double> findAllPuntajesByArea(@Param("areaId") Long areaId);
 }

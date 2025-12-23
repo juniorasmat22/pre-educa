@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticaComparativaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EvolucionPuntajeResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
@@ -237,5 +239,52 @@ public class SimulacroUseCase implements SimulacroService{
             ));
         }
         return ranking;
+    }
+    @Override
+    public List<EvolucionPuntajeResponse> obtenerEvolucionEstudiante(Long usuarioId) {
+        // 1. Buscamos todos los resultados del usuario ordenados por fecha
+        List<ResultadoSimulacro> historial = resultadoSimulacroRepository.findByUsuarioId(usuarioId);
+
+        // 2. Mapeamos a nuestro DTO de evolución
+        return historial.stream()
+                .map(r -> new EvolucionPuntajeResponse(
+                        r.getFechaEvaluacion(),
+                        r.getPuntajeTotal(),
+                        r.getAreaEvaluada().getNombre()
+                ))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public EstadisticaComparativaResponse obtenerPercentilEstudiante(Long usuarioId, Long areaId) {
+        // 1. Obtener el último puntaje del usuario
+        ResultadoSimulacro ultimo = resultadoSimulacroRepository
+                .findTopByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Resultado", "usuario", usuarioId));
+
+        Double miPuntaje = ultimo.getPuntajeTotal();
+
+        // 2. Obtener todos los puntajes del área (ordenados)
+        List<Double> todosLosPuntajes = resultadoSimulacroRepository.findAllPuntajesByArea(areaId);
+
+        if (todosLosPuntajes.isEmpty()) {
+            return new EstadisticaComparativaResponse(miPuntaje, miPuntaje, 100.0, "Eres el primer postulante en esta área.");
+        }
+
+        // 3. Calcular posición (Percentil)
+        long menores = todosLosPuntajes.stream().filter(p -> p < miPuntaje).count();
+        long iguales = todosLosPuntajes.stream().filter(p -> p.equals(miPuntaje)).count();
+        int total = todosLosPuntajes.size();
+
+        double percentil = ((menores + (0.5 * iguales)) / total) * 100;
+        double promedioArea = todosLosPuntajes.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+
+        // 4. Generar mensaje motivador
+        String mensaje;
+        if (percentil >= 90) mensaje = "¡Nivel Excelente! Estás en el top 10% de tu área.";
+        else if (percentil >= 70) mensaje = "Muy buen nivel. Estás por encima del promedio competitivo.";
+        else if (percentil >= 50) mensaje = "Nivel promedio. Aumenta tus horas de práctica para asegurar tu ingreso.";
+        else mensaje = "Nivel bajo. Enfócate en tus debilidades detectadas en el análisis.";
+
+        return new EstadisticaComparativaResponse(miPuntaje, promedioArea, Math.round(percentil * 100.0) / 100.0, mensaje);
     }
 }

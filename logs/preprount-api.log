@@ -153,3 +153,487 @@
 2025-12-22 14:36:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
 2025-12-22 14:37:09.464 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
 2025-12-22 14:37:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:38:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:38:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:39:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:39:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:40:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:40:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:41:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:41:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:42:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:42:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:43:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:43:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:44:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:44:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:45:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:45:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:46:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:46:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:47:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:47:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:48:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:48:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:49:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:49:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:50:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:50:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:51:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:51:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:52:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:52:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:53:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:53:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:54:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:54:09.469 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:55:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:55:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:56:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:56:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:57:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:57:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:58:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:58:09.470 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 14:59:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 14:59:09.468 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 15:00:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 15:00:09.471 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 15:01:09.465 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 15:01:09.470 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:30:34.063 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-00.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 16:30:34.091 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-02.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 16:30:34.099 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-01.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 16:30:34.851 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-00.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=497880453, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-00.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b7f8075e5d0a03851e24, counter=4}, lastWriteDate=Mon Dec 22 16:30:35 PET 2025, lastUpdateTimeNanos=1923665626176}
+2025-12-22 16:30:34.851 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-02.ql7o2.mongodb.net:27017, type=REPLICA_SET_PRIMARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=497949596, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-02.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff000000000000004f, setVersion=8, topologyVersion=TopologyVersion{processId=6942b8247142f1771b88010d, counter=6}, lastWriteDate=Mon Dec 22 16:30:35 PET 2025, lastUpdateTimeNanos=1923665676881}
+2025-12-22 16:30:34.851 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-01.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=489115701, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-01.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b84f293b62fd06d7a3c5, counter=3}, lastWriteDate=Mon Dec 22 16:30:35 PET 2025, lastUpdateTimeNanos=1923665626176}
+2025-12-22 16:30:34.852 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary cluster0-shard-00-02.ql7o2.mongodb.net:27017 with max election id 7fffffff000000000000004f and max set version 8
+2025-12-22 16:31:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:31:02.696 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:32:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:32:02.696 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:33:02.691 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:33:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:34:02.691 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:34:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:35:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:35:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:36:02.691 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:36:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:37:02.691 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:37:02.696 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:38:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:38:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:39:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:39:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:40:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:40:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:41:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:41:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:42:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:42:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:43:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:43:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:44:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:44:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:45:02.691 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:45:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 16:46:02.692 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 16:46:02.695 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:09:49.289 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:09:49.292 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:09:52.964 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-00.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 18:09:53.054 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-02.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 18:09:53.069 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-01.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 18:09:53.861 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-01.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=539008650, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-01.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b84f293b62fd06d7a3c5, counter=3}, lastWriteDate=Mon Dec 22 18:09:54 PET 2025, lastUpdateTimeNanos=2916079112041}
+2025-12-22 18:09:53.861 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-02.ql7o2.mongodb.net:27017, type=REPLICA_SET_PRIMARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=539008650, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-02.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff000000000000004f, setVersion=8, topologyVersion=TopologyVersion{processId=6942b8247142f1771b88010d, counter=6}, lastWriteDate=Mon Dec 22 18:09:54 PET 2025, lastUpdateTimeNanos=2916079112041}
+2025-12-22 18:09:53.861 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-00.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=539017503, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-00.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b7f8075e5d0a03851e24, counter=4}, lastWriteDate=Mon Dec 22 18:09:54 PET 2025, lastUpdateTimeNanos=2916079119304}
+2025-12-22 18:09:53.862 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary cluster0-shard-00-02.ql7o2.mongodb.net:27017 with max election id 7fffffff000000000000004f and max set version 8
+2025-12-22 18:10:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:10:49.292 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:11:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:11:49.292 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:12:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:12:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:13:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:13:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:14:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:14:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:15:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:15:49.292 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:16:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:16:49.292 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:17:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:17:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:18:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:18:49.293 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:19:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:19:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:20:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:20:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:21:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:21:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:22:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:22:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:23:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:23:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:24:49.287 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:24:49.290 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:25:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:25:49.291 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:26:49.288 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:26:49.290 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:52:48.073 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-02.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 18:52:48.075 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-01.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 18:52:48.076 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-00.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 18:52:49.031 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-02.ql7o2.mongodb.net:27017, type=REPLICA_SET_PRIMARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=547556808, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-02.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff000000000000004f, setVersion=8, topologyVersion=TopologyVersion{processId=6942b8247142f1771b88010d, counter=6}, lastWriteDate=Mon Dec 22 18:52:48 PET 2025, lastUpdateTimeNanos=3968960335927}
+2025-12-22 18:52:49.031 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-00.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=547556808, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-00.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b7f8075e5d0a03851e24, counter=4}, lastWriteDate=Mon Dec 22 18:52:48 PET 2025, lastUpdateTimeNanos=3968960335927}
+2025-12-22 18:52:49.031 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-01.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=547556808, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-01.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b84f293b62fd06d7a3c5, counter=3}, lastWriteDate=Mon Dec 22 18:52:48 PET 2025, lastUpdateTimeNanos=3968960335927}
+2025-12-22 18:52:49.032 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary cluster0-shard-00-02.ql7o2.mongodb.net:27017 with max election id 7fffffff000000000000004f and max set version 8
+2025-12-22 18:53:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:53:11.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:54:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:54:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:55:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:55:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:56:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:56:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:57:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:57:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:58:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:58:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 18:59:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 18:59:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:00:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:00:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:01:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:01:11.579 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:02:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:02:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:03:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:03:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:04:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:04:11.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:05:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:05:11.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:06:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:06:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:07:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:07:11.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:08:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:08:11.579 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:09:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:09:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:10:11.577 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:10:11.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:11:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:11:11.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:12:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:12:11.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:13:11.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:13:11.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:21:46.531 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-00.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 19:21:46.587 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-01.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 19:21:46.669 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster0-shard-00-02.ql7o2.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.InternalStreamConnection.createReadTimeoutException(InternalStreamConnection.java:819)
+	at com.mongodb.internal.connection.InternalStreamConnection.translateReadException(InternalStreamConnection.java:807)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:857)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveCommandMessageResponse(InternalStreamConnection.java:517)
+	at com.mongodb.internal.connection.InternalStreamConnection.receive(InternalStreamConnection.java:469)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:249)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:176)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:288)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+	at java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+	at java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+	at java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+	at com.mongodb.internal.connection.SocketStream.read(SocketStream.java:182)
+	at com.mongodb.internal.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:824)
+	... 4 common frames omitted
+2025-12-22 19:21:47.073 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-00.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-00.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=343686737, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-00.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b7f8075e5d0a03851e24, counter=4}, lastWriteDate=Mon Dec 22 19:21:40 PET 2025, lastUpdateTimeNanos=5230999751845}
+2025-12-22 19:21:47.205 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-01.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-01.ql7o2.mongodb.net:27017, type=REPLICA_SET_SECONDARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=398654151, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-01.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=8, topologyVersion=TopologyVersion{processId=6942b84f293b62fd06d7a3c5, counter=3}, lastWriteDate=Mon Dec 22 19:21:40 PET 2025, lastUpdateTimeNanos=5231132184784}
+2025-12-22 19:21:47.220 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster0-shard-00-02.ql7o2.mongodb.net:27017, type=REPLICA_SET_PRIMARY, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=348898868, minRoundTripTimeNanos=0, setName='atlas-7f0qd6-shard-0', canonicalAddress=cluster0-shard-00-02.ql7o2.mongodb.net:27017, hosts=[cluster0-shard-00-02.ql7o2.mongodb.net:27017, cluster0-shard-00-00.ql7o2.mongodb.net:27017, cluster0-shard-00-01.ql7o2.mongodb.net:27017], passives=[], arbiters=[], primary='cluster0-shard-00-02.ql7o2.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='sae1-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='SA_EAST_1'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff000000000000004f, setVersion=8, topologyVersion=TopologyVersion{processId=6942b8247142f1771b88010d, counter=6}, lastWriteDate=Mon Dec 22 19:21:40 PET 2025, lastUpdateTimeNanos=5231146821152}
+2025-12-22 19:21:47.220 [cluster-ClusterId{value='69499cf439c1dcf7ba758395', description='null'}-cluster0-shard-00-02.ql7o2.mongodb.net:27017] INFO  org.mongodb.driver.cluster - Discovered replica set primary cluster0-shard-00-02.ql7o2.mongodb.net:27017 with max election id 7fffffff000000000000004f and max set version 8
+2025-12-22 19:22:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:22:07.583 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:23:07.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:23:07.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:24:07.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:24:07.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:25:07.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:25:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:26:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:26:07.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:27:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:27:07.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:28:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:28:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:29:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:29:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:30:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:30:07.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:31:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:31:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:32:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:32:07.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:33:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:33:07.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:34:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:34:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:35:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:35:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:36:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:36:07.582 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:37:07.578 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:37:07.580 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2025-12-22 19:38:07.579 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2025-12-22 19:38:07.581 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
