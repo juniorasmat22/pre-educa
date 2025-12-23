@@ -3,10 +3,7 @@ package com.bootcodeperu.admision_academica.application.controller;
 import java.util.List;
 import java.util.Map;
 
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticaComparativaResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EvolucionPuntajeResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.*;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 import org.springframework.http.ResponseEntity;
@@ -73,5 +70,10 @@ public class SimulacroController {
             @PathVariable Long usuarioId,
             @PathVariable Long areaId) {
         return ResponseEntity.ok(simulacroService.obtenerPercentilEstudiante(usuarioId, areaId));
+    }
+    @GetMapping("/ruta-aprendizaje/{usuarioId}")
+    @PreAuthorize("#usuarioId == authentication.principal.id")
+    public ResponseEntity<List<RecomendacionResponse>> getRutaPersonalizada(@PathVariable Long usuarioId) {
+        return ResponseEntity.ok(simulacroService.generarRutaRecomendada(usuarioId));
     }
 }

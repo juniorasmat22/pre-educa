@@ -3,10 +3,7 @@ package com.bootcodeperu.admision_academica.application.service;
 import java.util.List;
 import java.util.Map;
 
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticaComparativaResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EvolucionPuntajeResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.*;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 
@@ -35,4 +32,5 @@ public interface SimulacroService {
     // En SimulacroService.java
     List<EvolucionPuntajeResponse> obtenerEvolucionEstudiante(Long usuarioId);
     EstadisticaComparativaResponse obtenerPercentilEstudiante(Long usuarioId, Long areaId);
+    List<RecomendacionResponse> generarRutaRecomendada(Long usuarioId);
 }

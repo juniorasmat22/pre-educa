@@ -44,4 +44,12 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     public List<Object[]> findTop10ByArea(Long areaId) {
         return springResultadoSimulacroRepository.findTop10ByArea(areaId);
     }
+    @Override
+    public List<Double> findAllPuntajesByArea(Long areaId) {
+        return springResultadoSimulacroRepository.findAllPuntajesByArea(areaId);
+    }
+    @Override
+    public List<ResultadoSimulacro> findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId) {
+        return springResultadoSimulacroRepository.findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId);
+    }
 }

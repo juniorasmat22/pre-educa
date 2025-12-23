@@ -36,4 +36,6 @@ public interface SpringResultadoSimulacroRepository extends JpaRepository<Result
             "WHERE r.areaEvaluada.id = :areaId " +
             "ORDER BY r.puntajeTotal ASC")
     List<Double> findAllPuntajesByArea(@Param("areaId") Long areaId);
+    // Genera: SELECT * FROM resultado_simulacro WHERE id_usuario = ? ORDER BY fecha_evaluacion DESC LIMIT 2
+    List<ResultadoSimulacro> findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
 }

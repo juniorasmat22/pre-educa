@@ -20,4 +20,6 @@ public interface ResultadoSimulacroRepository {
     List<Object[]> findTop10Global(LocalDateTime fecha);
     List<Object[]> findTop10ByArea(Long areaId);
     List<Double> findAllPuntajesByArea(@Param("areaId") Long areaId);
+    //Devuelve los 2 últimos simulacros para comparar tendencias
+    List<ResultadoSimulacro> findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
 }

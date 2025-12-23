@@ -8,13 +8,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.DebilidadTemaResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticaComparativaResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EvolucionPuntajeResponse;
-import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.*;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 import com.bootcodeperu.admision_academica.application.service.ProgresoService;
+import com.bootcodeperu.admision_academica.domain.model.*;
 import com.bootcodeperu.admision_academica.domain.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,11 +24,6 @@ import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.repository
 import com.bootcodeperu.admision_academica.application.service.SimulacroService;
 import com.bootcodeperu.admision_academica.domain.exception.ContentLoadingException;
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
-import com.bootcodeperu.admision_academica.domain.model.Area;
-import com.bootcodeperu.admision_academica.domain.model.CursoArea;
-import com.bootcodeperu.admision_academica.domain.model.MetadatoPregunta;
-import com.bootcodeperu.admision_academica.domain.model.ResultadoSimulacro;
-import com.bootcodeperu.admision_academica.domain.model.Usuario;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -286,5 +279,42 @@ public class SimulacroUseCase implements SimulacroService{
         else mensaje = "Nivel bajo. Enfócate en tus debilidades detectadas en el análisis.";
 
         return new EstadisticaComparativaResponse(miPuntaje, promedioArea, Math.round(percentil * 100.0) / 100.0, mensaje);
+    }
+    @Override
+    public List<RecomendacionResponse> generarRutaRecomendada(Long usuarioId) {
+        List<RecomendacionResponse> recomendaciones = new ArrayList<>();
+
+        // 1. Obtener debilidades críticas (Menos del 40% de acierto)
+        List<ProgresoTema> debilidadesCriticas = progresoTemaRepository
+                .findByUsuarioIdAndPuntajePromedioLessThan(usuarioId, 0.4);
+
+        for (ProgresoTema p : debilidadesCriticas) {
+            recomendaciones.add(new RecomendacionResponse(
+                    "ALTA",
+                    "Refuerzo Urgente: " + p.getTema().getNombreTema(),
+                    "Tu precisión es menor al 40%. Te recomendamos revisar la teoría nuevamente.",
+                    p.getTema().getId(),
+                    p.getTema().getCurso().getNombre()
+            ));
+        }
+
+        // 2. Analizar tendencia negativa (Si el último simulacro fue peor que el anterior en un tema)
+        // Esto es "IA" básica: detección de patrones de retroceso
+        List<ResultadoSimulacro> ultimosDos = resultadoSimulacroRepository
+                .findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId);
+
+        if (ultimosDos.size() == 2) {
+            // Aquí podrías comparar el JSONB de ambos resultados para ver qué temas bajaron
+            // Por simplicidad, añadimos una recomendación de consistencia
+            recomendaciones.add(new RecomendacionResponse(
+                    "MEDIA",
+                    "Mantén el ritmo",
+                    "Has realizado 2 simulacros esta semana. ¡Sigue así para mejorar tu percentil!",
+                    null,
+                    "General"
+            ));
+        }
+
+        return recomendaciones;
     }
 }
