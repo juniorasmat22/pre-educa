@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuario")
 @Data
 @NoArgsConstructor
-public class Usuario implements UserDetails{
+public class Usuario{
 	/**
 	 * 
 	 */
@@ -65,39 +65,5 @@ public class Usuario implements UserDetails{
     // Usamos EAGER para la relación de roles para que Spring Security la cargue automáticamente
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idRol")
-    private Rol rol; 
-
-    // ----------------------------------------------------------------
-    // MÉTODOS UserDetails (IMPLEMENTACIÓN ACTUALIZADA)
-    // ----------------------------------------------------------------
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Devuelve los permisos asociados al rol del usuario
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        if (this.rol != null) {
-            // 1. Agregar el rol mismo (Ej: ROLE_ESTUDIANTE)
-            authorities.add(new SimpleGrantedAuthority(this.rol.getNombre()));
-            
-            // 2. Agregar los permisos específicos del rol
-            this.rol.getPermisos().forEach(permiso -> 
-                authorities.add(new SimpleGrantedAuthority(permiso.getNombre()))
-            );
-        }
-        return authorities;
-    }
- // ... otros métodos UserDetails usan los nuevos campos persistentes
-
-    @Override public String getPassword() { return this.passwordHash; }
-
-    @Override public String getUsername() { return this.email; }
-
-    @Override public boolean isAccountNonExpired() { return this.isAccountNonExpired; }
-
-    @Override public boolean isAccountNonLocked() { return this.isAccountNonLocked; }
-
-    @Override public boolean isCredentialsNonExpired() { return this.isCredentialsNonExpired; }
-
-    @Override public boolean isEnabled() { return this.isEnabled; }
-   
+    private Rol rol;
 }

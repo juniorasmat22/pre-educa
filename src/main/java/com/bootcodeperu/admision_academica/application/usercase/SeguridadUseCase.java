@@ -3,6 +3,7 @@ package com.bootcodeperu.admision_academica.application.usercase;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.SeguridadMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class SeguridadUseCase implements SeguridadService {
     private final PermisoRepository permisoRepository;
     private final UsuarioRepository usuarioRepository;
     private final ModelMapper modelMapper;
-    
+    private final SeguridadMapper seguridadMapper;
     @Override
     public Rol saveRol(Rol rol) {
         return rolRepository.save(rol);
@@ -37,8 +38,8 @@ public class SeguridadUseCase implements SeguridadService {
 
     @Override
     public List<RolResponse> findAllRoles() {
-    	return rolRepository.findAll().stream()
-                .map(rol -> modelMapper.map(rol, RolResponse.class))
+        return rolRepository.findAll().stream()
+                .map(seguridadMapper::toRolResponse) // Uso limpio y eficiente
                 .collect(Collectors.toList());
     }
 
@@ -50,7 +51,7 @@ public class SeguridadUseCase implements SeguridadService {
     @Override
     public List<PermisoResponse> findAllPermisos() {
     	return permisoRepository.findAll().stream()
-                .map(permiso -> modelMapper.map(permiso, PermisoResponse.class))
+                .map(seguridadMapper::toPermisoResponse)
                 .collect(Collectors.toList());
     }
     

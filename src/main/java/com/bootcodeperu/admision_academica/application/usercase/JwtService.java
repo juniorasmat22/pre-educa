@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
+import com.bootcodeperu.admision_academica.adapter.security.UsuarioPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,9 +37,30 @@ public class JwtService {
 
     // Genera un token sin claims extra
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }
+        Map<String, Object> extraClaims = new HashMap<>();
 
+        // Si el userDetails es nuestro record, podemos meter datos extra en el JWT
+        if (userDetails instanceof UsuarioPrincipal principal) {
+            extraClaims.put("userId", principal.usuario().getId());
+            extraClaims.put("role", principal.usuario().getRol().getNombre());
+        }
+
+        return buildToken(extraClaims, userDetails, jwtExpiration);
+    }
+    private String buildToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration
+    ) {
+        return Jwts
+                .builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
     // Genera un token con claims extra (puedes agregar roles, id de usuario, etc.)
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts

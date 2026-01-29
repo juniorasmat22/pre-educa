@@ -1,6 +1,8 @@
 package com.bootcodeperu.admision_academica.adapter.util;
 
 
+import com.bootcodeperu.admision_academica.adapter.security.UsuarioPrincipal;
+import com.bootcodeperu.admision_academica.domain.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +25,11 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> usuarioRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + username));
+        return username -> {
+            Usuario usuario = usuarioRepository.findByEmail(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+            return new UsuarioPrincipal(usuario);
+        };
     }
 
     @Bean

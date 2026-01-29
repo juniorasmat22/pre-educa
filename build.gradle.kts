@@ -43,6 +43,8 @@ dependencies {
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     //implementation("me.paulschwarz:spring-dotenv:4.0.0")
 	implementation("io.github.cdimascio:dotenv-java:3.1.0")
+	implementation("org.mapstruct:mapstruct:1.6.3")
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
