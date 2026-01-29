@@ -37,4 +37,6 @@ out/
 .vscode/
 
 # Archivos de configuración sensibles
-env
+.env
+*.env
+.env.*

@@ -361,3 +361,13 @@ org.postgresql.util.PSQLException: ERROR: llave duplicada viola restricción de 
 2026-01-28 20:50:30.405 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
 2026-01-28 20:51:30.402 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
 2026-01-28 20:51:30.406 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-28 20:52:30.403 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-28 20:52:30.405 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-28 20:53:30.403 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-28 20:53:30.407 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-28 20:54:30.403 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-28 20:54:30.406 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-28 20:55:30.403 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-28 20:55:30.406 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-28 20:56:30.403 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-28 20:56:30.406 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
