@@ -242,3 +242,7 @@
 2026-01-30 00:41:21.992 [RMI TCP Connection(3)-192.168.100.242] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
 2026-01-30 00:41:21.993 [RMI TCP Connection(3)-192.168.100.242] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
 2026-01-30 00:41:21.995 [RMI TCP Connection(3)-192.168.100.242] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-01-30 00:42:21.760 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:42:21.764 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:43:21.760 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:43:21.764 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
