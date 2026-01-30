@@ -3,7 +3,9 @@ package com.bootcodeperu.admision_academica.application.usercase;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.ContenidoTeoriaMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.PreguntaDetalleMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.TemaMapper;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.ContenidoTeoria;
@@ -37,11 +39,12 @@ public class ContenidoUseCase implements ContenidoService {
 	private final MetadatoPreguntaRepository metadatoPreguntaRepository;
 	private final PreguntaDetalleMongoRepository preguntaDetalleMongoRepository;
 	private final ContenidoTeoriaMongoRepository contenidoTeoriaMongoRepository;
-	private final ModelMapper modelMapper;
-
+	private final TemaMapper temaMapper;
+	private final PreguntaDetalleMapper preguntaDetalleMapper;
+	private final ContenidoTeoriaMapper	contenidoTeoriaMapper;
 	@Override
 	public List<TemaResponse> getTemasByCursoId(Long cursoId) {
-		return temaRepository.findAllByCursoId(cursoId).stream().map(tema -> modelMapper.map(tema, TemaResponse.class))
+		return temaRepository.findAllByCursoId(cursoId).stream().map(temaMapper::toResponse)
 				.collect(Collectors.toList());
 	}
 
@@ -68,7 +71,7 @@ public class ContenidoUseCase implements ContenidoService {
 			throw new ContentLoadingException("Error de sincronización: Falta detalle de algunas preguntas.");
 		}
 
-		return preguntasDetalle.stream().map(p -> modelMapper.map(p, PreguntaDetalleResponse.class))
+		return preguntasDetalle.stream().map(preguntaDetalleMapper::toResponse)
 				.collect(Collectors.toList());
 	}
 
@@ -104,7 +107,7 @@ public class ContenidoUseCase implements ContenidoService {
 		List<ContenidoTeoria> teoriaList = contenidoTeoriaMongoRepository.findByTemaIdOrdered(temaId);
 
 		// Mapeo de Documento Mongo a DTO de Respuesta
-		return teoriaList.stream().map(t -> modelMapper.map(t, ContenidoTeoriaResponse.class))
+		return teoriaList.stream().map(contenidoTeoriaMapper::toResponse)
 				.collect(Collectors.toList());
 	}
 

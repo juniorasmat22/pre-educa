@@ -1,13 +1,7 @@
 package com.bootcodeperu.admision_academica.domain.model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,11 +20,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Usuario{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
