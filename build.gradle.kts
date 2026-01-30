@@ -55,6 +55,11 @@ dependencies {
 	// Micrometer/Prometheus: Formatea las métricas para que Prometheus las entienda
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 	/* ===============================
+ 	 * LOMBOK
+     * =============================== */
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+	/* ===============================
      * MAPEO DE OBJETOS (DTO <-> ENTITY)
      * =============================== */
 	// ModelMapper: mapeo automático entre objetos
@@ -65,11 +70,6 @@ dependencies {
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 	// Evita conflictos entre Lombok y MapStruct
 	implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-	/* ===============================
-     * LOMBOK
-     * =============================== */
-	compileOnly("org.projectlombok:lombok")
-	annotationProcessor("org.projectlombok:lombok")
 	/* ===============================
      * CONFIGURACIÓN DE ENTORNO
      * =============================== */
