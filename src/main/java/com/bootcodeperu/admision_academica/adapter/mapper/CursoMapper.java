@@ -5,6 +5,6 @@ import com.bootcodeperu.admision_academica.domain.model.Curso;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CursoMaper {
+public interface CursoMapper {
     CursoResponse toResponse(Curso curso);
 }

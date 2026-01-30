@@ -2,6 +2,9 @@ package com.bootcodeperu.admision_academica.application.controller;
 
 import java.util.List;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.curso_area.CursoAreaResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +31,13 @@ public class EstructuraAcademicaController {
 
     // 1. Obtener todas las áreas (A, B, C, D)
     @GetMapping("/areas")
-    public ResponseEntity<List<Area>> getAllAreas() {
+    public ResponseEntity<List<AreaResponse>> getAllAreas() {
         return ResponseEntity.ok(estructuraService.getAllAreas());
     }
     
     // 2. Obtener todos los cursos
     @GetMapping("/cursos")
-    public ResponseEntity<List<Curso>> getAllCursos() {
+    public ResponseEntity<List<CursoResponse>> getAllCursos() {
         return ResponseEntity.ok(estructuraService.getAllCursos());
     }
     
@@ -48,7 +51,7 @@ public class EstructuraAcademicaController {
     // 4. Obtener la distribución de preguntas por área
     // GET /api/v1/estructura/distribucion?areaId=1
     @GetMapping("/distribucion")
-    public ResponseEntity<List<CursoArea>> getDistribucion(@RequestParam Long areaId) {
+    public ResponseEntity<List<CursoAreaResponse>> getDistribucion(@RequestParam Long areaId) {
         return ResponseEntity.ok(estructuraService.getDistribucionByArea(areaId));
     }
     

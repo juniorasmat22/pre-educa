@@ -1,15 +1,21 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.AreaMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.CursoAreaMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.CursoMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.TemaMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.curso_area.CursoAreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.tema.TemaResponse;
+import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
+import com.bootcodeperu.admision_academica.domain.model.*;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.application.service.EstructuraAcademicaService;
-import com.bootcodeperu.admision_academica.domain.model.Area;
-import com.bootcodeperu.admision_academica.domain.model.Curso;
-import com.bootcodeperu.admision_academica.domain.model.CursoArea;
-import com.bootcodeperu.admision_academica.domain.model.Tema;
 import com.bootcodeperu.admision_academica.domain.repository.AreaRepository;
 import com.bootcodeperu.admision_academica.domain.repository.CursoAreaRepository;
 import com.bootcodeperu.admision_academica.domain.repository.CursoRepository;
@@ -24,46 +30,163 @@ public class EstructuraAcademicaUseCase implements EstructuraAcademicaService{
     private final CursoRepository cursoRepository;
     private final CursoAreaRepository cursoAreaRepository;
     private final TemaRepository temaRepository;
+    private final AreaMapper areaMapper;
+    private final CursoMapper cursoMapper;
+    private final CursoAreaMapper cursoAreaMapper;
+    private final TemaMapper temaMapper;
+    @Override
+    public List<AreaResponse> getAllAreas() {
+        return areaRepository.findAll().stream()
+                .map(areaMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+    @Override
+    public AreaResponse findAreaById(Long id) {
+        Area area = areaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Area", "id", id));
+        return areaMapper.toResponse(area);
+    }
 
     @Override
-    public List<Area> getAllAreas() {
-        return areaRepository.findAll();
-    }
-    
-    @Override
-    public Optional<Area> findAreaById(Long id) {
-        return areaRepository.findById(id);
-    }
-    
-    @Override
-    public List<Curso> getAllCursos() {
+    public List<CursoResponse> getAllCursos() {
         // Asumiendo que CursoRepository tiene un findAll()
-        return cursoRepository.findAll(); 
+        return cursoRepository.findAll().stream().map(cursoMapper::toResponse).collect(Collectors.toList());
     }
     
     @Override
-    public List<CursoArea> getDistribucionByArea(Long areaId) {
-        return cursoAreaRepository.findAllByAreaId(areaId);
+    public List<CursoAreaResponse> getDistribucionByArea(Long areaId) {
+        return cursoAreaRepository.findAllByAreaId(areaId).stream()
+                .map(cursoAreaMapper::toResponse)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public AreaResponse saveArea(Area area) {
+        //Validación básica: que no sea null
+        if (area == null) {
+            throw new IllegalArgumentException("El objeto Area no puede ser null");
+        }
+        // Validación de campos obligatorios
+        if (area.getNombre() == null || area.getNombre().isBlank()) {
+            throw new IllegalArgumentException("El nombre del área es obligatorio");
+        }
+        try {
+            //Guardar la entidad en DB
+            Area areaGuardada = areaRepository.save(area);
+            //Comprobar que se guardó correctamente (ID generado)
+            if (areaGuardada.getId() == null) {
+                throw new RuntimeException("No se pudo crear el área. Intenta nuevamente.");
+            }
+            //Convertir a DTO y devolver
+            return areaMapper.toResponse(areaGuardada);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear el área: " + e.getMessage(), e);
+        }
+    }
+
     
     @Override
-    public Area saveArea(Area area) {
-        // Lógica de validación si es necesaria
-        return areaRepository.save(area);
+    public CursoResponse saveCurso(Curso curso) {
+        //Validación básica: que no sea null
+        if (curso == null) {
+            throw new IllegalArgumentException("El objeto Curso no puede ser null");
+        }
+        // Validación de campos obligatorios
+        if (curso.getNombre() == null || curso.getNombre().isBlank()) {
+            throw new IllegalArgumentException("El nombre del curso es obligatorio");
+        }
+        //Validación opcional: evitar duplicados por nombre
+        //if (cursoRepository.findByNombre(curso.getNombre())) {
+        //    throw new IllegalArgumentException("Ya existe un curso con ese nombre");
+        //}
+        try {
+            //Guardar la entidad en DB
+            Curso cursoGuardado = cursoRepository.save(curso);
+            //Verificar que se guardó correctamente
+            if (cursoGuardado.getId() == null) {
+                throw new RuntimeException("No se pudo crear el curso. Intenta nuevamente.");
+            }
+            //Convertir a DTO y devolver
+            return cursoMapper.toResponse(cursoGuardado);
+        } catch (Exception e) {
+            //Manejo global de errores: registrar y lanzar excepción controlada
+            throw new RuntimeException("Error al crear el curso: " + e.getMessage(), e);
+        }
     }
-    
+
+
     @Override
-    public Curso saveCurso(Curso curso) {
-        return cursoRepository.save(curso);
+    public CursoAreaResponse saveCursoArea(CursoArea cursoArea) {
+        //Validación básica
+        if (cursoArea == null) {
+            throw new IllegalArgumentException("El objeto CursoArea no puede ser null");
+        }
+
+        //Validación de relaciones obligatorias
+        if (cursoArea.getCurso() == null || cursoArea.getCurso().getId() == null) {
+            throw new IllegalArgumentException("El curso es obligatorio");
+        }
+        if (cursoArea.getArea() == null || cursoArea.getArea().getId() == null) {
+            throw new IllegalArgumentException("El área es obligatoria");
+        }
+
+        //Validación de cantidad de preguntas
+        if (cursoArea.getCantidadPreguntas() == null || cursoArea.getCantidadPreguntas() < 0) {
+            throw new IllegalArgumentException("La cantidad de preguntas debe ser 0 o mayor");
+        }
+
+        //Evitar duplicados: si ya existe un CursoArea con la misma llave compuesta
+//        CursoAreaId id = new CursoAreaId(cursoArea.getCurso().getId(), cursoArea.getArea().getId());
+//        if (cursoAreaRepository.existsById(id)) {
+//            throw new IllegalArgumentException("Ya existe una distribución de curso para esta área");
+//        }
+
+        try {
+            //Guardar la entidad
+            CursoArea guardado = cursoAreaRepository.save(cursoArea);
+
+            //Verificar que se guardó correctamente
+            if (guardado.getId() == null) {
+                throw new RuntimeException("No se pudo crear la distribución del curso");
+            }
+
+            //Convertir a DTO
+            return cursoAreaMapper.toResponse(guardado);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear la distribución del curso: " + e.getMessage(), e);
+        }
     }
-    
     @Override
-    public CursoArea saveCursoArea(CursoArea cursoArea) {
-        return cursoAreaRepository.save(cursoArea);
+    public TemaResponse saveTema(Tema tema) {
+        //Validación básica
+        if (tema == null) {
+            throw new IllegalArgumentException("El objeto Tema no puede ser null");
+        }
+        //Validación de campos obligatorios
+        if (tema.getNombreTema() == null || tema.getNombreTema().isBlank()) {
+            throw new IllegalArgumentException("El nombre del tema es obligatorio");
+        }
+        if (tema.getCurso() == null || tema.getCurso().getId() == null) {
+            throw new IllegalArgumentException("El curso asociado es obligatorio");
+        }
+        //Evitar duplicados por nombre en el mismo curso
+//        if (temaRepository.existsByNombreAndCursoId(tema.getNombre(), tema.getCurso().getId())) {
+//            throw new IllegalArgumentException("Ya existe un tema con ese nombre en este curso");
+//        }
+        try {
+            //Guardar en DB
+            Tema guardado = temaRepository.save(tema);
+            //Verificación
+            if (guardado.getId() == null) {
+                throw new RuntimeException("No se pudo crear el tema");
+            }
+            //Mapear a DTO y devolver
+            return temaMapper.toResponse(guardado);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear el tema: " + e.getMessage(), e);
+        }
     }
-    
-    @Override
-    public Tema saveTema(Tema tema) {
-        return temaRepository.save(tema);
-    }
+
 }

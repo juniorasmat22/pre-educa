@@ -5,7 +5,7 @@ import com.bootcodeperu.admision_academica.domain.model.Tema;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring",
-        uses = {CursoMaper.class}
+        uses = {CursoMapper.class}
 )
 public interface TemaMapper {
     TemaResponse toResponse(Tema tema);
