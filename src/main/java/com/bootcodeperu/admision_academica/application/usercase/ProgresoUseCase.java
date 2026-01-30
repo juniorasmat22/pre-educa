@@ -3,6 +3,7 @@ package com.bootcodeperu.admision_academica.application.usercase;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.ProgresoTemaMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class ProgresoUseCase implements ProgresoService {
 	private final ProgresoTemaRepository progresoTemaRepository;
 	private final UsuarioRepository usuarioRepository;
 	private final TemaRepository temaRepository;
-	private final ModelMapper modelMapper;
+	private final ProgresoTemaMapper progresoTemaMapper;
 
 	@Override
 	@Transactional
@@ -44,6 +45,9 @@ public class ProgresoUseCase implements ProgresoService {
 					ProgresoTema nuevoProgreso = new ProgresoTema();
 					nuevoProgreso.setUsuario(usuario);
 					nuevoProgreso.setTema(tema);
+					nuevoProgreso.setNumeroIntentos(0);
+					nuevoProgreso.setSumaPuntajes(0.0);
+					nuevoProgreso.setPuntajePromedio(0.0);
 					return nuevoProgreso;
 				});
 
@@ -54,9 +58,10 @@ public class ProgresoUseCase implements ProgresoService {
 		// Fórmula del nuevo promedio: Suma Total / Número de Intentos
 		double nuevoPromedio = progreso.getSumaPuntajes() / progreso.getNumeroIntentos();
 		progreso.setPuntajePromedio(nuevoPromedio);
-
-		// 4. Guardar
-		return modelMapper.map(progreso, ProgresoTemaResponse.class);
+		// 4. Guardar progreso
+		progreso = progresoTemaRepository.save(progreso);
+		// 5. Maper el progreso
+		return progresoTemaMapper.toResponse(progreso);//modelMapper.map(progreso, ProgresoTemaResponse.class);
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class ProgresoUseCase implements ProgresoService {
 
 		// Mapear la lista de Entidades a una lista de DTOs usando streams y ModelMapper
 		return progresoList.stream()
-				.map(progreso -> modelMapper.map(progreso, ProgresoTemaResponse.class))
+				.map(progresoTemaMapper::toResponse)
 				.collect(Collectors.toList());
 	}
 }
