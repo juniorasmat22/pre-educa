@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import com.bootcodeperu.admision_academica.adapter.mapper.PermisoMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.RolMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.UsuarioMapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
