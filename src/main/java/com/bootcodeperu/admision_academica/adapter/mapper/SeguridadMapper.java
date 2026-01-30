@@ -6,11 +6,11 @@ import com.bootcodeperu.admision_academica.domain.model.Permiso;
 import com.bootcodeperu.admision_academica.domain.model.Rol;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = { PermisoMapper.class } // <--- AQUÍ conectamos los mappers
+)
 public interface SeguridadMapper {
     // MapStruct entiende que RolResponse es un Record y usará su constructor
     RolResponse toRolResponse(Rol rol);
-
-    // Mapeo automático para la colección de permisos
-    PermisoResponse toPermisoResponse(Permiso permiso);
 }
