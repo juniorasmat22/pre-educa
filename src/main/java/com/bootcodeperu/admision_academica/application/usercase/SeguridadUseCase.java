@@ -3,7 +3,9 @@ package com.bootcodeperu.admision_academica.application.usercase;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.bootcodeperu.admision_academica.adapter.mapper.SeguridadMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.PermisoMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.RolMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.UsuarioMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,9 @@ public class SeguridadUseCase implements SeguridadService {
     private final RolRepository rolRepository;
     private final PermisoRepository permisoRepository;
     private final UsuarioRepository usuarioRepository;
-    private final ModelMapper modelMapper;
-    private final SeguridadMapper seguridadMapper;
+    private final RolMapper rolMapper;
+    private final PermisoMapper permisoMapper;
+    private final UsuarioMapper usuarioMapper;
     @Override
     public Rol saveRol(Rol rol) {
         return rolRepository.save(rol);
@@ -39,7 +42,7 @@ public class SeguridadUseCase implements SeguridadService {
     @Override
     public List<RolResponse> findAllRoles() {
         return rolRepository.findAll().stream()
-                .map(seguridadMapper::toRolResponse) // Uso limpio y eficiente
+                .map(rolMapper::toRolResponse) // Uso limpio y eficiente
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +54,7 @@ public class SeguridadUseCase implements SeguridadService {
     @Override
     public List<PermisoResponse> findAllPermisos() {
     	return permisoRepository.findAll().stream()
-                .map(seguridadMapper::toPermisoResponse)
+                .map(permisoMapper::toResponse)
                 .collect(Collectors.toList());
     }
     
@@ -71,6 +74,6 @@ public class SeguridadUseCase implements SeguridadService {
         Usuario usuarioActualizado = usuarioRepository.save(usuario);
         
         // 4. Devolver DTO
-        return modelMapper.map(usuarioActualizado, UsuarioResponse.class);
+        return usuarioMapper.toResponse(usuarioActualizado);
     }
 }

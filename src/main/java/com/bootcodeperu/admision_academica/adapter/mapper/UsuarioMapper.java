@@ -6,11 +6,8 @@ import org.mapstruct.Mapper;
 
 @Mapper(
         componentModel = "spring",
-        uses = { SeguridadMapper.class }
+        uses = { RolMapper.class }
 )
 public interface UsuarioMapper {
-
-    // MapStruct mapea automáticamente campos con el mismo nombre.
-    // rol -> rol (y usa SeguridadMapper internamente)
     UsuarioResponse toResponse(Usuario usuario);
 }
