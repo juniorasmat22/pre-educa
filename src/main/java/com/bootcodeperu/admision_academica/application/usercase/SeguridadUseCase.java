@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import com.bootcodeperu.admision_academica.adapter.mapper.PermisoMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.RolMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.UsuarioMapper;
+import com.bootcodeperu.admision_academica.domain.exception.DuplicateResourceException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
@@ -34,8 +36,17 @@ public class SeguridadUseCase implements SeguridadService {
     private final PermisoMapper permisoMapper;
     private final UsuarioMapper usuarioMapper;
     @Override
-    public Rol saveRol(Rol rol) {
-        return rolRepository.save(rol);
+    public RolResponse saveRol(Rol rol) {
+        if (rol.getNombre() == null || rol.getNombre().isBlank()) {
+            throw new IllegalArgumentException("El nombre del rol no puede estar vacío");
+        }
+        Rol rolGuardado;
+        try {
+            rolGuardado = rolRepository.save(rol);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateResourceException("Ya existe un rol con ese nombre", e);
+        }
+        return rolMapper.toRolResponse(rolGuardado);
     }
 
     @Override
@@ -46,8 +57,17 @@ public class SeguridadUseCase implements SeguridadService {
     }
 
     @Override
-    public Permiso savePermiso(Permiso permiso) {
-        return permisoRepository.save(permiso);
+    public PermisoResponse savePermiso(Permiso permiso) {
+        if (permiso.getNombre() == null || permiso.getNombre().isBlank()) {
+            throw new IllegalArgumentException("El nombre del permiso no puede estar vacío");
+        }
+        try {
+            Permiso permissionGuardado = permisoRepository.save(permiso);
+            return permisoMapper.toResponse(permissionGuardado);
+        } catch (DataIntegrityViolationException e) {
+            // Lanza nuestra excepción genérica de duplicado
+            throw new DuplicateResourceException("Ya existe un permiso con ese nombre", e);
+        }
     }
 
     @Override

@@ -11,11 +11,11 @@ import com.bootcodeperu.admision_academica.domain.model.Rol;
 public interface SeguridadService {
     
     // Roles
-    Rol saveRol(Rol rol);
+    RolResponse saveRol(Rol rol);
     List<RolResponse> findAllRoles();
     
     // Permisos
-    Permiso savePermiso(Permiso permiso);
+    PermisoResponse savePermiso(Permiso permiso);
     List<PermisoResponse> findAllPermisos();
     
     /**

@@ -2,6 +2,7 @@ package com.bootcodeperu.admision_academica.application.controller;
 
 import java.util.List;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class SeguridadController {
  // --- ROL MANAGEMENT ---
 
  @PostMapping("/roles")
- public ResponseEntity<Rol> createRol(@RequestBody Rol rol) {
+ public ResponseEntity<RolResponse> createRol(@RequestBody Rol rol) {
      return ResponseEntity.ok(seguridadService.saveRol(rol));
  }
  
@@ -46,7 +47,7 @@ public class SeguridadController {
  // --- PERMISSION MANAGEMENT ---
  
  @PostMapping("/permisos")
- public ResponseEntity<Permiso> createPermiso(@RequestBody Permiso permiso) {
+ public ResponseEntity<PermisoResponse> createPermiso(@RequestBody Permiso permiso) {
      return ResponseEntity.ok(seguridadService.savePermiso(permiso));
  }
 

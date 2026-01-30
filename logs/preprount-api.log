@@ -147,3 +147,27 @@
 2026-01-30 00:18:38.586 [RMI TCP Connection(2)-192.168.100.242] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2026-01-30 00:19:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
 2026-01-30 00:19:38.436 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:20:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:20:38.437 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:21:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:21:38.438 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:22:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:22:38.436 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:23:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:23:38.436 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:24:38.432 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:24:38.436 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:25:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:25:38.437 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:26:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:26:38.437 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:27:38.432 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:27:38.435 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:28:38.433 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:28:38.436 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:29:38.432 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:29:38.436 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:30:38.432 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:30:38.435 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
+2026-01-30 00:31:38.432 [scheduling-1] INFO  c.b.a.a.usercase.OutboxProcessor - Iniciando procesamiento de eventos Outbox pendientes.
+2026-01-30 00:31:38.435 [scheduling-1] DEBUG c.b.a.a.usercase.OutboxProcessor - No se encontraron eventos pendientes para procesar.
