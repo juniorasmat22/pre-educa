@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.PreguntaDetalleMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.ResultadoSimulacroMapper;
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.*;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
@@ -16,7 +18,6 @@ import com.bootcodeperu.admision_academica.domain.model.*;
 import com.bootcodeperu.admision_academica.domain.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
@@ -38,13 +39,14 @@ public class SimulacroUseCase implements SimulacroService{
     private final MetadatoPreguntaRepository metadatoPreguntaRepository;
     private final ResultadoSimulacroRepository resultadoSimulacroRepository;
     private final UsuarioRepository usuarioRepository;
-    private final ModelMapper modelMapper; // <<< INYECCIÓN
     private final ObjectMapper objectMapper; // <<< INYECCIÓN para JSONB
     private final ProgresoTemaRepository progresoTemaRepository;
     private final ProgresoService progresoService;
     // Repositorio de MongoDB
     private final PreguntaDetalleMongoRepository preguntaDetalleMongoRepository;
 
+    private final PreguntaDetalleMapper preguntaDetalleMapper;
+    private final ResultadoSimulacroMapper resultadoSimulacroMapper;
     /**
      * PASO 1: Genera un examen simulacro completo para un área de postulación.
      */
@@ -104,7 +106,7 @@ public class SimulacroUseCase implements SimulacroService{
         return mongoIdsSeleccionados.stream()
                 .map(preguntasMap::get)
                 .filter(Objects::nonNull) // Filtrar si alguna pregunta no se encontró en Mongo (error de datos)
-                .map(p -> modelMapper.map(p, PreguntaDetalleResponse.class))
+                .map(preguntaDetalleMapper::toResponse)
                 .collect(Collectors.toList());
 	}
 
@@ -187,7 +189,7 @@ public class SimulacroUseCase implements SimulacroService{
         ResultadoSimulacro resultadoGuardado = resultadoSimulacroRepository.save(resultado);
         // Retorna el resultado (asumiendo que los campos están configurados correctamente para JPA)
         // 5. Devolver DTO (Mapeo)
-        return modelMapper.map(resultadoGuardado, ResultadoSimulacroResponse.class);
+        return resultadoSimulacroMapper.toResponse(resultadoGuardado); //modelMapper.map(resultadoGuardado, ResultadoSimulacroResponse.class);
 	}
     @Override
     public List<DebilidadTemaResponse> obtenerAnalisisDebilidades(Long usuarioId) {

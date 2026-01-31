@@ -5,7 +5,10 @@ import java.util.stream.Collectors;
 
 import com.bootcodeperu.admision_academica.adapter.mapper.ContenidoTeoriaMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.PreguntaDetalleMapper;
+import com.bootcodeperu.admision_academica.adapter.mapper.ProgresoTemaMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.TemaMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaPracticaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.progresotema.ProgresoTemaResponse;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.ContenidoTeoria;
@@ -42,6 +45,7 @@ public class ContenidoUseCase implements ContenidoService {
 	private final TemaMapper temaMapper;
 	private final PreguntaDetalleMapper preguntaDetalleMapper;
 	private final ContenidoTeoriaMapper	contenidoTeoriaMapper;
+	private final ProgresoTemaMapper progresoTemaMapper;
 	@Override
 	public List<TemaResponse> getTemasByCursoId(Long cursoId) {
 		return temaRepository.findAllByCursoId(cursoId).stream().map(temaMapper::toResponse)
@@ -49,7 +53,7 @@ public class ContenidoUseCase implements ContenidoService {
 	}
 
 	@Override
-	public List<PreguntaDetalleResponse> getPreguntasPractica(Long temaId, String nivel) {
+	public List<PreguntaPracticaResponse> getPreguntasPractica(Long temaId, String nivel) {
 
 		// 1. Obtener Metadatos (PostgreSQL)
 		List<MetadatoPregunta> metadatos = metadatoPreguntaRepository.findByTemaIdAndNivel(temaId, nivel);
@@ -71,13 +75,13 @@ public class ContenidoUseCase implements ContenidoService {
 			throw new ContentLoadingException("Error de sincronización: Falta detalle de algunas preguntas.");
 		}
 
-		return preguntasDetalle.stream().map(preguntaDetalleMapper::toResponse)
+		return preguntasDetalle.stream().map(preguntaDetalleMapper::toPractica)
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
-	public ProgresoTema completarTeoria(Long usuarioId, Long temaId) {
+	public ProgresoTemaResponse completarTeoria(Long usuarioId, Long temaId) {
 		// Asegurarse de que el usuario y el tema existan
 		Usuario usuario = usuarioRepository.findById(usuarioId)
 				.orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", usuarioId));
@@ -93,11 +97,11 @@ public class ContenidoUseCase implements ContenidoService {
 			nuevoProgreso.setTema(tema);
 			return nuevoProgreso;
 		});
-
 		// Actualizar el estado de la teoría
-		progreso.setTeoriaCompletada(true);
-
-		return progresoTemaRepository.save(progreso);
+		if (!Boolean.TRUE.equals(progreso.getTeoriaCompletada())) {
+			progreso.setTeoriaCompletada(true);
+		}
+		return progresoTemaMapper.toResponse(progresoTemaRepository.save(progreso));
 	}
 
 	@Override
@@ -112,13 +116,13 @@ public class ContenidoUseCase implements ContenidoService {
 	}
 
 	@Override
-	public ContenidoTeoria saveContenidoTeoria(ContenidoTeoria contenido) {
+	public ContenidoTeoriaResponse saveContenidoTeoria(ContenidoTeoria contenido) {
 		// Verificar que el Tema de referencia exista en PostgreSQL (Regla de
 		// integridad)
 		temaRepository.findById(contenido.getIdTemaSQL())
 				.orElseThrow(() -> new ResourceNotFoundException("Tema", "id", contenido.getIdTemaSQL()));
 
 		// Si todo es válido, guardar en MongoDB
-		return contenidoTeoriaMongoRepository.save(contenido);
+		return contenidoTeoriaMapper.toResponse(contenidoTeoriaMongoRepository.save(contenido));
 	}
 }

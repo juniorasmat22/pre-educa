@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.ContenidoTeoriaResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -95,9 +96,9 @@ public class ContenidoAdminController {
     }
  // POST /api/v1/admin/contenido/teoria
     @PostMapping("/teoria")
-    public ResponseEntity<ContenidoTeoria> crearContenidoTeoria(@RequestBody ContenidoTeoria contenido) {
+    public ResponseEntity<ContenidoTeoriaResponse> crearContenidoTeoria(@RequestBody ContenidoTeoria contenido) {
         // El servicio se encarga de verificar el idTemaSQL y guardar en Mongo
-        ContenidoTeoria nuevoContenido = contenidoService.saveContenidoTeoria(contenido);
+        ContenidoTeoriaResponse nuevoContenido = contenidoService.saveContenidoTeoria(contenido);
         return new ResponseEntity<>(nuevoContenido, HttpStatus.CREATED);
     }
 }

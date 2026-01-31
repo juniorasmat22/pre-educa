@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.bootcodeperu.admision_academica.adapter.mapper.ProgresoTemaMapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.progresotema.ProgresoTemaResponse;
