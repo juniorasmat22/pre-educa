@@ -79,10 +79,15 @@ dependencies {
      * =============================== */
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	/* ===============================
+     * Validaciones
+     * =============================== */
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	/* ===============================
      * TESTING
      * =============================== */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

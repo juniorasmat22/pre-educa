@@ -8,4 +8,6 @@ import com.bootcodeperu.admision_academica.domain.model.Area;
 
 public interface SpringAreaRepository extends JpaRepository<Area, Long> {
     Optional<Area> findByNombre(String nombre);
+    boolean existsByNombre(String nombre);
+    boolean existsByDescripcion(String descripcion);
 }

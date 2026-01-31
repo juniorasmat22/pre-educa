@@ -36,4 +36,14 @@ public class AreaRepositoryImpl implements AreaRepository {
     public Optional<Area> findByName(String name) {
         return springAreaRepository.findByNombre(name);
     }
+
+    @Override
+    public boolean existsByNombre(String nombre) {
+        return springAreaRepository.existsByNombre(nombre);
+    }
+
+    @Override
+    public boolean existsByDescripcion(String descripcion) {
+        return springAreaRepository.existsByDescripcion(descripcion);
+    }
 }

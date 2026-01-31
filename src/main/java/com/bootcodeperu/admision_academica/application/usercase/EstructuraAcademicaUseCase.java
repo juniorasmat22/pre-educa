@@ -7,10 +7,12 @@ import com.bootcodeperu.admision_academica.adapter.mapper.AreaMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.CursoAreaMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.CursoMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.TemaMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.curso_area.CursoAreaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.tema.TemaResponse;
+import com.bootcodeperu.admision_academica.domain.exception.DuplicateResourceException;
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
 import com.bootcodeperu.admision_academica.domain.model.*;
 import org.springframework.stereotype.Service;
@@ -59,33 +61,26 @@ public class EstructuraAcademicaUseCase implements EstructuraAcademicaService{
                 .map(cursoAreaMapper::toResponse)
                 .collect(Collectors.toList());
     }
-
     @Override
-    public AreaResponse saveArea(Area area) {
-        //Validación básica: que no sea null
-        if (area == null) {
-            throw new IllegalArgumentException("El objeto Area no puede ser null");
+    public AreaResponse saveArea(AreaRequest request) {
+        //Validaciones de negocio (dominio)
+        if (areaRepository.existsByNombre(request.nombre())) {
+            throw new DuplicateResourceException(
+                    "Ya existe un área con el nombre: " + request.nombre()
+            );
         }
-        // Validación de campos obligatorios
-        if (area.getNombre() == null || area.getNombre().isBlank()) {
-            throw new IllegalArgumentException("El nombre del área es obligatorio");
+        if (areaRepository.existsByDescripcion(request.descripcion())) {
+            throw new DuplicateResourceException(
+                    "Ya existe un área con la descripción: " + request.descripcion()
+            );
         }
-        try {
-            //Guardar la entidad en DB
-            Area areaGuardada = areaRepository.save(area);
-            //Comprobar que se guardó correctamente (ID generado)
-            if (areaGuardada.getId() == null) {
-                throw new RuntimeException("No se pudo crear el área. Intenta nuevamente.");
-            }
-            //Convertir a DTO y devolver
-            return areaMapper.toResponse(areaGuardada);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al crear el área: " + e.getMessage(), e);
-        }
+        // Mapeo DTO → Entidad
+        Area area = areaMapper.toEntity(request);
+        //Persistencia
+        Area areaGuardada = areaRepository.save(area);
+        //Respuesta
+        return areaMapper.toResponse(areaGuardada);
     }
-
-    
     @Override
     public CursoResponse saveCurso(Curso curso) {
         //Validación básica: que no sea null
