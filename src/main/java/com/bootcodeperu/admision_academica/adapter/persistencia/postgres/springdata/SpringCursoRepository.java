@@ -8,4 +8,6 @@ import com.bootcodeperu.admision_academica.domain.model.Curso;
 
 public interface SpringCursoRepository extends JpaRepository<Curso, Long> {
     Optional<Curso> findByNombre(String nombre);
+    boolean existsByNombre(String nombre);
+    boolean existsByDescripcion(String descripcion);
 }

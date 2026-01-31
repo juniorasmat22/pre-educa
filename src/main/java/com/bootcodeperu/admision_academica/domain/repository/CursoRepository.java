@@ -10,4 +10,6 @@ public interface CursoRepository {
     Optional<Curso> findById(Long id);
     List<Curso> findAll();
     Optional<Curso> findByNombre(String nombre);
+    boolean existsByNombre(String nombre);
+    boolean existsByDescripcion(String descripcion);
 }

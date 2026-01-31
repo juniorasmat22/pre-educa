@@ -9,6 +9,7 @@ import com.bootcodeperu.admision_academica.adapter.mapper.CursoMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.TemaMapper;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.curso_area.CursoAreaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.tema.TemaResponse;
@@ -82,20 +83,20 @@ public class EstructuraAcademicaUseCase implements EstructuraAcademicaService{
         return areaMapper.toResponse(areaGuardada);
     }
     @Override
-    public CursoResponse saveCurso(Curso curso) {
-        //Validación básica: que no sea null
-        if (curso == null) {
-            throw new IllegalArgumentException("El objeto Curso no puede ser null");
+    public CursoResponse saveCurso(CursoRequest cursoRequest) {
+        //Validaciones de negocio (dominio)
+        if (cursoRepository.existsByNombre(cursoRequest.nombre())) {
+            throw new DuplicateResourceException(
+                    "Ya existe un área con el nombre: " + cursoRequest.nombre()
+            );
         }
-        // Validación de campos obligatorios
-        if (curso.getNombre() == null || curso.getNombre().isBlank()) {
-            throw new IllegalArgumentException("El nombre del curso es obligatorio");
+        if (cursoRepository.existsByDescripcion(cursoRequest.descripcion())) {
+            throw new DuplicateResourceException(
+                    "Ya existe un área con la descripción: " + cursoRequest.descripcion()
+            );
         }
-        //Validación opcional: evitar duplicados por nombre
-        //if (cursoRepository.findByNombre(curso.getNombre())) {
-        //    throw new IllegalArgumentException("Ya existe un curso con ese nombre");
-        //}
         try {
+            Curso curso=cursoMapper.toEntity(cursoRequest);
             //Guardar la entidad en DB
             Curso cursoGuardado = cursoRepository.save(curso);
             //Verificar que se guardó correctamente
@@ -109,8 +110,6 @@ public class EstructuraAcademicaUseCase implements EstructuraAcademicaService{
             throw new RuntimeException("Error al crear el curso: " + e.getMessage(), e);
         }
     }
-
-
     @Override
     public CursoAreaResponse saveCursoArea(CursoArea cursoArea) {
         //Validación básica

@@ -11,9 +11,7 @@ public interface AreaRepository {
     List<Area> findAll();
     // Método de negocio clave: Encontrar un área por su nombre (ej: "A. Ciencias...")
     Optional<Area> findByName(String name);
-
     boolean existsByNombre(String nombre);
-
     boolean existsByDescripcion(String descripcion);
 
 }

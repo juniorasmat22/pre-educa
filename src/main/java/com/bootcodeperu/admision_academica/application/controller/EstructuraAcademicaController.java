@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.curso.CursoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.curso_area.CursoAreaResponse;
 import jakarta.validation.Valid;
@@ -58,5 +59,11 @@ public class EstructuraAcademicaController {
     @GetMapping("/distribucion")
     public ResponseEntity<List<CursoAreaResponse>> getDistribucion(@RequestParam Long areaId) {
         return ResponseEntity.ok(estructuraService.getDistribucionByArea(areaId));
+    }
+    //6. Crear curso
+    // POST api/v1/estructura/cursos
+    @PostMapping("/cursos")
+    public ResponseEntity<CursoResponse> createCurso(@Valid @RequestBody CursoRequest request) {
+        return ResponseEntity.ok(estructuraService.saveCurso(request));
     }
 }

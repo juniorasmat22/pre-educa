@@ -35,4 +35,13 @@ public class CursoRepositoryImpl implements CursoRepository {
     public Optional<Curso> findByNombre(String nombre) {
         return springCursoRepository.findByNombre(nombre);
     }
+
+    @Override
+    public boolean existsByNombre(String nombre) {
+        return springCursoRepository.existsByNombre(nombre);
+    }
+    @Override
+    public boolean existsByDescripcion(String descripcion) {
+        return springCursoRepository.existsByDescripcion(descripcion);
+    }
 }
