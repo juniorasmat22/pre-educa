@@ -62,8 +62,6 @@ dependencies {
 	/* ===============================
      * MAPEO DE OBJETOS (DTO <-> ENTITY)
      * =============================== */
-	// ModelMapper: mapeo automático entre objetos
-	implementation("org.modelmapper:modelmapper:3.2.0")
 	// MapStruct: mapeo en tiempo de compilación (más rápido y seguro)
 	implementation("org.mapstruct:mapstruct:1.6.3")
 	// Procesador de anotaciones de MapStruct
