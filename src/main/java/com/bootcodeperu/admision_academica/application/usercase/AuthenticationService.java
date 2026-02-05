@@ -2,7 +2,9 @@ package com.bootcodeperu.admision_academica.application.usercase;
 
 import java.util.List;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.UsuarioMapper;
 import com.bootcodeperu.admision_academica.adapter.security.UsuarioPrincipal;
+import com.bootcodeperu.admision_academica.domain.exception.DomainValidationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,10 +23,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UsuarioRepository usuarioRepository;
     private final TokenRepository tokenRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private  final UsuarioMapper usuarioMapper;
 
     @Transactional // Asegura que la DB se actualice correctamente
     public AuthenticationResponse authenticate(String email, String password) {
@@ -39,6 +41,9 @@ public class AuthenticationService {
 //                .orElseThrow(() -> new IllegalStateException("Usuario no encontrado después de la autenticación."));
         UsuarioPrincipal principal = (UsuarioPrincipal) auth.getPrincipal();
         Usuario usuario = principal.usuario();
+        if (principal.usuario().getRol() == null) {
+            throw new DomainValidationException("El usuario no tiene un rol asignado");
+        }
         // 3. Generar el Token JWT
         String jwt = jwtService.generateToken(principal);
 
@@ -51,7 +56,7 @@ public class AuthenticationService {
         // 6. Devolver la respuesta con el token
         return AuthenticationResponse.builder()
                 .token(jwt)
-                .usuario(usuario)
+                .usuario(usuarioMapper.toResponse(usuario))
                 .build();
     }
     

@@ -1,7 +1,10 @@
 package com.bootcodeperu.admision_academica.application.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioRegistroRequest;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import com.bootcodeperu.admision_academica.domain.model.Usuario;
 
 public interface UsuarioService {
@@ -10,7 +13,7 @@ public interface UsuarioService {
      * @param usuario El objeto Usuario a registrar.
      * @return El Usuario creado.
      */
-    Usuario registrarUsuario(Usuario usuario);
+    UsuarioResponse registerUser(UsuarioRegistroRequest usuario);
 
     /**
      * Busca un usuario por su ID.
@@ -25,5 +28,10 @@ public interface UsuarioService {
      * @param password Contraseña sin cifrar.
      * @return El objeto Usuario si la autenticación es exitosa.
      */
-    Usuario autenticar(String email, String password);
+    Usuario authenticate(String email, String password);
+
+    UsuarioResponse getUserById(Long id);
+    UsuarioResponse getUserByEmail(String email);
+    List<UsuarioResponse> getAllUsers();
+    UsuarioResponse assignRoleToUser(Long userId, String rolName);
 }

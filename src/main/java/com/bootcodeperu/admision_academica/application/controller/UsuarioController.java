@@ -1,6 +1,8 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioRegistroRequest;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,14 +26,13 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final AuthenticationService authService;
     @PostMapping("/registrar")
-    public ResponseEntity<Usuario> registrarUsuario(@RequestBody Usuario usuario) {
-        // NOTA: Se recomienda usar un DTO (Data Transfer Object) para la entrada
-        Usuario nuevoUsuario = usuarioService.registrarUsuario(usuario);
-        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse<UsuarioResponse>> registrarUsuario(@RequestBody UsuarioRegistroRequest usuario) {
+        UsuarioResponse nuevoUsuario = usuarioService.registerUser(usuario);
+        return  ResponseEntity.ok(ApiResponse.ok(nuevoUsuario, "Usuario creado correctamente"));
     }
     
     // Ruta para el inicio de sesión (la autenticación real requiere Spring Security JWT/OAuth2)
- // POST /api/v1/auth/login
+    // POST /api/v1/auth/login
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody LoginRequest request) {
         // Llama al nuevo servicio de autenticación
@@ -39,7 +40,6 @@ public class UsuarioController {
                 request.getEmail(), 
                 request.getPassword()
         );
-        
         return ResponseEntity.ok(ApiResponse.ok(response,"Login realizado con exito"));
     }
 }

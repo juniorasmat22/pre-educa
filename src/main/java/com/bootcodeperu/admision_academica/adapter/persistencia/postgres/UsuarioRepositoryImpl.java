@@ -1,7 +1,9 @@
 package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import org.springframework.stereotype.Component;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringUsuarioRepository;
@@ -27,7 +29,13 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
+    public List<Usuario> findAll() {
+        return springUsuarioRepository.findAll();
+    }
+
+    @Override
     public Optional<Usuario> findByEmail(String email) {
         return springUsuarioRepository.findByEmail(email);
     }
+
 }
