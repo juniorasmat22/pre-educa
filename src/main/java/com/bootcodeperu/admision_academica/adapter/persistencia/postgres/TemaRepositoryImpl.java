@@ -28,6 +28,10 @@ public class TemaRepositoryImpl implements TemaRepository {
     }
 
     @Override
+    public List<Tema> findAll() {
+         return springTemaRepository.findAll();
+    }
+    @Override
     public List<Tema> findAllByCursoId(Long cursoId) {
         return springTemaRepository.findAllByCursoId(cursoId);
     }

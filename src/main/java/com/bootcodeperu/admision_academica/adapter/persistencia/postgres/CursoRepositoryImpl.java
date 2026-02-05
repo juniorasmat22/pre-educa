@@ -44,4 +44,8 @@ public class CursoRepositoryImpl implements CursoRepository {
     public boolean existsByDescripcion(String descripcion) {
         return springCursoRepository.existsByDescripcion(descripcion);
     }
+    @Override
+    public boolean existsById(Long id) {
+        return springCursoRepository.existsById(id);
+    }
 }

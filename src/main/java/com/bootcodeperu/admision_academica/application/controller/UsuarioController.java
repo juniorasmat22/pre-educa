@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +33,13 @@ public class UsuarioController {
     // Ruta para el inicio de sesión (la autenticación real requiere Spring Security JWT/OAuth2)
  // POST /api/v1/auth/login
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody LoginRequest request) {
         // Llama al nuevo servicio de autenticación
         AuthenticationResponse response = authService.authenticate(
                 request.getEmail(), 
                 request.getPassword()
         );
         
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.ok(response,"Login realizado con exito"));
     }
 }
