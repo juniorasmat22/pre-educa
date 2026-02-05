@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +23,33 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    /* =====================================================
+       401 - ESTADO DE CUENTA
+       ===================================================== */
+    @ExceptionHandler({
+            DisabledException.class,
+            LockedException.class,
+            AccountExpiredException.class,
+            CredentialsExpiredException.class
+    })
+    public ResponseEntity<ErrorResponse> handleAccountStatus(
+            RuntimeException ex,
+            HttpServletRequest request
+    ) {
+        String message;
 
+        if (ex instanceof DisabledException) {
+            message = "La cuenta está deshabilitada";
+        } else if (ex instanceof LockedException) {
+            message = "La cuenta está bloqueada";
+        } else if (ex instanceof AccountExpiredException) {
+            message = "La cuenta ha expirado";
+        } else {
+            message = "Las credenciales han expirado";
+        }
+
+        return buildResponse(HttpStatus.UNAUTHORIZED, message, request);
+    }
     /* =====================================================
        404 - RECURSOS NO ENCONTRADOS
        ===================================================== */
