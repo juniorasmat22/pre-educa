@@ -2,6 +2,7 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -30,5 +31,15 @@ public class PermisoRepositoryImpl implements PermisoRepository {
     @Override
     public List<Permiso> findAll() {
         return springPermisoRepository.findAll();
+    }
+
+    @Override
+    public List<Permiso> findAllById(Set<Long> permisosIds) {
+        return springPermisoRepository.findAllById(permisosIds);
+    }
+
+    @Override
+    public boolean existsByNombre(String nombre) {
+        return springPermisoRepository.existsByNombre(nombre);
     }
 }

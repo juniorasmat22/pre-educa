@@ -36,4 +36,9 @@ public class RolRepositoryImpl implements RolRepository {
     public List<Rol> findAll() {
         return springRolRepository.findAll();
     }
+
+    @Override
+    public Boolean existsByNombre(String nombre) {
+        return springRolRepository.existsByNombre(nombre);
+    }
 }

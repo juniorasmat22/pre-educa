@@ -32,24 +32,6 @@ public class SeguridadController {
 
  private final SeguridadService seguridadService;
 
- // --- ROL MANAGEMENT ---
-
- @PostMapping("/roles")
- public ResponseEntity<RolResponse> createRol(@RequestBody Rol rol) {
-     return ResponseEntity.ok(seguridadService.saveRol(rol));
- }
- 
- @GetMapping("/roles")
- public ResponseEntity<List<RolResponse>> getAllRoles() {
-     return ResponseEntity.ok(seguridadService.findAllRoles());
- }
-
- // --- PERMISSION MANAGEMENT ---
- 
- @PostMapping("/permisos")
- public ResponseEntity<PermisoResponse> createPermiso(@RequestBody Permiso permiso) {
-     return ResponseEntity.ok(seguridadService.savePermiso(permiso));
- }
 
  // --- USER ASSIGNMENT ---
 

@@ -10,4 +10,5 @@ public interface RolRepository {
     Optional<Rol> findById(Long id);
     Optional<Rol> findByNombre(String nombre);
     List<Rol> findAll();
+    Boolean existsByNombre(String nombre);
 }

@@ -9,20 +9,6 @@ import com.bootcodeperu.admision_academica.domain.model.Permiso;
 import com.bootcodeperu.admision_academica.domain.model.Rol;
 
 public interface SeguridadService {
-    
-    // Roles
-    RolResponse saveRol(Rol rol);
-    List<RolResponse> findAllRoles();
-    
-    // Permisos
-    PermisoResponse savePermiso(Permiso permiso);
-    List<PermisoResponse> findAllPermisos();
-    
-    /**
-     * Asigna un Rol existente a un Usuario.
-     * @param userId ID del usuario.
-     * @param rolName Nombre del rol a asignar (Ej: ROLE_ESTUDIANTE).
-     * @return Usuario actualizado.
-     */
+
     UsuarioResponse asignarRolAUsuario(Long userId, String rolName);
 }

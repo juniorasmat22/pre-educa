@@ -8,4 +8,5 @@ import com.bootcodeperu.admision_academica.domain.model.Rol;
 
 public interface SpringRolRepository extends JpaRepository<Rol, Long> {
     Optional<Rol> findByNombre(String nombre);
+    boolean existsByNombre(String nombre);
 }

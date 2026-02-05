@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.bootcodeperu.admision_academica.domain.model.Permiso;
 
 public interface SpringPermisoRepository extends JpaRepository<Permiso, Long> {
+    boolean existsByNombre(String nombre);
 }
