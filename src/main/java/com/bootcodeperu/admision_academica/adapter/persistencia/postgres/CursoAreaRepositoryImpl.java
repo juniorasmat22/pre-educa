@@ -32,4 +32,12 @@ public class CursoAreaRepositoryImpl implements CursoAreaRepository {
     public List<CursoArea> findAllByAreaId(Long areaId) {
         return springCursoAreaRepository.findAllByAreaId(areaId);
     }
+    @Override
+    public boolean existsByCursoIdAndAreaId(Long cursoId, Long areaId) {
+        return springCursoAreaRepository.existsByCursoIdAndAreaId(cursoId, areaId);
+    }
+    @Override
+    public void deleteById(CursoAreaId id) {
+        springCursoAreaRepository.deleteById(id);
+    }
 }

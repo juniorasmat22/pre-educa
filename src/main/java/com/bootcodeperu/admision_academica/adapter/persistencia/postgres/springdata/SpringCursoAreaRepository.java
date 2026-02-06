@@ -9,4 +9,6 @@ import com.bootcodeperu.admision_academica.domain.model.CursoAreaId;
 
 public interface SpringCursoAreaRepository extends JpaRepository<CursoArea, CursoAreaId> {
     List<CursoArea> findAllByAreaId(Long areaId);
+    boolean existsByCursoIdAndAreaId(Long cursoId, Long areaId);
+    void deleteById(CursoAreaId id);
 }

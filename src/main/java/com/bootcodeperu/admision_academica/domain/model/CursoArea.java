@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.domain.model;
 
+import com.bootcodeperu.admision_academica.domain.exception.DomainValidationException;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -8,12 +9,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "cursoarea")
-@Data // Genera getters, setters, toString, equals y hashCode
+@Getter
+@Setter
+@ToString(exclude = {"area", "curso"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CursoArea {
+    @EqualsAndHashCode.Include
 	// Usamos el ID compuesto
     @EmbeddedId
     private CursoAreaId id;
@@ -31,4 +36,23 @@ public class CursoArea {
 
     @Column(name = "cantidadpreguntas", nullable = false)
     private Integer cantidadPreguntas;
+
+    protected CursoArea() {
+    }
+
+    public CursoArea(Area area, Curso curso, Integer cantidadPreguntas) {
+        this.area = area;
+        this.curso = curso;
+        this.cantidadPreguntas = cantidadPreguntas;
+        this.id = new CursoAreaId(area.getId(), curso.getId());
+    }
+
+    public void actualizarCantidadPreguntas(Integer cantidad) {
+        if (cantidad == null || cantidad < 0) {
+            throw new DomainValidationException(
+                    "La cantidad de preguntas debe ser mayor o igual a 0"
+            );
+        }
+        this.cantidadPreguntas = cantidad;
+    }
 }

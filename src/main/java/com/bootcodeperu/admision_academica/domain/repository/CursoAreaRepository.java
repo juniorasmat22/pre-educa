@@ -12,4 +12,7 @@ public interface CursoAreaRepository {
     
     // Método de negocio clave: Obtener la distribución de preguntas para un área específica.
     List<CursoArea> findAllByAreaId(Long areaId);
+    boolean existsByCursoIdAndAreaId(Long cursoId, Long areaId);
+
+    void deleteById(CursoAreaId id);
 }
