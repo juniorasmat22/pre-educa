@@ -3,18 +3,13 @@ package com.bootcodeperu.admision_academica.application.controller;
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioRegistroRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.auth.AuthenticationResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.auth.LoginRequest;
 import com.bootcodeperu.admision_academica.application.service.UsuarioService;
 import com.bootcodeperu.admision_academica.application.usercase.AuthenticationService;
-import com.bootcodeperu.admision_academica.domain.model.Usuario;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,4 +37,18 @@ public class UsuarioController {
         );
         return ResponseEntity.ok(ApiResponse.ok(response,"Login realizado con exito"));
     }
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<String>> logout(
+            @RequestHeader("Authorization") String tokenHeader) {
+        String token = tokenHeader.replace("Bearer ", "");
+        authService.logout(token);
+        return ResponseEntity.ok(ApiResponse.ok(null, "Sesión cerrada correctamente"));
+    }
+    @PostMapping("/refresh-token")
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> refreshToken(
+            @RequestBody String refreshToken) {
+        AuthenticationResponse newToken = authService.refreshToken(refreshToken);
+        return ResponseEntity.ok(ApiResponse.ok(newToken, "Token renovado correctamente"));
+    }
+
 }

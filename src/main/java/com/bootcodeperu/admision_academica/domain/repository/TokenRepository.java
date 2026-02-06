@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bootcodeperu.admision_academica.domain.model.Token;
+import com.bootcodeperu.admision_academica.domain.model.Usuario;
 
 public interface TokenRepository {
     
@@ -21,4 +22,11 @@ public interface TokenRepository {
      * @return Lista de tokens válidos.
      */
     List<Token> findAllValidTokenByUser(Long id);
+    /**
+     * Obtiene el usuario asociado a un token específico.
+     * Necesario para refreshToken.
+     * @param token El JWT.
+     * @return Usuario si existe.
+     */
+    Optional<Usuario> findUsuarioByToken(String token);
 }

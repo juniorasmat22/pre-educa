@@ -102,4 +102,13 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+    public boolean isTokenValid(String token) {
+        try {
+            extractAllClaims(token); // valida firma y estructura
+            return !isTokenExpired(token);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

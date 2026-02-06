@@ -14,7 +14,6 @@ import com.bootcodeperu.admision_academica.application.controller.dto.auth.Authe
 import com.bootcodeperu.admision_academica.domain.model.Token;
 import com.bootcodeperu.admision_academica.domain.model.Usuario;
 import com.bootcodeperu.admision_academica.domain.repository.TokenRepository;
-import com.bootcodeperu.admision_academica.domain.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +58,46 @@ public class AuthenticationService {
                 .usuario(usuarioMapper.toResponse(usuario))
                 .build();
     }
-    
+    // --- Cerrar sesión ---
+    @Transactional
+    public void logout(String token) {
+        Token t = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalArgumentException("Token no encontrado"));
+
+        t.setRevocado(true);
+        t.setExpirado(true);
+        tokenRepository.save(t);
+    }
+
+    // --- Refrescar token ---
+    @Transactional
+    public AuthenticationResponse refreshToken(String refreshToken) {
+        // 1. Validar token
+        if (!jwtService.isTokenValid(refreshToken)) {
+            throw new IllegalArgumentException("Refresh token inválido o expirado");
+        }
+
+        // 2. Obtener usuario asociado
+        Usuario usuario = tokenRepository.findUsuarioByToken(refreshToken)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado para este token"));
+
+        UsuarioPrincipal principal = new UsuarioPrincipal(usuario);
+
+        // 3. Generar nuevo JWT
+        String newToken = jwtService.generateToken(principal);
+
+        // 4. Revocar tokens anteriores
+        revokeAllUserTokens(usuario);
+
+        // 5. Guardar el nuevo token
+        saveUserToken(usuario, newToken);
+
+        // 6. Devolver la respuesta
+        return AuthenticationResponse.builder()
+                .token(newToken)
+                .usuario(usuarioMapper.toResponse(usuario))
+                .build();
+    }
     // --- Métodos de apoyo para persistencia de tokens ---
 
     private void saveUserToken(Usuario usuario, String jwtToken) {
@@ -82,4 +120,5 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+
 }

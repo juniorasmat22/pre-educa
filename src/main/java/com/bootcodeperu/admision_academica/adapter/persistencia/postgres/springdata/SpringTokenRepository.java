@@ -3,6 +3,7 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.postgres.spring
 import java.util.List;
 import java.util.Optional;
 
+import com.bootcodeperu.admision_academica.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,7 @@ public interface SpringTokenRepository extends JpaRepository<Token, Long> {
     List<Token> findAllValidTokenByUser(@Param("id") Long id);
 
     Optional<Token> findByToken(String token);
+    // Obtener el usuario asociado a un token
+    @Query("SELECT t.usuario FROM Token t WHERE t.token = :token")
+    Optional<Usuario> findUsuarioByToken(@Param("token") String token);
 }

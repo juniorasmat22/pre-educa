@@ -3,6 +3,7 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 import java.util.List;
 import java.util.Optional;
 
+import com.bootcodeperu.admision_academica.domain.model.Usuario;
 import org.springframework.stereotype.Component;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringTokenRepository;
@@ -30,6 +31,11 @@ public class TokenRepositoryImpl implements TokenRepository {
     @Override
     public List<Token> findAllValidTokenByUser(Long id) {
         return springTokenRepository.findAllValidTokenByUser(id);
+    }
+
+    @Override
+    public Optional<Usuario> findUsuarioByToken(String token) {
+        return springTokenRepository.findUsuarioByToken(token);
     }
 
     @Override
