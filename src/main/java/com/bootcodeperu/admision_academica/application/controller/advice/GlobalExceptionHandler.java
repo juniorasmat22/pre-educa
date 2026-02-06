@@ -74,6 +74,20 @@ public class GlobalExceptionHandler {
     ) {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), request);
     }
+    /* =====================================================
+       409 - ESTADO ILEGAL DE LA OPERACIÓN
+       ===================================================== */
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalState(
+            IllegalStateException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(
+                HttpStatus.CONFLICT,
+                ex.getMessage(),
+                request
+        );
+    }
 
     /* =====================================================
        400 - VALIDACIONES DE DOMINIO

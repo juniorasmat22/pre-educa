@@ -98,13 +98,19 @@ public class UsuarioUseCase implements UsuarioService {
 
     @Override
     @Transactional
-    public UsuarioResponse assignRoleToUser(Long userId, String rolName) {
+    public UsuarioResponse assignRoleToUser(Long userId, Long rolId) {
         Usuario usuario = usuarioRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con ID: " + userId));
-        Rol rol = rolRepository.findByNombre(rolName)
-                .orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado: " + rolName));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Usuario no encontrado: " + userId));
+        Rol rol = rolRepository.findById(rolId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Rol no encontrado: " + rolId));
+        if (usuario.getRol() != null && usuario.getRol().getId().equals(rolId)) {
+            throw new IllegalStateException("El usuario ya tiene asignado este rol");
+        }
         usuario.setRol(rol);
-        return usuarioMapper.toResponse(usuarioRepository.save(usuario));
+        usuarioRepository.save(usuario);
+        return usuarioMapper.toResponse(usuario);
     }
 
     // =====================================================

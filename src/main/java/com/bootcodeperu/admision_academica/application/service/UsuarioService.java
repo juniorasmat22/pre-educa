@@ -33,7 +33,7 @@ public interface UsuarioService {
     UsuarioResponse getUserById(Long id);
     UsuarioResponse getUserByEmail(String email);
     List<UsuarioResponse> getAllUsers();
-    UsuarioResponse assignRoleToUser(Long userId, String rolName);
+    UsuarioResponse assignRoleToUser(Long userId, Long rolId);
 
     /**
      * Bloquea a un usuario impidiendo su autenticación.

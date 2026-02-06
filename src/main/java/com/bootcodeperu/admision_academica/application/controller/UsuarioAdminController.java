@@ -18,13 +18,17 @@ public class UsuarioAdminController {
     private final UsuarioService usuarioService;
 
     // Asignar rol a un usuario
-    @PatchMapping("/{userId}/rol")
+    @PatchMapping("/{userId}/rol/{rolId}")
     public ResponseEntity<ApiResponse<UsuarioResponse>> assignRol(
             @PathVariable Long userId,
-            @RequestParam String rolName
+            @PathVariable Long rolId
     ) {
-        UsuarioResponse usuarioActualizado = usuarioService.assignRoleToUser(userId, rolName);
-        return ResponseEntity.ok(ApiResponse.ok(usuarioActualizado, "Rol asignado correctamente"));
+        UsuarioResponse usuarioActualizado =
+                usuarioService.assignRoleToUser(userId, rolId);
+
+        return ResponseEntity.ok(
+                ApiResponse.ok(usuarioActualizado, "Rol asignado correctamente")
+        );
     }
 
     // Bloquear un usuario
