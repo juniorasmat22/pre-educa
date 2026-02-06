@@ -2,7 +2,9 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import com.bootcodeperu.admision_academica.domain.model.Permiso;
 import org.springframework.stereotype.Component;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringRolRepository;
@@ -40,5 +42,10 @@ public class RolRepositoryImpl implements RolRepository {
     @Override
     public Boolean existsByNombre(String nombre) {
         return springRolRepository.existsByNombre(nombre);
+    }
+
+    @Override
+    public Set<Rol> findAllByPermisosContaining(Permiso permiso) {
+        return springRolRepository.findAllByPermisosContaining(permiso);
     }
 }

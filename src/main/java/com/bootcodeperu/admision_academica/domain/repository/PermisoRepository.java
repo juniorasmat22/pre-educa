@@ -12,4 +12,5 @@ public interface PermisoRepository {
     List<Permiso> findAll();
     List<Permiso> findAllById(Set<Long> permisosIds);
     boolean existsByNombre(String nombre);
+    void delete(Permiso permiso);
 }

@@ -42,4 +42,9 @@ public class PermisoRepositoryImpl implements PermisoRepository {
     public boolean existsByNombre(String nombre) {
         return springPermisoRepository.existsByNombre(nombre);
     }
+
+    @Override
+    public void delete(Permiso permiso) {
+    springPermisoRepository.delete(permiso);
+    }
 }
