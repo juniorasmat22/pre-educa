@@ -1,6 +1,7 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.token.RefreshTokenRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioRegistroRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +47,8 @@ public class UsuarioController {
     }
     @PostMapping("/refresh-token")
     public ResponseEntity<ApiResponse<AuthenticationResponse>> refreshToken(
-            @RequestBody String refreshToken) {
-        AuthenticationResponse newToken = authService.refreshToken(refreshToken);
+            @RequestBody RefreshTokenRequest request) {
+        AuthenticationResponse newToken = authService.refreshToken(request.refreshToken());
         return ResponseEntity.ok(ApiResponse.ok(newToken, "Token renovado correctamente"));
     }
 
