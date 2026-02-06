@@ -1,6 +1,8 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.PermisoMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.RolMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolPermisosRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolResponse;
@@ -27,6 +29,7 @@ public class RolUseCase implements RolService {
     private final RolRepository rolRepository;
     private final PermisoRepository permisoRepository;
     private final RolMapper rolMapper;
+    private final PermisoMapper permisoMapper;
     @Override
     @Transactional(readOnly = true)
     public List<RolResponse> getAllRoles() {
@@ -124,7 +127,15 @@ public class RolUseCase implements RolService {
         rolRepository.save(rol);
         return rolMapper.toRolResponse(rol);
     }
-
-
-
+    @Override
+    @Transactional(readOnly = true)
+    public Set<PermisoResponse> getPermisosByRol(Long rolId) {
+        Rol rol = rolRepository.findById(rolId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Rol no encontrado con ID: " + rolId));
+        return rol.getPermisos()
+                .stream()
+                .map(permisoMapper::toResponse)
+                .collect(Collectors.toSet());
+    }
 }

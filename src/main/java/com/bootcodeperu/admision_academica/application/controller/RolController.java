@@ -1,6 +1,7 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.permiso.PermisoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolPermisosRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolResponse;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/roles")
@@ -76,4 +78,16 @@ public class RolController {
                 )
         );
     }
+    @GetMapping("/{id}/permisos")
+    public ResponseEntity<ApiResponse<Set<PermisoResponse>>> getPermisosByRol(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        rolService.getPermisosByRol(id),
+                        "Lista de permisos del rol obtenida correctamente"
+                )
+        );
+    }
+
 }
