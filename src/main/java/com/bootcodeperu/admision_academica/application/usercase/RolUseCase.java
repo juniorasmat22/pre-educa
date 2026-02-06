@@ -1,8 +1,10 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
 import com.bootcodeperu.admision_academica.adapter.mapper.RolMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolPermisosRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.rol.RolUpdateRequest;
 import com.bootcodeperu.admision_academica.application.service.RolService;
 import com.bootcodeperu.admision_academica.domain.exception.DuplicateResourceException;
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +33,16 @@ public class RolUseCase implements RolService {
         return rolRepository.findAll().stream()
                 .map(rolMapper::toRolResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public RolResponse getRolById(Long id) {
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Rol no encontrado con ID: " + id));
+
+        return rolMapper.toRolResponse(rol);
     }
 
     @Override
@@ -53,4 +66,65 @@ public class RolUseCase implements RolService {
 
         return rolMapper.toRolResponse(rolRepository.save(rol));
     }
+
+    @Override
+    @Transactional
+    public RolResponse updateRol(Long id, RolUpdateRequest request) {
+
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Rol no encontrado con ID: " + id));
+
+        if (!rol.getNombre().equals(request.nombre())
+                && rolRepository.existsByNombre(request.nombre())) {
+            throw new DuplicateResourceException(
+                    "Ya existe un rol con el nombre: " + request.nombre());
+        }
+
+        rol.setNombre(request.nombre());
+        rolRepository.save(rol);
+
+        return rolMapper.toRolResponse(rol);
+    }
+
+    @Override
+    @Transactional
+    public RolResponse addPermisos(Long id, RolPermisosRequest request) {
+
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Rol no encontrado con ID: " + id));
+
+        Set<Permiso> permisos = new HashSet<>(
+                permisoRepository.findAllById(request.permisosIds())
+        );
+
+        if (permisos.size() != request.permisosIds().size()) {
+            throw new ResourceNotFoundException("Uno o más permisos no existen");
+        }
+
+        rol.getPermisos().addAll(permisos);
+        rolRepository.save(rol);
+
+        return rolMapper.toRolResponse(rol);
+    }
+
+
+    @Override
+    @Transactional
+    public RolResponse removePermisos(Long id, RolPermisosRequest request) {
+
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Rol no encontrado con ID: " + id));
+
+        rol.getPermisos()
+                .removeIf(permiso -> request.permisosIds().contains(permiso.getId()));
+
+        rolRepository.save(rol);
+        return rolMapper.toRolResponse(rol);
+    }
+
+
+
 }
