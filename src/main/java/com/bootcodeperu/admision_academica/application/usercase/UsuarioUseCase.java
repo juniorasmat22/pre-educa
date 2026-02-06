@@ -106,4 +106,58 @@ public class UsuarioUseCase implements UsuarioService {
         usuario.setRol(rol);
         return usuarioMapper.toResponse(usuarioRepository.save(usuario));
     }
+
+    // =====================================================
+    // Métodos de administración
+    // =====================================================
+    @Override
+    @Transactional
+    public UsuarioResponse blockUser(Long userId) {
+        return setAccountNonLocked(userId, false);
+    }
+
+    @Override
+    @Transactional
+    public UsuarioResponse unblockUser(Long userId) {
+        return setAccountNonLocked(userId, true);
+    }
+
+    @Override
+    @Transactional
+    public UsuarioResponse activateUser(Long userId) {
+        return setEnabled(userId, true);
+    }
+
+    @Override
+    @Transactional
+    public UsuarioResponse deactivateUser(Long userId) {
+        return setEnabled(userId, false);
+    }
+
+    @Override
+    @Transactional
+    public UsuarioResponse changePassword(Long userId, String newPassword) {
+        Usuario usuario = usuarioRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        usuario.setPasswordHash(passwordEncoder.encode(newPassword));
+        return usuarioMapper.toResponse(usuarioRepository.save(usuario));
+    }
+
+    // ==========================
+    // Helpers privados
+    // ==========================
+    private UsuarioResponse setAccountNonLocked(Long userId, boolean nonLocked) {
+        Usuario usuario = usuarioRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        usuario.setAccountNonLocked(nonLocked);
+        return usuarioMapper.toResponse(usuarioRepository.save(usuario));
+    }
+
+    private UsuarioResponse setEnabled(Long userId, boolean enabled) {
+        Usuario usuario = usuarioRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        usuario.setEnabled(enabled);
+        return usuarioMapper.toResponse(usuarioRepository.save(usuario));
+    }
 }

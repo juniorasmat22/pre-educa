@@ -34,4 +34,26 @@ public interface UsuarioService {
     UsuarioResponse getUserByEmail(String email);
     List<UsuarioResponse> getAllUsers();
     UsuarioResponse assignRoleToUser(Long userId, String rolName);
+
+    /**
+     * Bloquea a un usuario impidiendo su autenticación.
+     */
+    UsuarioResponse blockUser(Long userId);
+
+    /**
+     * Desbloquea un usuario previamente bloqueado.
+     */
+    UsuarioResponse unblockUser(Long userId);
+
+    /**
+     * Cambia el estado activo/inactivo de un usuario.
+     */
+    UsuarioResponse activateUser(Long userId);
+    UsuarioResponse deactivateUser(Long userId);
+
+    /**
+     * Cambia la contraseña de un usuario (requiere verificación de permisos o propia contraseña)
+     */
+    UsuarioResponse changePassword(Long userId, String newPassword);
+
 }
