@@ -137,7 +137,28 @@ public class GlobalExceptionHandler {
                 request
         );
     }
+    // Manejo de Token Expirado (401 Unauthorized)
+    @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class)
+    public ResponseEntity<ErrorResponse> handleExpiredJwtException(io.jsonwebtoken.ExpiredJwtException ex, HttpServletRequest request) {
+        return buildResponse(
+                HttpStatus.UNAUTHORIZED,
+                "Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.",
+                request
+        );
+    }
 
+    // Manejo de Token Inválido o Malformado (401 Unauthorized)
+    @ExceptionHandler({
+            io.jsonwebtoken.security.SignatureException.class,
+            io.jsonwebtoken.MalformedJwtException.class
+    })
+    public ResponseEntity<ErrorResponse> handleInvalidJwtException(Exception ex, HttpServletRequest request) {
+        return buildResponse(
+                HttpStatus.UNAUTHORIZED,
+                "El token de seguridad es inválido.",
+                request
+        );
+    }
     /* =====================================================
        500 - ERRORES DE CARGA DE CONTENIDO
        ===================================================== */

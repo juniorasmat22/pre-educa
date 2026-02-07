@@ -3,6 +3,7 @@ package com.bootcodeperu.admision_academica.application.service;
 import java.util.List;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.ContenidoTeoria;
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.ContenidoTeoriaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.ContenidoTeoriaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaPracticaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.progresotema.ProgresoTemaResponse;
@@ -39,4 +40,6 @@ public interface ContenidoService {
 
     /** NUEVO MÉTODO (para administración) **/
     ContenidoTeoriaResponse saveContenidoTeoria(ContenidoTeoria contenido);
+    ContenidoTeoriaResponse updateContenidoTeoria(Long temaId, String contenidoId, ContenidoTeoriaRequest request);
+    void deleteContenidoTeoria(Long temaId, String contenidoId);
 }

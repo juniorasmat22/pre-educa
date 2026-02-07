@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.usercase;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import com.bootcodeperu.admision_academica.adapter.mapper.ContenidoTeoriaMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.PreguntaDetalleMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.ProgresoTemaMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.TemaMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.contenido.ContenidoTeoriaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaPracticaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.progresotema.ProgresoTemaResponse;
 import org.springframework.stereotype.Service;
@@ -117,12 +119,37 @@ public class ContenidoUseCase implements ContenidoService {
 
 	@Override
 	public ContenidoTeoriaResponse saveContenidoTeoria(ContenidoTeoria contenido) {
-		// Verificar que el Tema de referencia exista en PostgreSQL (Regla de
-		// integridad)
 		temaRepository.findById(contenido.getIdTemaSQL())
 				.orElseThrow(() -> new ResourceNotFoundException("Tema", "id", contenido.getIdTemaSQL()));
 
-		// Si todo es válido, guardar en MongoDB
 		return contenidoTeoriaMapper.toResponse(contenidoTeoriaMongoRepository.save(contenido));
+	}
+
+	@Override
+	public ContenidoTeoriaResponse updateContenidoTeoria(Long temaId, String contenidoId, ContenidoTeoriaRequest request) {
+		ContenidoTeoria contenido = contenidoTeoriaMongoRepository.findById(contenidoId)
+				.orElseThrow(() -> new RuntimeException("Contenido no encontrado"));
+
+		if (!contenido.getIdTemaSQL().equals(temaId)) {
+			throw new RuntimeException("El contenido no pertenece a este tema");
+		}
+
+		contenido.setTitulo(request.titulo());
+		contenido.setSecciones(contenidoTeoriaMapper.toResponseList(request.secciones()));
+		contenido.setUltimaActualizacion(LocalDateTime.now());
+
+		return contenidoTeoriaMapper.toResponse(contenidoTeoriaMongoRepository.save(contenido));
+	}
+
+	@Override
+	public void deleteContenidoTeoria(Long temaId, String contenidoId) {
+		ContenidoTeoria contenido = contenidoTeoriaMongoRepository.findById(contenidoId)
+				.orElseThrow(() -> new RuntimeException("Contenido no encontrado"));
+
+		if (!contenido.getIdTemaSQL().equals(temaId)) {
+			throw new RuntimeException("El contenido no pertenece a este tema");
+		}
+
+		contenidoTeoriaMongoRepository.delete(contenido);
 	}
 }
