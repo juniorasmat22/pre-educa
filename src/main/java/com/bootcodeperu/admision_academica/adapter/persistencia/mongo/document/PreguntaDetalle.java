@@ -2,19 +2,20 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.databind.JsonNode;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Document(collection = "preguntasdetalle")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PreguntaDetalle {
-	// El ID de MongoDB (ObjectId)
+    // El ID de MongoDB (ObjectId)
     @Id
     private String id; // Este es el mongoIdPregunta de 24 caracteres
 
@@ -23,11 +24,11 @@ public class PreguntaDetalle {
     private String enunciado;
 
     // Usaremos un tipo genérico como JsonNode para mapear la lista de opciones complejas de Mongo
-    private JsonNode opciones; 
+    private Map<String, Object> opciones;
 
     private String respuestaCorrecta;
 
-    private JsonNode explicacionDetallada; 
+    private Map<String, Object> explicacionDetallada;
 
     private String fuente;
 

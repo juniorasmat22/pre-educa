@@ -1,4 +1,4 @@
-package com.bootcodeperu.admision_academica.domain.model;
+package com.bootcodeperu.admision_academica.domain.model.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

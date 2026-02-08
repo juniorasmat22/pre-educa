@@ -6,7 +6,7 @@ import com.bootcodeperu.admision_academica.application.controller.dto.PreguntaCr
 import com.bootcodeperu.admision_academica.application.controller.dto.outbox.OutboxPreguntaPayload;
 import com.bootcodeperu.admision_academica.application.service.outbox.OutboxHandler;
 import com.bootcodeperu.admision_academica.domain.model.Outbox;
-import com.bootcodeperu.admision_academica.domain.model.OutboxEventType;
+import com.bootcodeperu.admision_academica.domain.model.enums.OutboxEventType;
 import com.bootcodeperu.admision_academica.domain.repository.MetadatoPreguntaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class QuestionCreatedHandler implements OutboxHandler {
     @Transactional
     public void handle(Outbox event) throws Exception {
         OutboxPreguntaPayload payload = objectMapper.readValue(event.getPayload(), OutboxPreguntaPayload.class);
-        PreguntaCreationDTO dto = payload.dto();
+        PreguntaCreationDTO dto = payload.data();
 
         // 1. Mapeo y persistencia en Mongo
         PreguntaDetalle detalle = new PreguntaDetalle();
@@ -37,8 +37,8 @@ public class QuestionCreatedHandler implements OutboxHandler {
         detalle.setEnunciado(dto.getEnunciado());
         detalle.setOpciones(dto.getOpciones());
         detalle.setRespuestaCorrecta(dto.getRespuestaCorrecta());
-        //detalle.setExplicacionCorrecta(dto.getExplicacionCorrecta());
-        //detalle.setExplicacionIncorrecta(dto.getExplicacionIncorrecta());
+        //detalle.setExplicacionCorrecta(data.getExplicacionCorrecta());
+        //detalle.setExplicacionIncorrecta(data.getExplicacionIncorrecta());
 
         PreguntaDetalle savedMongo = mongoRepository.save(detalle);
 

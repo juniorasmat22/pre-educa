@@ -3,7 +3,7 @@ package com.bootcodeperu.admision_academica.adapter.outbox.handlers;
 import com.bootcodeperu.admision_academica.adapter.mapper.ContenidoTeoriaMapper;
 import com.bootcodeperu.admision_academica.application.service.outbox.OutboxHandler;
 import com.bootcodeperu.admision_academica.domain.model.Outbox;
-import com.bootcodeperu.admision_academica.domain.model.OutboxEventType;
+import com.bootcodeperu.admision_academica.domain.model.enums.OutboxEventType;
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.ContenidoTeoria;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.ContenidoTeoriaRequest;
 import com.fasterxml.jackson.databind.JsonNode;

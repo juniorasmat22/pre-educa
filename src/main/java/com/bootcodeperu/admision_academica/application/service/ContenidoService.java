@@ -37,17 +37,5 @@ public interface ContenidoService {
      */
     ProgresoTemaResponse completarTeoria(Long usuarioId, Long temaId);
 
-    /**
-     * NUEVO MÉTODO
-     **/
     List<ContenidoTeoriaResponse> getContenidoTeoriaByTemaId(Long temaId);
-
-    /**
-     * NUEVO MÉTODO (para administración)
-     **/
-    ContenidoTeoriaResponse saveContenidoTeoria(ContenidoTeoria contenido);
-
-    ContenidoTeoriaResponse updateContenidoTeoria(Long temaId, String contenidoId, ContenidoTeoriaRequest request);
-
-    void deleteContenidoTeoria(Long temaId, String contenidoId);
 }

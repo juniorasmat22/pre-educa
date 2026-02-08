@@ -4,6 +4,7 @@ import com.bootcodeperu.admision_academica.application.controller.dto.PreguntaCr
 
 //Usamos record o DTO inmutable
 public record OutboxPreguntaPayload(
- Long sqlMetadatoId, // El ID de la tabla MetadatoPregunta (PostgreSQL)
- PreguntaCreationDTO dto // El DTO de la pregunta con todos los datos
-) {}
+        Long sqlMetadatoId, // El ID de la tabla MetadatoPregunta (PostgreSQL)
+        PreguntaCreationDTO data // El DTO de la pregunta con todos los datos
+) {
+}

@@ -4,7 +4,7 @@ import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.F
 import com.bootcodeperu.admision_academica.application.controller.dto.flashcard.FlashcardRequest;
 import com.bootcodeperu.admision_academica.application.service.outbox.OutboxHandler;
 import com.bootcodeperu.admision_academica.domain.model.Outbox;
-import com.bootcodeperu.admision_academica.domain.model.OutboxEventType;
+import com.bootcodeperu.admision_academica.domain.model.enums.OutboxEventType;
 import com.bootcodeperu.admision_academica.domain.repository.MetadatoPreguntaRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,7 @@ public class FlashcardCreatedHandler implements OutboxHandler {
     public void handle(Outbox event) throws Exception {
         // 1. Deserializar el payload (que contiene metadatoId y los datos de la flashcard)
         JsonNode root = objectMapper.readTree(event.getPayload());
-        Long metadatoId = root.get("metadatoId").asLong();
+        Long metadatoId = root.get("sqlMetadatoId").asLong();
         FlashcardRequest dto = objectMapper.treeToValue(root.get("data"), FlashcardRequest.class);
 
         // 2. Mapear y guardar en la colección 'flashcards' de MongoDB

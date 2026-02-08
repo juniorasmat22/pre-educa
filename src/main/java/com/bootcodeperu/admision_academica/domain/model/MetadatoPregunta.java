@@ -2,6 +2,7 @@ package com.bootcodeperu.admision_academica.domain.model;
 
 import java.time.LocalDateTime;
 
+import com.bootcodeperu.admision_academica.domain.model.enums.QuestionTarget;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MetadatoPregunta {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaPracticaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.flashcard.FlashcardResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.progresotema.ProgresoTemaResponse;
+import com.bootcodeperu.admision_academica.application.service.FlashcardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +21,43 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/contenido")
 @RequiredArgsConstructor
 public class ContenidoController {
-    
-    private final ContenidoService contenidoService;
 
-    // GET /api/v1/contenido/temas/1/teoria
+    private final ContenidoService contenidoService;
+    private final FlashcardService flashcardService;
+
+    // GET: Teoría por Tema
     @GetMapping("/temas/{temaId}/teoria")
-    @PreAuthorize("hasAuthority('CONTENIDO_READ') or hasRole('ADMIN')") // Permiso necesario
-    public ResponseEntity<List<ContenidoTeoriaResponse>> getTeoriaByTema(@PathVariable Long temaId) {
-        List<ContenidoTeoriaResponse> teoria = contenidoService.getContenidoTeoriaByTemaId(temaId);
-        return ResponseEntity.ok(teoria);
+    public ResponseEntity<ApiResponse<List<ContenidoTeoriaResponse>>> getTeoria(@PathVariable Long temaId) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(contenidoService.getContenidoTeoriaByTemaId(temaId), "Teoría obtenida")
+        );
     }
-    @GetMapping("/temas/{temaId}/preguntas")
-    @PreAuthorize("hasAuthority('CONTENIDO_READ') or hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<List<PreguntaPracticaResponse>>> getPreguntasByTema(
+
+    // GET: Preguntas de Práctica (Filtradas por target PRACTICE)
+    @GetMapping("/temas/{temaId}/practica")
+    public ResponseEntity<ApiResponse<List<PreguntaPracticaResponse>>> getPreguntasPractica(
             @PathVariable Long temaId,
             @RequestParam String nivel) {
-        List<PreguntaPracticaResponse> preguntas = contenidoService.getPreguntasPractica(temaId, nivel);
-        return ResponseEntity.ok(ApiResponse.ok(preguntas, "Preguntas de práctica obtenidas correctamente"));
+        return ResponseEntity.ok(
+                ApiResponse.ok(contenidoService.getPreguntasPractica(temaId, nivel), "Preguntas de práctica obtenidas")
+        );
+    }
+
+    // GET: Flashcards por Tema
+    @GetMapping("/temas/{temaId}/flashcards")
+    public ResponseEntity<ApiResponse<List<FlashcardResponse>>> getFlashcards(@PathVariable Long temaId) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(flashcardService.getFlashcardsByTheme(temaId), "Flashcards obtenidas")
+        );
+    }
+
+    // POST: Marcar teoría como completada
+    @PostMapping("/temas/{temaId}/completar-teoria")
+    public ResponseEntity<ApiResponse<ProgresoTemaResponse>> completarTeoria(
+            @PathVariable Long temaId,
+            @RequestParam Long usuarioId) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(contenidoService.completarTeoria(usuarioId, temaId), "Progreso actualizado")
+        );
     }
 }
