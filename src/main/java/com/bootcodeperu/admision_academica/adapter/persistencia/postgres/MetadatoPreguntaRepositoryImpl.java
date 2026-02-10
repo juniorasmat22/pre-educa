@@ -39,18 +39,17 @@ public class MetadatoPreguntaRepositoryImpl implements MetadatoPreguntaRepositor
     }
 
     @Override
-    public Long countByTemaIdInAndTipoPregunta(List<Long> temaIds, String tipoPregunta) {
+    public Long countByTemaIdInAndTarget(List<Long> temaIds, QuestionTarget target) {
         // Usa el método de conteo de Spring Data JPA
-        return springMetadatoPreguntaRepository.countByTemaIdInAndTipoPregunta(temaIds, tipoPregunta);
+        return springMetadatoPreguntaRepository.countByTemaIdInAndTarget(temaIds, target);
     }
 
     @Override
-    public List<MetadatoPregunta> findRandomByTemaIdInAndTipoPregunta(
-            List<Long> temaIds,
-            String tipoPregunta,
+    public List<MetadatoPregunta> findRandomByTemaIdInAndTarget(
+            List<Long> temaIds, String target,
             int limit) {
         // Usa la consulta nativa de selección aleatoria
-        return springMetadatoPreguntaRepository.findRandomByTemaIdInAndTipoPregunta(temaIds, tipoPregunta, limit);
+        return springMetadatoPreguntaRepository.findRandomByTemaIdInAndTarget(temaIds, target, limit);
     }
 
     @Override

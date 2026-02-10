@@ -33,8 +33,8 @@ public class MetadatoPregunta {
     @Column(name = "nivel", nullable = false, length = 50)
     private String nivel; // 'Básico', 'Intermedio', 'Avanzado', 'Banco UNT'
 
-    @Column(name = "tipoPregunta", nullable = false, length = 50)
-    private String tipoPregunta; // 'PracticaTema', 'BancoSimulacro'
+    //@Column(name = "tipoPregunta", nullable = false, length = 50)
+    //private String tipoPregunta; // 'PracticaTema', 'BancoSimulacro'
 
     @Column(name = "anioExamen")
     private Integer anioExamen;

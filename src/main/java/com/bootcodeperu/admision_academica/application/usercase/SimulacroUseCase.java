@@ -15,6 +15,7 @@ import com.bootcodeperu.admision_academica.application.controller.dto.contenido.
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 import com.bootcodeperu.admision_academica.application.service.ProgresoService;
 import com.bootcodeperu.admision_academica.domain.model.*;
+import com.bootcodeperu.admision_academica.domain.model.enums.QuestionTarget;
 import com.bootcodeperu.admision_academica.domain.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,8 +32,8 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor // Inyecta las dependencias a través del constructor
-public class SimulacroUseCase implements SimulacroService{
-	// Repositorios de PostgreSQL
+public class SimulacroUseCase implements SimulacroService {
+    // Repositorios de PostgreSQL
     private final AreaRepository areaRepository;
     private final CursoAreaRepository cursoAreaRepository;
     private final TemaRepository temaRepository;
@@ -47,12 +48,13 @@ public class SimulacroUseCase implements SimulacroService{
 
     private final PreguntaDetalleMapper preguntaDetalleMapper;
     private final ResultadoSimulacroMapper resultadoSimulacroMapper;
+
     /**
      * PASO 1: Genera un examen simulacro completo para un área de postulación.
      */
-	@Override
-	public List<PreguntaDetalleResponse> generarExamenSimulacro(Long areaId) {
-		// 1. Verificar Área
+    @Override
+    public List<PreguntaDetalleResponse> generarExamenSimulacro(Long areaId) {
+        // 1. Verificar Área
         Area area = areaRepository.findById(areaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Área", "id", areaId));
 
@@ -72,22 +74,22 @@ public class SimulacroUseCase implements SimulacroService{
 
             // Obtener los IDs de los temas de ese curso (necesario para la consulta eficiente)
             List<Long> temaIds = temaRepository.findIdsByCursoId(cursoId);
-            
-            if (temaIds.isEmpty()) continue; 
+
+            if (temaIds.isEmpty()) continue;
 
             // Seleccionar IDs de Metadatos de forma aleatoria (tipo BancoSimulacro)
             List<MetadatoPregunta> metadatosSeleccionados = metadatoPreguntaRepository
-                    .findRandomByTemaIdInAndTipoPregunta(
+                    .findRandomByTemaIdInAndTarget(
                             temaIds,
-                            "BancoSimulacro",
+                            QuestionTarget.EXAM.name(),
                             cantidadRequerida
                     );
-            
+
             // Agregar los IDs de Mongo de las preguntas seleccionadas
             mongoIdsSeleccionados.addAll(
-                metadatosSeleccionados.stream()
-                        .map(MetadatoPregunta::getMongoIdPregunta)
-                        .toList()
+                    metadatosSeleccionados.stream()
+                            .map(MetadatoPregunta::getMongoIdPregunta)
+                            .toList()
             );
         }
 
@@ -100,7 +102,7 @@ public class SimulacroUseCase implements SimulacroService{
         Map<String, PreguntaDetalle> preguntasMap = preguntaDetalleMongoRepository
                 .findAllByIdIn(mongoIdsSeleccionados).stream()
                 .collect(Collectors.toMap(PreguntaDetalle::getId, p -> p));
-        
+
         // Mapear los IDs seleccionados al orden del examen
 
         return mongoIdsSeleccionados.stream()
@@ -108,33 +110,33 @@ public class SimulacroUseCase implements SimulacroService{
                 .filter(Objects::nonNull) // Filtrar si alguna pregunta no se encontró en Mongo (error de datos)
                 .map(preguntaDetalleMapper::toResponse)
                 .collect(Collectors.toList());
-	}
+    }
 
-	/**
+    /**
      * PASO 2: Evalúa las respuestas y guarda el resultado.
      */
-	@Override
-	@Transactional // Asegura que la operación de guardar el resultado sea atómica
-	public ResultadoSimulacroResponse evaluarSimulacro(Long usuarioId, Long areaId, Map<String, String> respuestas,
+    @Override
+    @Transactional // Asegura que la operación de guardar el resultado sea atómica
+    public ResultadoSimulacroResponse evaluarSimulacro(Long usuarioId, Long areaId, Map<String, String> respuestas,
                                                        Integer tiempoTomado) {
-		// 1. Verificar Usuario y Área
+        // 1. Verificar Usuario y Área
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", usuarioId));
-        
+
         Area area = areaRepository.findById(areaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Área", "id", areaId));
 
         // 2. Obtener Preguntas Detalle de Mongo (Solo las preguntas respondidas)
         List<String> mongoIdsRespondidos = new ArrayList<>(respuestas.keySet());
         List<PreguntaDetalle> detalles = preguntaDetalleMongoRepository.findAllByIdIn(mongoIdsRespondidos);
-        
+
         // Si no se encuentran los detalles, no podemos evaluar (error de datos)
         if (detalles.isEmpty()) {
             throw new ContentLoadingException("No se encontraron detalles de las preguntas para la evaluación.");
         }
 
         // 3. Lógica de Puntuación (EJEMPLO SIMPLIFICADO)
-     // Obtener los pesos del Área
+        // Obtener los pesos del Área
         final double pesoCorrecta = area.getPuntajeCorrecta();    // Ej: 4.00
         final double pesoIncorrecta = area.getPuntajeIncorrecta(); // Ej: -0.25,
         final double pesoBlanco = area.getPuntajeCorrecta(); // Ej: -0.25,
@@ -173,7 +175,7 @@ public class SimulacroUseCase implements SimulacroService{
             detalleRespuesta.put("puntajeObtenido", puntajePregunta);
             detallesRespuestasList.add(detalleRespuesta);
         }
-        
+
         // 4. Guardar Resultado en PostgreSQL
         ResultadoSimulacro resultado = new ResultadoSimulacro();
         resultado.setUsuario(usuario);
@@ -190,7 +192,8 @@ public class SimulacroUseCase implements SimulacroService{
         // Retorna el resultado (asumiendo que los campos están configurados correctamente para JPA)
         // 5. Devolver DTO (Mapeo)
         return resultadoSimulacroMapper.toResponse(resultadoGuardado); //modelMapper.map(resultadoGuardado, ResultadoSimulacroResponse.class);
-	}
+    }
+
     @Override
     public List<DebilidadTemaResponse> obtenerAnalisisDebilidades(Long usuarioId) {
         // 1. La base de datos ya nos da SOLO lo que necesitamos (menos de 60%)
@@ -205,6 +208,7 @@ public class SimulacroUseCase implements SimulacroService{
                 ))
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<RankingUsuarioResponse> obtenerTop10GlobalSemanal() {
         LocalDateTime haceSieteDias = LocalDateTime.now().minusDays(7);
@@ -235,6 +239,7 @@ public class SimulacroUseCase implements SimulacroService{
         }
         return ranking;
     }
+
     @Override
     public List<EvolucionPuntajeResponse> obtenerEvolucionEstudiante(Long usuarioId) {
         // 1. Buscamos todos los resultados del usuario ordenados por fecha
@@ -249,6 +254,7 @@ public class SimulacroUseCase implements SimulacroService{
                 ))
                 .collect(Collectors.toList());
     }
+
     @Override
     public EstadisticaComparativaResponse obtenerPercentilEstudiante(Long usuarioId, Long areaId) {
         // 1. Obtener el último puntaje del usuario
@@ -282,6 +288,7 @@ public class SimulacroUseCase implements SimulacroService{
 
         return new EstadisticaComparativaResponse(miPuntaje, promedioArea, Math.round(percentil * 100.0) / 100.0, mensaje);
     }
+
     @Override
     public List<RecomendacionResponse> generarRutaRecomendada(Long usuarioId) {
         List<RecomendacionResponse> recomendaciones = new ArrayList<>();

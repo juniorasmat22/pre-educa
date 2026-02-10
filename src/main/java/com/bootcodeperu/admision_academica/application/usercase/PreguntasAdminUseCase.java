@@ -36,7 +36,6 @@ public class PreguntasAdminUseCase implements PreguntaAdminService {
         meta.setTarget(request.target());
         meta.setNivel(request.nivel());
         meta.setAnioExamen(request.anioExamen());
-        meta.setTipoPregunta(request.tipoPregunta());
         var savedMeta = metadatoRepository.save(meta);
 
         // Registro de Outbox (Sincronización asíncrona)

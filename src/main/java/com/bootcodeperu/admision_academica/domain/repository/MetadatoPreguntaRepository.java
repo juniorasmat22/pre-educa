@@ -21,13 +21,13 @@ public interface MetadatoPreguntaRepository {
 
     // Método de negocio 2: Contar preguntas de BANCO por curso/área para generar simulacros.
     // Necesitas el ID de los temas que pertenecen a un curso, por eso recibe una lista de IDs.
-    Long countByTemaIdInAndTipoPregunta(List<Long> temaIds, String tipoPregunta);
+    Long countByTemaIdInAndTarget(List<Long> temaIds, QuestionTarget target);
 
     // Método de negocio 3: Seleccionar un conjunto ALEATORIO de preguntas de BANCO para un simulacro.
     // El 'tipoPregunta' será 'BancoSimulacro'.
-    List<MetadatoPregunta> findRandomByTemaIdInAndTipoPregunta(
+    List<MetadatoPregunta> findRandomByTemaIdInAndTarget(
             List<Long> temaIds,
-            String tipoPregunta,
+            String target,
             int limit // La cantidad de preguntas que requiere el examen de ese curso.
     );
 

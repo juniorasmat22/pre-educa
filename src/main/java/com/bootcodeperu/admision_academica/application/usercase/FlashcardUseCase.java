@@ -46,7 +46,6 @@ public class FlashcardUseCase implements FlashcardService {
         MetadatoPregunta metadato = new MetadatoPregunta();
         metadato.setTema(tema);
         metadato.setNivel(request.nivel());
-        metadato.setTipoPregunta(QuestionTarget.FLASHCARD.toString());
         metadato.setTarget(QuestionTarget.FLASHCARD);
         var savedMetadato = metadatoRepository.save(metadato);
 

@@ -22,17 +22,17 @@ public interface SpringMetadatoPreguntaRepository extends JpaRepository<Metadato
     List<MetadatoPregunta> findByTemaIdAndTarget(Long temaId, QuestionTarget target);
 
     // Método 2: Contar preguntas de BANCO por curso/área (utiliza los IDs de tema del curso).
-    Long countByTemaIdInAndTipoPregunta(List<Long> temaIds, String tipoPregunta);
+    Long countByTemaIdInAndTarget(List<Long> temaIds, QuestionTarget target);
 
     // Método 3: Seleccionar un conjunto ALEATORIO de preguntas de BANCO para un simulacro.
     @Query(value = "SELECT * FROM metadatopregunta m " +
-            "WHERE m.id_tema IN (:temaIds) AND m.tipo_pregunta = :tipoPregunta " +
+            "WHERE m.id_tema IN (:temaIds) AND m.target = :target " +
             "ORDER BY RANDOM() LIMIT :limit",
             nativeQuery = true)
     // Usamos nativeQuery para la función RANDOM() de PostgreSQL
-    List<MetadatoPregunta> findRandomByTemaIdInAndTipoPregunta(
+    List<MetadatoPregunta> findRandomByTemaIdInAndTarget(
             @Param("temaIds") List<Long> temaIds,
-            @Param("tipoPregunta") String tipoPregunta,
+            @Param("target") String target,
             @Param("limit") int limit
     );
 

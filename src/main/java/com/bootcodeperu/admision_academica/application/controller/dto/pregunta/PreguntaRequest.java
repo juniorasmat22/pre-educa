@@ -9,7 +9,6 @@ import java.util.Map;
 public record PreguntaRequest(@NotNull Long idTema,
                               @NotNull QuestionTarget target,
                               @NotBlank String nivel,
-                              @NotBlank String tipoPregunta,
                               @NotBlank String enunciado,
                               @NotNull Map<String, Object> opciones, // Null si es Flashcard
                               @NotBlank String respuestaCorrecta, // Reverso si es Flashcard

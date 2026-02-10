@@ -12,7 +12,6 @@ public class PreguntaCreationDTO {
     private String nivel; // Básico, Intermedio, Avanzado, Banco UNT
     private String tipoPregunta; // PracticaTema, BancoSimulacro
     private Integer anioExamen;
-
     // Contenido de la pregunta (lo que va a MongoDB)
     private String enunciado;
     private Map<String, Object> opciones;
