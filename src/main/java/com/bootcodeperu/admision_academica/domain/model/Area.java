@@ -15,17 +15,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Area {
-	@Id
+public class Area extends AuditEntity {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nombre", nullable = false, unique = true)
     private String nombre; // Ej: A. Ciencias de la Vida y la Salud
-    
+
     @Column(name = "descripcion", nullable = false, unique = true)
     private String descripcion; // Ej: A
-    
+
     private Double puntajeCorrecta; // Ej: 4.00, 5.00, 6.00 (mayor peso)
     private Double puntajeIncorrecta; // Ej: -0.25
     private Double puntajeBlanco; // Ej: -0.25

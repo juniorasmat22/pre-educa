@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "progresotema", uniqueConstraints = {@UniqueConstraint(columnNames = {"idUsuario", "idTema"})})
 @Data
 @NoArgsConstructor
-public class ProgresoTema {
-	@Id
+public class ProgresoTema extends AuditEntity {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -35,11 +35,11 @@ public class ProgresoTema {
     @ColumnDefault("false")
     private Boolean teoriaCompletada = false;
 
-    private Double puntajePromedio= 0.0; // Usamos Double o BigDecimal en Java para el DECIMAL de SQL
-    
+    private Double puntajePromedio = 0.0; // Usamos Double o BigDecimal en Java para el DECIMAL de SQL
+
     @ColumnDefault("0")
     private Double sumaPuntajes = 0.0; // <<< NUEVO: Suma de todos los puntajes obtenidos
-    
+
     @ColumnDefault("0")
     private Integer numeroIntentos = 0; // <<< NUEVO: Contador de cuántas veces practicó
 }

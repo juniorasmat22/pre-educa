@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "permiso")
 @Data
 @NoArgsConstructor
-public class Permiso {
+public class Permiso extends AuditEntity {
     public Permiso(String string) {
-    	this.nombre=string;
-	}
+        this.nombre = string;
+    }
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

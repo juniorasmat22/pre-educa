@@ -17,9 +17,9 @@ import lombok.*;
 @Setter
 @ToString(exclude = {"area", "curso"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CursoArea {
+public class CursoArea extends AuditEntity {
     @EqualsAndHashCode.Include
-	// Usamos el ID compuesto
+    // Usamos el ID compuesto
     @EmbeddedId
     private CursoAreaId id;
 

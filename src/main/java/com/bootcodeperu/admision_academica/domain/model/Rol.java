@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Table(name = "rol")
 @Data
 @NoArgsConstructor
-public class Rol {
+public class Rol extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,9 +20,9 @@ public class Rol {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "rolpermiso",
-        joinColumns = @JoinColumn(name = "idRol"),
-        inverseJoinColumns = @JoinColumn(name = "idPermiso")
+            name = "rolpermiso",
+            joinColumns = @JoinColumn(name = "idRol"),
+            inverseJoinColumns = @JoinColumn(name = "idPermiso")
     )
     private Set<Permiso> permisos;
 }

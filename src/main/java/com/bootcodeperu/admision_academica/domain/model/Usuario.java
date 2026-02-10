@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuario")
 @Data
 @NoArgsConstructor
-public class Usuario{
-	@Id
+public class Usuario extends AuditEntity {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -50,7 +50,7 @@ public class Usuario{
 
     @Column(nullable = false)
     private boolean isEnabled = true;
- // RELACIÓN CON ROLES (NUEVA RELACIÓN)
+    // RELACIÓN CON ROLES (NUEVA RELACIÓN)
     // Usamos EAGER para la relación de roles para que Spring Security la cargue automáticamente
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idRol")

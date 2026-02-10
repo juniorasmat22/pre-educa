@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "carrera")
 @Data
 @NoArgsConstructor
-public class Carrera {
+public class Carrera extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String nombre; // Ej: Medicina, Ingeniería de Sistemas, Derecho
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idArea")
     private Area area; // Área a la que pertenece (A, B, C, o D)

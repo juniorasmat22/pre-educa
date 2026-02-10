@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MetadatoPregunta {
+public class MetadatoPregunta extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,6 +39,6 @@ public class MetadatoPregunta {
     @Column(name = "anioExamen")
     private Integer anioExamen;
 
-    @Column(name = "fechaCreacion")
-    private LocalDateTime fechaCreacion;
+//    @Column(name = "fechaCreacion")
+//    private LocalDateTime fechaCreacion;
 }

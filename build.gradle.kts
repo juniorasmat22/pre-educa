@@ -1,7 +1,7 @@
- plugins {
-	java
-	id("org.springframework.boot") version "3.5.7"
-	id("io.spring.dependency-management") version "1.1.7"
+plugins {
+    java
+    id("org.springframework.boot") version "3.5.7"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "com.bootcodeperu"
@@ -9,88 +9,92 @@ version = "0.0.1-SNAPSHOT"
 description = "Demo project security-module for Spring Boot"
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	/* ===============================
+    /* ===============================
      * SPRING BOOT STARTERS (CORE)
      * =============================== */
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	// Spring Data JPA (Hibernate + repositorios JPA)
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	// Spring Data MongoDB (acceso a MongoDB)
-	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-	// Spring Security (autenticación y autorización)
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	// Actuator: métricas, health checks, endpoints de monitoreo
-    implementation ("org.springframework.boot:spring-boot-starter-actuator")
-	/* ===============================
-   	 * BASES DE DATOS
-   	 * =============================== */
-	// Driver JDBC para PostgreSQL (solo en runtime)
-	runtimeOnly("org.postgresql:postgresql")
-	/* ===============================
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    // Spring Data JPA (Hibernate + repositorios JPA)
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // Spring Data MongoDB (acceso a MongoDB)
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    // Spring Security (autenticación y autorización)
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    // Actuator: métricas, health checks, endpoints de monitoreo
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    /* ===============================
+        * BASES DE DATOS
+        * =============================== */
+    // Driver JDBC para PostgreSQL (solo en runtime)
+    runtimeOnly("org.postgresql:postgresql")
+    /* ===============================
      * SEGURIDAD - JWT
      * =============================== */
-	// Necesario para la implementación de JWT (io.jsonwebtoken)
-	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5")
-	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5")
-	/* ===============================
+    // Necesario para la implementación de JWT (io.jsonwebtoken)
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+    /* ===============================
      * MONITOREO Y MÉTRICAS
      * =============================== */
-	// Micrometer/Prometheus: Formatea las métricas para que Prometheus las entienda
-	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-	/* ===============================
- 	 * LOMBOK
+    // Micrometer/Prometheus: Formatea las métricas para que Prometheus las entienda
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+    /* ===============================
+     * AUDITAR CAMBIOS
      * =============================== */
-	compileOnly("org.projectlombok:lombok")
-	annotationProcessor("org.projectlombok:lombok")
-	/* ===============================
+    implementation("org.javers:javers-spring-boot-starter-sql:7.9.0")
+    /* ===============================
+      * LOMBOK
+     * =============================== */
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    /* ===============================
      * MAPEO DE OBJETOS (DTO <-> ENTITY)
      * =============================== */
-	// MapStruct: mapeo en tiempo de compilación (más rápido y seguro)
-	implementation("org.mapstruct:mapstruct:1.6.3")
-	// Procesador de anotaciones de MapStruct
-	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
-	// Evita conflictos entre Lombok y MapStruct
-	implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-	/* ===============================
+    // MapStruct: mapeo en tiempo de compilación (más rápido y seguro)
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    // Procesador de anotaciones de MapStruct
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+    // Evita conflictos entre Lombok y MapStruct
+    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+    /* ===============================
      * CONFIGURACIÓN DE ENTORNO
      * =============================== */
     //implementation("me.paulschwarz:spring-dotenv:4.0.0")
-	implementation("io.github.cdimascio:dotenv-java:3.1.0")
+    implementation("io.github.cdimascio:dotenv-java:3.1.0")
 
-	/* ===============================
+    /* ===============================
      * DESARROLLO
      * =============================== */
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	/* ===============================
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    /* ===============================
      * Validaciones
      * =============================== */
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	/* ===============================
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    /* ===============================
      * TESTING
      * =============================== */
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

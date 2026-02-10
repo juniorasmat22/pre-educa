@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "resultadosimulacro")
 @Data
 @NoArgsConstructor
-public class ResultadoSimulacro {
-	@Id
+public class ResultadoSimulacro extends AuditEntity {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -39,7 +39,7 @@ public class ResultadoSimulacro {
 
     private Integer tiempoTomado; // En minutos
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private Double puntajeTotal;
 
     // Mapeo del JSONB de PostgreSQL a un objeto Java (JsonNode de Jackson)
