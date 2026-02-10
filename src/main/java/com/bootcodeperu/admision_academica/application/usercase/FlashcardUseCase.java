@@ -11,6 +11,7 @@ import com.bootcodeperu.admision_academica.domain.exception.ContentLoadingExcept
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
 import com.bootcodeperu.admision_academica.domain.model.MetadatoPregunta;
 import com.bootcodeperu.admision_academica.domain.model.Outbox;
+import com.bootcodeperu.admision_academica.domain.model.enums.OutboxEventType;
 import com.bootcodeperu.admision_academica.domain.model.enums.QuestionTarget;
 import com.bootcodeperu.admision_academica.domain.repository.MetadatoPreguntaRepository;
 import com.bootcodeperu.admision_academica.domain.repository.OutboxRepository;
@@ -48,9 +49,8 @@ public class FlashcardUseCase implements FlashcardService {
         metadato.setNivel(request.nivel());
         metadato.setTarget(QuestionTarget.FLASHCARD);
         var savedMetadato = metadatoRepository.save(metadato);
-
         // 3. Al Outbox con tipo específico
-        saveToOutbox(savedMetadato.getId(), request, "FLASHCARD_CREATED_EVENT");
+        saveToOutbox(savedMetadato.getId(), request, OutboxEventType.QUESTION_CREATED.getValue());
     }
 
     private void saveToOutbox(Long metadatoId, Object data, String type) {

@@ -1,9 +1,10 @@
 package com.bootcodeperu.admision_academica.adapter.outbox.handlers;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.PreguntaDetalleMapper;
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.repository.PreguntaDetalleMongoRepository;
-import com.bootcodeperu.admision_academica.application.controller.dto.PreguntaCreationDTO;
 import com.bootcodeperu.admision_academica.application.controller.dto.outbox.OutboxPreguntaPayload;
+import com.bootcodeperu.admision_academica.application.controller.dto.pregunta.PreguntaRequest;
 import com.bootcodeperu.admision_academica.application.service.outbox.OutboxHandler;
 import com.bootcodeperu.admision_academica.domain.model.Outbox;
 import com.bootcodeperu.admision_academica.domain.model.enums.OutboxEventType;
@@ -19,6 +20,7 @@ public class QuestionCreatedHandler implements OutboxHandler {
     private final PreguntaDetalleMongoRepository mongoRepository;
     private final MetadatoPreguntaRepository sqlRepository;
     private final ObjectMapper objectMapper;
+    private final PreguntaDetalleMapper preguntaMapper;
 
     @Override
     public boolean supports(OutboxEventType type) {
@@ -29,19 +31,9 @@ public class QuestionCreatedHandler implements OutboxHandler {
     @Transactional
     public void handle(Outbox event) throws Exception {
         OutboxPreguntaPayload payload = objectMapper.readValue(event.getPayload(), OutboxPreguntaPayload.class);
-        PreguntaCreationDTO dto = payload.data();
-
-        // 1. Mapeo y persistencia en Mongo
-        PreguntaDetalle detalle = new PreguntaDetalle();
-        detalle.setIdTemaSQL(dto.getIdTema());
-        detalle.setEnunciado(dto.getEnunciado());
-        detalle.setOpciones(dto.getOpciones());
-        detalle.setRespuestaCorrecta(dto.getRespuestaCorrecta());
-        //detalle.setExplicacionCorrecta(data.getExplicacionCorrecta());
-        //detalle.setExplicacionIncorrecta(data.getExplicacionIncorrecta());
-
+        PreguntaRequest dto = payload.data();
+        PreguntaDetalle detalle = preguntaMapper.toDocument(dto);
         PreguntaDetalle savedMongo = mongoRepository.save(detalle);
-
         // 2. Sincronización con SQL
         sqlRepository.findById(payload.sqlMetadatoId())
                 .ifPresent(meta -> {

@@ -1,16 +1,19 @@
 package com.bootcodeperu.admision_academica.application.controller.dto.contenido;
 
 
+import com.bootcodeperu.admision_academica.application.controller.dto.pregunta.OpcionDetalleDTO;
+
 import java.util.Map;
 
 public record PreguntaDetalleResponse(
-        String id, // ID de MongoDB
+        String id,
         String enunciado,
-        Map<String, Object> opciones,
-        String fuente,
-
-        // Campos sensibles para la fase de revisión/corrección:
+        String enunciadoImagenUrl,
+        Map<String, OpcionDetalleDTO> opciones, // Texto + Feedback por opción
         String respuestaCorrecta,
-        Map<String, Object> explicacionDetallada
+        String explicacionCorrecta,
+        String explicacionIncorrecta,
+        String videoExplicativoUrl,
+        String fuente
 ) {
 }
