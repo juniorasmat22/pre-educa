@@ -46,4 +46,9 @@ public class AreaRepositoryImpl implements AreaRepository {
     public boolean existsByDescripcion(String descripcion) {
         return springAreaRepository.existsByDescripcion(descripcion);
     }
+
+    @Override
+    public boolean existsByNombreAndIdNot(String nombre, Long id) {
+        return springAreaRepository.existsByNombreAndIdNot(nombre, id);
+    }
 }

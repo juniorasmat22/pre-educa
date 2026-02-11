@@ -14,4 +14,6 @@ public interface SpringAreaRepository extends JpaRepository<Area, Long> {
     boolean existsByNombre(String nombre);
 
     boolean existsByDescripcion(String descripcion);
+
+    boolean existsByNombreAndIdNot(String nombre, Long id);
 }

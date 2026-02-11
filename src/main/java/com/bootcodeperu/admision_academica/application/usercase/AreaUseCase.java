@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class AreaUseCase implements AreaService {
     private final AreaRepository areaRepository;
     private final AreaMapper areaMapper;
+
     @Override
     public List<AreaResponse> getAllAreas() {
         return areaRepository.findAll().stream().map(areaMapper::toResponse).collect(Collectors.toList());
@@ -26,15 +27,15 @@ public class AreaUseCase implements AreaService {
 
     @Override
     public AreaResponse findAreaById(Long id) {
-         Area area = areaRepository.findById(id)
-                 .orElseThrow(() -> new ResourceNotFoundException("Área no encontrada con ID: " + id));
+        Area area = areaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Área no encontrada con ID: " + id));
 
         return areaMapper.toResponse(area);
     }
 
     @Override
     public AreaResponse createArea(AreaRequest request) {
-        if (areaRepository.existsByNombre(request.nombre())){
+        if (areaRepository.existsByNombre(request.nombre())) {
             throw new DuplicateResourceException("El nombre del área ya existe");
         }
         Area area = areaMapper.toEntity(request);
@@ -45,7 +46,7 @@ public class AreaUseCase implements AreaService {
     public AreaResponse updateArea(Long id, AreaRequest request) {
         Area area = areaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Área no encontrada con ID: " + id));
-        if (areaRepository.existsByNombre(request.nombre())){
+        if (areaRepository.existsByNombreAndIdNot(request.nombre(), id)) {
             throw new DuplicateResourceException("El nombre del área ya existe");
         }
         area.setNombre(request.nombre());
