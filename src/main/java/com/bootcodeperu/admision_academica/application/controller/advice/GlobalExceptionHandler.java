@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -50,6 +51,7 @@ public class GlobalExceptionHandler {
 
         return buildResponse(HttpStatus.UNAUTHORIZED, message, request);
     }
+
     /* =====================================================
        404 - RECURSOS NO ENCONTRADOS
        ===================================================== */
@@ -74,6 +76,7 @@ public class GlobalExceptionHandler {
     ) {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), request);
     }
+
     /* =====================================================
        409 - ESTADO ILEGAL DE LA OPERACIÓN
        ===================================================== */
@@ -85,6 +88,23 @@ public class GlobalExceptionHandler {
         return buildResponse(
                 HttpStatus.CONFLICT,
                 ex.getMessage(),
+                request
+        );
+    }
+
+    /* =====================================================
+       409 - ERROR DE CONCURRENCIA (Optimistic Lock)
+       ===================================================== */
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    public ResponseEntity<ErrorResponse> handleConcurrency(
+            ObjectOptimisticLockingFailureException ex,
+            HttpServletRequest request
+    ) {
+        log.error("Error de concurrencia: Otro usuario actualizó este registro.", ex);
+
+        return buildResponse(
+                HttpStatus.CONFLICT,
+                "Los datos fueron modificados por otro usuario. Recarga la página.",
                 request
         );
     }
@@ -123,6 +143,7 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.badRequest().body(errorResponse);
     }
+
     /* =====================================================
        401 - AUTENTICACIÓN
        ===================================================== */
@@ -137,6 +158,7 @@ public class GlobalExceptionHandler {
                 request
         );
     }
+
     // Manejo de Token Expirado (401 Unauthorized)
     @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class)
     public ResponseEntity<ErrorResponse> handleExpiredJwtException(io.jsonwebtoken.ExpiredJwtException ex, HttpServletRequest request) {
@@ -159,6 +181,7 @@ public class GlobalExceptionHandler {
                 request
         );
     }
+
     /* =====================================================
        500 - ERRORES DE CARGA DE CONTENIDO
        ===================================================== */
@@ -199,7 +222,7 @@ public class GlobalExceptionHandler {
             String message,
             HttpServletRequest request
     ) {
-        ErrorResponse errorResponse = new ErrorResponse( LocalDateTime.now(), status.value(), status.getReasonPhrase(), message, request.getRequestURI() );
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(), status.value(), status.getReasonPhrase(), message, request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, status);
     }
