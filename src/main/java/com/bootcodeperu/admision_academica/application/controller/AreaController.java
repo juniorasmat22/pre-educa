@@ -2,9 +2,12 @@ package com.bootcodeperu.admision_academica.application.controller;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.audit.AuditResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.page.PageResponse;
 import com.bootcodeperu.admision_academica.application.service.AreaService;
+import com.bootcodeperu.admision_academica.application.service.AuditService;
+import com.bootcodeperu.admision_academica.domain.model.Area;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AreaController {
     private final AreaService areaService;
+    private final AuditService auditService;
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<AreaResponse>>> getAllAreas() {
@@ -68,5 +72,13 @@ public class AreaController {
     public ResponseEntity<ApiResponse<Void>> deleteArea(@PathVariable Long id) {
         areaService.deleteArea(id);
         return ResponseEntity.ok(ApiResponse.ok(null, "Área desactivada (borrado lógico)"));
+    }
+
+    @GetMapping("/{id}/history")
+    public ResponseEntity<ApiResponse<List<AuditResponse>>> getHistorial(@PathVariable Long id) {
+        // Llamas al UseCase de auditoría pasando el ID y la clase de la Entidad
+        return ResponseEntity.ok(
+                ApiResponse.ok(auditService.getHistory(id, Area.class), "Historial recuperado")
+        );
     }
 }

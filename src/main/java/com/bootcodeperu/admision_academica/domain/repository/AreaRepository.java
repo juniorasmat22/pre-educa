@@ -30,5 +30,4 @@ public interface AreaRepository {
     boolean existsByDescripcion(String descripcion);
 
     boolean existsByNombreAndIdNot(String nombre, Long id);
-
 }

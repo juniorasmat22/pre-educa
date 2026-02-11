@@ -3,6 +3,9 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 import java.util.List;
 import java.util.Optional;
 
+import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
+import org.javers.core.Javers;
+import org.javers.repository.jql.QueryBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AreaRepositoryImpl implements AreaRepository {
 
     private final SpringAreaRepository springAreaRepository;
+    private final Javers javers;
 
     @Override
     public Area save(Area area) {
