@@ -30,9 +30,14 @@ spring:
       uri: ${MONGO_URI}
       # username: usuario_mongo
       # password: contrasena_mongo
-
+  # --------------------------------------------------------------------------
+  # 3. Observabilidad - TRACING (Micrometer + Brave)
+  # --------------------------------------------------------------------------
+  tracing:
+    sampling:
+      probability: 1.0 # ⚠ En producción usar 0.1 o 0.2
 # --------------------------------------------------------------------------
-# 3. Configuración de Seguridad JWT
+# 4. Configuración de Seguridad JWT
 # --------------------------------------------------------------------------
 application:
   security:
@@ -43,33 +48,38 @@ application:
       #   expiration: 604800000
 
 # --------------------------------------------------------------------------
-# 4. Configuración del Servidor
+# 5. Configuración del Servidor
 # --------------------------------------------------------------------------
 server:
   port: 8080
 
-# Genera una clave segura de 256 bits (32 bytes) y codif�cala en Base64
-#application.security.jwt.secret-key=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-#application.security.jwt.expiration=86400000 # 24 horas en milisegundos
 
-# (Fragmento de configuración Actuator)
 
+# --------------------------------------------------------------------------
+# 6. ACTUATOR + MÉTRICAS (Prometheus / Grafana)
+# --------------------------------------------------------------------------
 management:
-  # Exposición de Endpoints (Solo exponemos lo necesario)
   endpoints:
     web:
       exposure:
-        include: health, info, prometheus # Exponemos el endpoint de métricas
-  # Configuración de métricas
-  metrics:
-    tags:
-      application: admision-academica # Etiqueta clave para identificar tu API en Grafana/Prometheus
-    distribution:
-      percentiles-histogram-enabled: true # Habilita percentiles para una mejor visualización de latencia
+        include: "health,info,metrics,prometheus,env"
 
-  # Configuración de Latencia (Opcional, pero recomendado)
   endpoint:
     prometheus:
       enabled: true
     health:
-      show-details: always # Muestra detalles de salud (DBs, etc.)
+      show-details: always
+
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+
+# --------------------------------------------------------------------------
+# 7. LOGGING (CRUCIAL PARA GRAFANA + LOKI)
+# --------------------------------------------------------------------------
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"

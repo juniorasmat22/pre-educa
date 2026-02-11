@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <property name="CONSOLE_LOG_PATTERN" 
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [traceId=%X{traceId:-}] %logger{36} - %msg%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
         </encoder>
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/preprount-api.log</file> <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <file>logs/preprount-api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>logs/archive/preprount-api.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
-            <maxHistory>30</maxHistory> 
+            <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize> 
+                <maxFileSize>50MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
@@ -24,17 +23,25 @@
         </encoder>
     </appender>
 
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>http://localhost:3100/loki/api/v1/push</url>
+        </http>
+        <format>
+            <label>
+                <pattern>app=admision-academica,host=${HOSTNAME},level=%level</pattern>
+            </label>
+            <message>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </message>
+        </format>
+    </appender>
+
     <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="LOKI"/>
     </root>
 
-    <logger name="com.bootcodeperu.admision_academica.application" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
-    </logger>
-    
-    <logger name="org.hibernate.SQL" level="WARN" />
-    <logger name="org.springframework.web" level="INFO" />
-
+    <logger name="com.bootcodeperu.admision_academica" level="DEBUG"/>
 </configuration>

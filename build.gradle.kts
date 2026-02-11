@@ -87,6 +87,15 @@ dependencies {
      * =============================== */
     implementation("org.springframework.boot:spring-boot-starter-validation")
     /* ===============================
+     * OBSERVABILIDAD AVANZADA (LOKI + TEMPO)
+     * =============================== */
+    // Bridge para enviar logs directamente a Loki desde Logback
+    implementation("com.github.loki4j:loki-logback-appender:1.4.1")
+
+    // Tracing para conectar Logs con Métricas (indispensable para debugging pro)
+    implementation("io.micrometer:micrometer-tracing-bridge-brave")
+    implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+    /* ===============================
      * TESTING
      * =============================== */
     testImplementation("org.springframework.boot:spring-boot-starter-test")

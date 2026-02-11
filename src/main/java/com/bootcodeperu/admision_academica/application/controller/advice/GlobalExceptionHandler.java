@@ -1,11 +1,13 @@
 package com.bootcodeperu.admision_academica.application.controller.advice;
 
+import brave.Tracer;
 import com.bootcodeperu.admision_academica.application.controller.dto.error.ErrorResponse;
 import com.bootcodeperu.admision_academica.domain.exception.ContentLoadingException;
 import com.bootcodeperu.admision_academica.domain.exception.DomainValidationException;
 import com.bootcodeperu.admision_academica.domain.exception.DuplicateResourceException;
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+    private final Tracer tracer;
+
     /* =====================================================
        401 - ESTADO DE CUENTA
        ===================================================== */
@@ -205,10 +210,15 @@ public class GlobalExceptionHandler {
             Exception ex,
             HttpServletRequest request
     ) {
-        log.error("Error inesperado", ex);
+        // Obtenemos el Trace ID generado automáticamente para esta petición
+        String traceId = tracer.currentSpan() != null
+                ? tracer.currentSpan().context().traceIdString()
+                : "N/A";
+
+        log.error("[TraceID: {}] Error inesperado: {}", traceId, ex.getMessage(), ex);
         return buildResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
-                "Ocurrió un error inesperado. Contacte al soporte.",
+                "Ocurrió un error inesperado. Proporcione este código al soporte: " + traceId,
                 request
         );
     }
