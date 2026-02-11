@@ -3,6 +3,8 @@ package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringAreaRepository;
@@ -30,6 +32,16 @@ public class AreaRepositoryImpl implements AreaRepository {
     @Override
     public List<Area> findAll() {
         return springAreaRepository.findAll();
+    }
+
+    @Override
+    public Page<Area> findAll(String search, Pageable pageable) {
+        return springAreaRepository.findAllWithSearch(search, pageable);
+    }
+
+    @Override
+    public Page<Area> findAllActive(String search, Pageable pageable) {
+        return springAreaRepository.findAllActiveWithSearch(search, pageable);
     }
 
     @Override

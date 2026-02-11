@@ -3,13 +3,17 @@ package com.bootcodeperu.admision_academica.application.usercase;
 import com.bootcodeperu.admision_academica.adapter.mapper.AreaMapper;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.page.PageResponse;
 import com.bootcodeperu.admision_academica.application.service.AreaService;
 import com.bootcodeperu.admision_academica.domain.exception.DuplicateResourceException;
 import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
 import com.bootcodeperu.admision_academica.domain.model.Area;
 import com.bootcodeperu.admision_academica.domain.repository.AreaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +23,15 @@ import java.util.stream.Collectors;
 public class AreaUseCase implements AreaService {
     private final AreaRepository areaRepository;
     private final AreaMapper areaMapper;
+
+    @Override
+    public PageResponse<AreaResponse> getAreasPaged(String search, boolean includeInactive, Pageable pageable) {
+        Page<Area> areas = includeInactive
+                ? areaRepository.findAll(search, pageable)
+                : areaRepository.findAllActive(search, pageable);
+
+        return PageResponse.from(areas, areaMapper::toResponse);
+    }
 
     @Override
     public List<AreaResponse> getAllAreas() {
@@ -55,5 +68,16 @@ public class AreaUseCase implements AreaService {
         area.setPuntajeIncorrecta(request.puntajeIncorrecta());
         area.setPuntajeBlanco(request.puntajeBlanco());
         return areaMapper.toResponse(areaRepository.save(area));
+    }
+
+    @Override
+    @Transactional
+    public void deleteArea(Long id) {
+        Area area = areaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Área no encontrada"));
+
+        // Borrado Lógico: Javers registrará quién hizo este cambio de estado
+        area.setActivo(false);
+        areaRepository.save(area);
     }
 }

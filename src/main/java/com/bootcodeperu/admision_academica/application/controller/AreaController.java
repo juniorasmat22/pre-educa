@@ -3,9 +3,12 @@ package com.bootcodeperu.admision_academica.application.controller;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.area.AreaResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.page.PageResponse;
 import com.bootcodeperu.admision_academica.application.service.AreaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +48,25 @@ public class AreaController {
         return ResponseEntity.ok(
                 ApiResponse.ok(areaService.updateArea(id, request), "Área actualizada exitosamente")
         );
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<ApiResponse<PageResponse<AreaResponse>>> getAreasPaged(
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "false") boolean includeInactive,
+            Pageable pageable) { // @ParameterObject para mapear page, size, sort
+
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        areaService.getAreasPaged(search, includeInactive, pageable),
+                        "Listado de áreas obtenido"
+                )
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteArea(@PathVariable Long id) {
+        areaService.deleteArea(id);
+        return ResponseEntity.ok(ApiResponse.ok(null, "Área desactivada (borrado lógico)"));
     }
 }
