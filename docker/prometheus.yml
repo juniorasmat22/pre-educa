@@ -15,7 +15,7 @@ scrape_configs:
     static_configs:
       - targets: [ 'loki:3100' ]
 
-  # Si tu app expone métricas Prometheus, agrega un job como este:
-  # - job_name: 'mi-app'
-  #   static_configs:
-  #     - targets: ['host.docker.internal:8080']
+  - job_name: 'admision-api'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ '192.168.100.242:8080' ] # Si usas Docker, apunta a tu IP o host
