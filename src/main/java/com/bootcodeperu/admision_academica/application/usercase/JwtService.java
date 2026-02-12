@@ -6,9 +6,14 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,13 +21,33 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
-
+    private final MeterRegistry meterRegistry; // Inyección obligatoria
+    private Counter jwtGeneratedCounter;
+    private Counter jwtSuccessCounter;
+    private Counter jwtFailureCounter;
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
+
+    @PostConstruct
+    public void initMetrics() {
+        // Inicialización de contadores
+        this.jwtGeneratedCounter = Counter.builder("admision.security.jwt.generated")
+                .description("Total de tokens JWT creados")
+                .register(meterRegistry);
+
+        this.jwtSuccessCounter = Counter.builder("admision.security.jwt.success")
+                .description("Total de validaciones JWT exitosas")
+                .register(meterRegistry);
+
+        this.jwtFailureCounter = Counter.builder("admision.security.jwt.failure")
+                .description("Total de fallos en validación (Firmas inválidas o expirados)")
+                .register(meterRegistry);
+    }
 
     // Extrae el nombre de usuario (email) del token
     public String extractUsername(String token) {
@@ -44,9 +69,10 @@ public class JwtService {
             extraClaims.put("userId", principal.usuario().getId());
             extraClaims.put("role", principal.usuario().getRol().getNombre());
         }
-
+        jwtGeneratedCounter.increment();
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
+
     private String buildToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails,
@@ -61,6 +87,7 @@ public class JwtService {
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
     // Genera un token con claims extra (puedes agregar roles, id de usuario, etc.)
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts
@@ -75,8 +102,20 @@ public class JwtService {
 
     // Valida si el token es válido y no ha expirado
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        try {
+            final String username = extractUsername(token);
+            boolean isValid = (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+
+            if (isValid) {
+                jwtSuccessCounter.increment(); // Métrica: Validación exitosa
+            } else {
+                jwtFailureCounter.increment(); // Métrica: Datos no coinciden
+            }
+            return isValid;
+        } catch (Exception e) {
+            jwtFailureCounter.increment(); // Métrica: Error en estructura o expirado
+            return false;
+        }
     }
 
     private boolean isTokenExpired(String token) {
@@ -102,11 +141,16 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
     public boolean isTokenValid(String token) {
         try {
-            extractAllClaims(token); // valida firma y estructura
-            return !isTokenExpired(token);
+            extractAllClaims(token);
+            boolean notExpired = !isTokenExpired(token);
+            if (notExpired) jwtSuccessCounter.increment();
+            else jwtFailureCounter.increment();
+            return notExpired;
         } catch (Exception e) {
+            jwtFailureCounter.increment(); // Captura firmas falsas o tokens corruptos
             return false;
         }
     }
