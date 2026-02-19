@@ -35,4 +35,8 @@ public interface ResultadoSimulacroRepository {
     List<Object[]> findRankingOficialByArea(Long areaId);
 
     Optional<ResultadoSimulacro> findByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado);
+
+    boolean existsByUsuarioIdAndSimulacroProgramadoId(Long usuarioId, Long eventoId);
+
+    List<Object[]> findRankingOficialByEvento(Long eventoId);
 }

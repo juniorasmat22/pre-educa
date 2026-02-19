@@ -76,4 +76,14 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     public Optional<ResultadoSimulacro> findByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado) {
         return springResultadoSimulacroRepository.findByUsuarioIdAndEstado(usuarioId, estado);
     }
+
+    @Override
+    public boolean existsByUsuarioIdAndSimulacroProgramadoId(Long usuarioId, Long eventoId) {
+        return springResultadoSimulacroRepository.existsByUsuarioIdAndSimulacroProgramadoId(usuarioId, eventoId);
+    }
+
+    @Override
+    public List<Object[]> findRankingOficialByEvento(Long eventoId) {
+        return springResultadoSimulacroRepository.findRankingOficialByEvento(eventoId);
+    }
 }

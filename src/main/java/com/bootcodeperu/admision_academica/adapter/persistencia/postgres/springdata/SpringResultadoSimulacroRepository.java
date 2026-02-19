@@ -51,24 +51,43 @@ public interface SpringResultadoSimulacroRepository extends JpaRepository<Result
 
     @Query(value = """
             SELECT 
-                u.nombre_completo as nombre,
+                u.nombre as nombre,
                 r.puntaje_total as puntaje,
                 a.nombre as carrera,
                 DENSE_RANK() OVER (
-                    PARTITION BY r.area_id 
+                    PARTITION BY r.id_area 
                     ORDER BY 
                         r.puntaje_total DESC, 
                         r.preguntas_incorrectas ASC, 
                         r.tiempo_tomado ASC
                 ) as puesto
-            FROM resultados_simulacro r
-            JOIN usuarios u ON r.usuario_id = u.id
-            JOIN areas a ON r.area_id = a.id
-            WHERE r.area_id = :areaId AND r.estado != 'EN_CURSO'
+            FROM resultadosimulacro r
+            JOIN usuario u ON r.id_usuario = u.id
+            JOIN area a ON r.id_area = a.id
+            WHERE r.id_area= :areaId AND r.estado != 'EN_CURSO'
             ORDER BY puesto ASC
             LIMIT 10
             """, nativeQuery = true)
     List<Object[]> findRankingOficialByArea(Long areaId);
 
     Optional<ResultadoSimulacro> findByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado);
+
+    boolean existsByUsuarioIdAndSimulacroProgramadoId(Long usuarioId, Long eventoId);
+
+    @Query(value = """
+            SELECT 
+                u.nombre as nombre,
+                r.puntaje_total as puntaje,
+                a.nombre as carrera,
+                DENSE_RANK() OVER (
+                    ORDER BY r.puntaje_total DESC, r.preguntas_incorrectas ASC, r.tiempo_tomado ASC
+                ) as puesto
+            FROM resultadosimulacro r
+            JOIN usuario u ON r.id_usuario = u.id
+            JOIN area a ON r.id_area = a.id
+            WHERE r.simulacro_programado_id = :eventoId AND r.estado = 'FINALIZADO'
+            ORDER BY puesto ASC
+            LIMIT 100
+            """, nativeQuery = true)
+    List<Object[]> findRankingOficialByEvento(Long eventoId);
 }

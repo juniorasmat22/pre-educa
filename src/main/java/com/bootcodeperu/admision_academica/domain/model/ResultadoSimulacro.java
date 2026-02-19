@@ -44,4 +44,7 @@ public class ResultadoSimulacro extends AuditEntity {
     private JsonNode detallesRespuestas;
     @Enumerated(EnumType.STRING)
     private EstadoSimulacro estado;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "simulacro_programado_id", nullable = true)
+    private SimulacroProgramado simulacroProgramado;
 }
