@@ -250,11 +250,11 @@ public class SimulacroUseCase implements SimulacroService {
     }
 
     @Override
-    public List<RankingUsuarioResponse> obtenerTop10GlobalSemanal() {
+    public List<RankingUsuarioResponse> obtenerTop10GlobalSemanalLibre() {
         LocalDateTime haceSieteDias = LocalDateTime.now().minusDays(7);
 
         // Obtenemos los resultados destacados
-        List<Object[]> resultados = resultadoSimulacroRepository.findTop10Global(haceSieteDias);
+        List<Object[]> resultados = resultadoSimulacroRepository.findTop10GlobalLibres(haceSieteDias);
 
         return mapearARanking(resultados);
     }
@@ -265,9 +265,9 @@ public class SimulacroUseCase implements SimulacroService {
 //        return mapearARanking(resultados);
 //    }
     @Override
-    public List<RankingUsuarioResponse> obtenerRankingPorArea(Long areaId) {
+    public List<RankingUsuarioResponse> obtenerRankingPorAreaLibre(Long areaId) {
         // Usamos la nueva query nativa con DENSE_RANK y criterios de desempate
-        List<Object[]> resultados = resultadoSimulacroRepository.findRankingOficialByArea(areaId);
+        List<Object[]> resultados = resultadoSimulacroRepository.findRankingLibreByArea(areaId);
         return mapearARanking(resultados);
     }
 
@@ -302,7 +302,7 @@ public class SimulacroUseCase implements SimulacroService {
     }
 
     @Override
-    public EstadisticaComparativaResponse obtenerPercentilEstudiante(Long usuarioId, Long areaId) {
+    public EstadisticaComparativaResponse obtenerPercentilLibreEstudiante(Long usuarioId, Long areaId) {
         // 1. Obtener el último puntaje del usuario
         ResultadoSimulacro ultimo = resultadoSimulacroRepository
                 .findTopByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId)
@@ -311,7 +311,7 @@ public class SimulacroUseCase implements SimulacroService {
         Double miPuntaje = ultimo.getPuntajeTotal();
 
         // 2. Obtener todos los puntajes del área (ordenados)
-        List<Double> todosLosPuntajes = resultadoSimulacroRepository.findAllPuntajesByArea(areaId);
+        List<Double> todosLosPuntajes = resultadoSimulacroRepository.findAllPuntajesLibresByArea(areaId);
 
         if (todosLosPuntajes.isEmpty()) {
             return new EstadisticaComparativaResponse(miPuntaje, miPuntaje, 100.0, "Eres el primer postulante en esta área.");

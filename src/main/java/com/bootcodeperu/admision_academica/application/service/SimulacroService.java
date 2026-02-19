@@ -29,14 +29,14 @@ public interface SimulacroService {
 
     List<DebilidadTemaResponse> obtenerAnalisisDebilidades(Long usuarioId);
 
-    List<RankingUsuarioResponse> obtenerTop10GlobalSemanal();
+    List<RankingUsuarioResponse> obtenerTop10GlobalSemanalLibre();
 
-    List<RankingUsuarioResponse> obtenerRankingPorArea(Long areaId);
+    List<RankingUsuarioResponse> obtenerRankingPorAreaLibre(Long areaId);
 
     // En SimulacroService.java
     List<EvolucionPuntajeResponse> obtenerEvolucionEstudiante(Long usuarioId);
 
-    EstadisticaComparativaResponse obtenerPercentilEstudiante(Long usuarioId, Long areaId);
+    EstadisticaComparativaResponse obtenerPercentilLibreEstudiante(Long usuarioId, Long areaId);
 
     List<RecomendacionResponse> generarRutaRecomendada(Long usuarioId);
 

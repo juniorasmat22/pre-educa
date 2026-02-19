@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticasEventoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.simulacro.CrearSimulacroProgramadoRequest;
@@ -72,5 +73,37 @@ public class SimulacroProgramadoController {
     @GetMapping("/{eventoId}/ranking")
     public ResponseEntity<List<RankingUsuarioResponse>> getRankingDelEvento(@PathVariable Long eventoId) {
         return ResponseEntity.ok(eventoService.obtenerRankingPorEvento(eventoId));
+    }
+
+    @GetMapping("/{eventoId}/ranking/global/top10")
+    public ResponseEntity<List<RankingUsuarioResponse>> getTop10GlobalEvento(@PathVariable Long eventoId) {
+        return ResponseEntity.ok(eventoService.obtenerTop10Global(eventoId));
+    }
+
+    @GetMapping("/{eventoId}/ranking/global/completo")
+    @PreAuthorize("hasRole('ADMIN')") // El listado de 5000 alumnos quizás solo deba verlo la academia
+    public ResponseEntity<List<RankingUsuarioResponse>> getRankingGlobalCompletoEvento(@PathVariable Long eventoId) {
+        return ResponseEntity.ok(eventoService.obtenerRankingGlobalCompleto(eventoId));
+    }
+
+    @GetMapping("/{eventoId}/ranking/area/{areaId}/top10")
+    public ResponseEntity<List<RankingUsuarioResponse>> getTop10AreaEvento(
+            @PathVariable Long eventoId, @PathVariable Long areaId) {
+        return ResponseEntity.ok(eventoService.obtenerTop10PorArea(eventoId, areaId));
+    }
+
+    @GetMapping("/{eventoId}/ranking/area/{areaId}/completo")
+    public ResponseEntity<List<RankingUsuarioResponse>> getRankingCompletoAreaEvento(
+            @PathVariable Long eventoId, @PathVariable Long areaId) {
+        return ResponseEntity.ok(eventoService.obtenerRankingCompletoPorArea(eventoId, areaId));
+    }
+
+    /**
+     * Reporte Académico Ejecutivo para el coordinador
+     */
+    @GetMapping("/{eventoId}/reportes/estadisticas")
+    @PreAuthorize("hasRole('ADMIN')") // Muy importante, los alumnos NO deben ver promedios globales antes de tiempo
+    public ResponseEntity<EstadisticasEventoResponse> getEstadisticasEvento(@PathVariable Long eventoId) {
+        return ResponseEntity.ok(eventoService.obtenerEstadisticasEvento(eventoId));
     }
 }

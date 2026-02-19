@@ -4,6 +4,7 @@ package com.bootcodeperu.admision_academica.application.usercase;
 import com.bootcodeperu.admision_academica.adapter.mapper.PreguntaDetalleMapper;
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.document.PreguntaDetalle;
 import com.bootcodeperu.admision_academica.adapter.persistencia.mongo.repository.PreguntaDetalleMongoRepository;
+import com.bootcodeperu.admision_academica.application.controller.dto.analitica.EstadisticasEventoResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.analitica.RankingUsuarioResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.simulacro.SimulacroProgramadoResponse;
@@ -134,22 +135,80 @@ public class SimulacroProgramadoUseCase implements SimulacroProgramadoService {
 
     @Override
     public List<RankingUsuarioResponse> obtenerRankingPorEvento(Long eventoId) {
-        // Delegamos al Query nativo con DENSE_RANK y desempate en la base de datos
         List<Object[]> resultados = resultadoSimulacroRepository.findRankingOficialByEvento(eventoId);
 
-        List<RankingUsuarioResponse> ranking = new ArrayList<>();
-        for (int i = 0; i < resultados.size(); i++) {
-            Object[] row = resultados.get(i);
-            ranking.add(new RankingUsuarioResponse(
-                    i + 1, // Puesto
-                    (String) row[0], // Nombre
-                    (Double) row[1], // Puntaje Total
-                    (String) row[2]  // Carrera (Área)
-            ));
-        }
-        return ranking;
+        return mapearARanking(resultados);
     }
 
+    @Override
+    public List<RankingUsuarioResponse> obtenerTop10Global(Long eventoId) {
+        List<Object[]> resultados = resultadoSimulacroRepository.findTop10GlobalByEvento(eventoId);
+        return mapearARanking(resultados);
+    }
+
+    @Override
+    public List<RankingUsuarioResponse> obtenerRankingGlobalCompleto(Long eventoId) {
+        List<Object[]> resultados = resultadoSimulacroRepository.findRankingGlobalCompletoByEvento(eventoId);
+        return mapearARanking(resultados);
+    }
+
+    @Override
+    public List<RankingUsuarioResponse> obtenerTop10PorArea(Long eventoId, Long areaId) {
+        List<Object[]> resultados = resultadoSimulacroRepository.findTop10ByAreaAndEvento(eventoId, areaId);
+        return mapearARanking(resultados);
+    }
+
+    @Override
+    public List<RankingUsuarioResponse> obtenerRankingCompletoPorArea(Long eventoId, Long areaId) {
+        List<Object[]> resultados = resultadoSimulacroRepository.findRankingCompletoByAreaAndEvento(eventoId, areaId);
+        return mapearARanking(resultados);//findRankingCompletoByAreaAndEvento
+    }
+
+    @Override
+    public EstadisticasEventoResponse obtenerEstadisticasEvento(Long eventoId) {
+        // 1. Validamos que el evento exista para obtener su título
+        SimulacroProgramado evento = eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento Oficial", "id", eventoId));
+
+        // 2. Ejecutamos la consulta super-optimizada
+        Object[] row = resultadoSimulacroRepository.obtenerMetricasGlobalesDelEvento(eventoId);
+
+        // Si no hay datos (row viene vacío), devolvemos un reporte en ceros
+        if (row == null || row.length == 0 || row[0] == null) {
+            // Objeto vacío si aún nadie se inscribe
+            return new EstadisticasEventoResponse(eventoId, evento.getTitulo(), 0, 0, 0, 0.0, 0.0, 0.0, 0.0);
+        }
+
+        // El repositorio devuelve una sola fila, pero Spring Data nativo con Object[] múltiple devuelve un Object[][]
+        // Como no usamos GROUP BY, sabemos que es solo 1 fila con 7 columnas.
+        Object[] metricas = (Object[]) row[0];
+
+        // 3. Mapeo seguro de los resultados (Casteo de tipos devueltos por Postgres)
+        Integer inscritos = metricas[0] != null ? ((Number) metricas[0]).intValue() : 0;
+        Integer finalizados = metricas[1] != null ? ((Number) metricas[1]).intValue() : 0;
+        Integer abandonos = metricas[2] != null ? ((Number) metricas[2]).intValue() : 0;
+
+        Double promPuntaje = metricas[3] != null ? ((Number) metricas[3]).doubleValue() : 0.0;
+        Double maxPuntaje = metricas[4] != null ? ((Number) metricas[4]).doubleValue() : 0.0;
+        Double minPuntaje = metricas[5] != null ? ((Number) metricas[5]).doubleValue() : 0.0;
+        Double promTiempo = metricas[6] != null ? ((Number) metricas[6]).doubleValue() : 0.0;
+
+        // Redondeamos el promedio a 2 decimales para que se vea limpio en el Frontend
+        promPuntaje = Math.round(promPuntaje * 100.0) / 100.0;
+        promTiempo = Math.round(promTiempo * 100.0) / 100.0;
+
+        return new EstadisticasEventoResponse(
+                eventoId,
+                evento.getTitulo(),
+                inscritos,
+                finalizados,
+                abandonos,
+                promPuntaje,
+                maxPuntaje,
+                minPuntaje,
+                promTiempo
+        );
+    }
     // =======================================================
     // MÉTODOS PRIVADOS DE APOYO
     // =======================================================
@@ -196,5 +255,20 @@ public class SimulacroProgramadoUseCase implements SimulacroProgramadoService {
             throw new ContentLoadingException("No se pudieron cargar preguntas del banco.");
         }
         return mongoIdsSeleccionados;
+    }
+
+    private List<RankingUsuarioResponse> mapearARanking(List<Object[]> resultados) {
+        List<RankingUsuarioResponse> ranking = new ArrayList<>();
+        for (int i = 0; i < resultados.size(); i++) {
+            Object[] row = resultados.get(i);
+            // row[0] = nombre, row[1] = puntaje, row[2] = carrera
+            ranking.add(new RankingUsuarioResponse(
+                    i + 1,
+                    (String) row[0],
+                    (Double) row[1],
+                    (String) row[2]
+            ));
+        }
+        return ranking;
     }
 }

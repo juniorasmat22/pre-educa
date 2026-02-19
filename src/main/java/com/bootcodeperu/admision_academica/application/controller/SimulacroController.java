@@ -64,14 +64,14 @@ public class SimulacroController {
         return ResponseEntity.ok(simulacroService.obtenerAnalisisDebilidades(usuarioId));
     }
 
-    @GetMapping("/ranking/global")
+    @GetMapping("/ranking/global-libre")
     public ResponseEntity<List<RankingUsuarioResponse>> getTopGlobal() {
-        return ResponseEntity.ok(simulacroService.obtenerTop10GlobalSemanal()); // Público o protegido según reglas de tu negocio
+        return ResponseEntity.ok(simulacroService.obtenerTop10GlobalSemanalLibre()); // Público o protegido según reglas de tu negocio
     }
 
-    @GetMapping("/ranking/area/{areaId}")
+    @GetMapping("/ranking/area-libre/{areaId}")
     public ResponseEntity<List<RankingUsuarioResponse>> getTopByArea(@PathVariable Long areaId) {
-        return ResponseEntity.ok(simulacroService.obtenerRankingPorArea(areaId)); // Público
+        return ResponseEntity.ok(simulacroService.obtenerRankingPorAreaLibre(areaId)); // Público
     }
 
     @GetMapping("/historial-evolucion/{usuarioId}")
@@ -81,12 +81,12 @@ public class SimulacroController {
         return ResponseEntity.ok(evolucion);
     }
 
-    @GetMapping("/analitica/comparativa/{usuarioId}/{areaId}")
+    @GetMapping("/analitica/comparativa-libre/{usuarioId}/{areaId}")
     //@PreAuthorize("#usuarioId == authentication.principal.id")
     public ResponseEntity<EstadisticaComparativaResponse> getComparativa(
             @PathVariable Long usuarioId,
             @PathVariable Long areaId) {
-        return ResponseEntity.ok(simulacroService.obtenerPercentilEstudiante(usuarioId, areaId));
+        return ResponseEntity.ok(simulacroService.obtenerPercentilLibreEstudiante(usuarioId, areaId));
     }
 
     @GetMapping("/ruta-aprendizaje/{usuarioId}")

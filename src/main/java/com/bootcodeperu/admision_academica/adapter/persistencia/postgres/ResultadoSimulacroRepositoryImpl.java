@@ -38,8 +38,8 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     }
 
     @Override
-    public List<Object[]> findTop10Global(LocalDateTime fecha) {
-        return springResultadoSimulacroRepository.findTop10Global(fecha);
+    public List<Object[]> findTop10GlobalLibres(LocalDateTime fecha) {
+        return springResultadoSimulacroRepository.findTop10GlobalLibres(fecha);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     }
 
     @Override
-    public List<Double> findAllPuntajesByArea(Long areaId) {
-        return springResultadoSimulacroRepository.findAllPuntajesByArea(areaId);
+    public List<Double> findAllPuntajesLibresByArea(Long areaId) {
+        return springResultadoSimulacroRepository.findAllPuntajesLibresByArea(areaId);
     }
 
     @Override
@@ -68,8 +68,8 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     }
 
     @Override
-    public List<Object[]> findRankingOficialByArea(Long areaId) {
-        return springResultadoSimulacroRepository.findRankingOficialByArea(areaId);
+    public List<Object[]> findRankingLibreByArea(Long areaId) {
+        return springResultadoSimulacroRepository.findRankingLibreByArea(areaId);
     }
 
     @Override
@@ -85,5 +85,30 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     @Override
     public List<Object[]> findRankingOficialByEvento(Long eventoId) {
         return springResultadoSimulacroRepository.findRankingOficialByEvento(eventoId);
+    }
+
+    @Override
+    public List<Object[]> findRankingGlobalCompletoByEvento(Long eventoId) {
+        return springResultadoSimulacroRepository.findRankingGlobalCompletoByEvento(eventoId);
+    }
+
+    @Override
+    public List<Object[]> findTop10GlobalByEvento(Long eventoId) {
+        return springResultadoSimulacroRepository.findTop10GlobalByEvento(eventoId);
+    }
+
+    @Override
+    public List<Object[]> findTop10ByAreaAndEvento(Long eventoId, Long areaId) {
+        return springResultadoSimulacroRepository.findTop10ByAreaAndEvento(eventoId, areaId);
+    }
+
+    @Override
+    public List<Object[]> findRankingCompletoByAreaAndEvento(Long eventoId, Long areaId) {
+        return springResultadoSimulacroRepository.findRankingCompletoByAreaAndEvento(eventoId, areaId);
+    }
+
+    @Override
+    public Object[] obtenerMetricasGlobalesDelEvento(Long eventoId) {
+        return springResultadoSimulacroRepository.obtenerMetricasGlobalesDelEvento(eventoId);
     }
 }

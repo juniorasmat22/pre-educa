@@ -19,11 +19,11 @@ public interface ResultadoSimulacroRepository {
     Optional<ResultadoSimulacro> findTopByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
 
     // Métodos para el Ranking (sin @Query aquí)
-    List<Object[]> findTop10Global(LocalDateTime fecha);
+    List<Object[]> findTop10GlobalLibres(LocalDateTime fecha);
 
     List<Object[]> findTop10ByArea(Long areaId);
 
-    List<Double> findAllPuntajesByArea(@Param("areaId") Long areaId);
+    List<Double> findAllPuntajesLibresByArea(@Param("areaId") Long areaId);
 
     //Devuelve los 2 últimos simulacros para comparar tendencias
     List<ResultadoSimulacro> findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
@@ -32,11 +32,21 @@ public interface ResultadoSimulacroRepository {
 
     List<ResultadoSimulacro> findByEstadoAndFechaExpiracionBefore(EstadoSimulacro estado, LocalDateTime fecha);
 
-    List<Object[]> findRankingOficialByArea(Long areaId);
+    List<Object[]> findRankingLibreByArea(Long areaId);
 
     Optional<ResultadoSimulacro> findByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado);
 
     boolean existsByUsuarioIdAndSimulacroProgramadoId(Long usuarioId, Long eventoId);
 
     List<Object[]> findRankingOficialByEvento(Long eventoId);
+
+    List<Object[]> findRankingGlobalCompletoByEvento(Long eventoId);
+
+    List<Object[]> findTop10GlobalByEvento(Long eventoId);
+
+    List<Object[]> findTop10ByAreaAndEvento(Long eventoId, Long areaId);
+
+    List<Object[]> findRankingCompletoByAreaAndEvento(Long eventoId, Long areaId);
+
+    Object[] obtenerMetricasGlobalesDelEvento(Long eventoId);
 }
