@@ -18,5 +18,8 @@ public record AreaRequest(
         Double puntajeIncorrecta,
 
         @NotNull(message = "El puntaje por respuesta en blanco es obligatorio")
-        Double puntajeBlanco
-) {}
+        Double puntajeBlanco,
+        @NotNull(message = "La duración es obligatorio")
+        Integer duracionMinutos
+) {
+}

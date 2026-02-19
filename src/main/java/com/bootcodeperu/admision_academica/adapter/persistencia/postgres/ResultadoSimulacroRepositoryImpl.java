@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.bootcodeperu.admision_academica.domain.model.enums.EstadoSimulacro;
 import org.springframework.stereotype.Component;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringResultadoSimulacroRepository;
@@ -35,6 +36,7 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
         // Llama al método nombrado para el resultado más reciente
         return springResultadoSimulacroRepository.findTopByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId);
     }
+
     @Override
     public List<Object[]> findTop10Global(LocalDateTime fecha) {
         return springResultadoSimulacroRepository.findTop10Global(fecha);
@@ -44,12 +46,34 @@ public class ResultadoSimulacroRepositoryImpl implements ResultadoSimulacroRepos
     public List<Object[]> findTop10ByArea(Long areaId) {
         return springResultadoSimulacroRepository.findTop10ByArea(areaId);
     }
+
     @Override
     public List<Double> findAllPuntajesByArea(Long areaId) {
         return springResultadoSimulacroRepository.findAllPuntajesByArea(areaId);
     }
+
     @Override
     public List<ResultadoSimulacro> findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId) {
         return springResultadoSimulacroRepository.findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(usuarioId);
+    }
+
+    @Override
+    public boolean existsByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado) {
+        return springResultadoSimulacroRepository.existsByUsuarioIdAndEstado(usuarioId, estado);
+    }
+
+    @Override
+    public List<ResultadoSimulacro> findByEstadoAndFechaExpiracionBefore(EstadoSimulacro estado, LocalDateTime fecha) {
+        return springResultadoSimulacroRepository.findByEstadoAndFechaExpiracionBefore(estado, fecha);
+    }
+
+    @Override
+    public List<Object[]> findRankingOficialByArea(Long areaId) {
+        return springResultadoSimulacroRepository.findRankingOficialByArea(areaId);
+    }
+
+    @Override
+    public Optional<ResultadoSimulacro> findByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado) {
+        return springResultadoSimulacroRepository.findByUsuarioIdAndEstado(usuarioId, estado);
     }
 }

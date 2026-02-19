@@ -29,4 +29,6 @@ public class Area extends AuditEntity {
     private Double puntajeCorrecta; // Ej: 4.00, 5.00, 6.00 (mayor peso)
     private Double puntajeIncorrecta; // Ej: -0.25
     private Double puntajeBlanco; // Ej: -0.25
+    @Column(name = "duracion_minutos", nullable = false)
+    private Integer duracionMinutos;
 }

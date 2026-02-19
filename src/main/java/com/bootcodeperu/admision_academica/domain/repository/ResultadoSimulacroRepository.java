@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bootcodeperu.admision_academica.domain.model.ResultadoSimulacro;
+import com.bootcodeperu.admision_academica.domain.model.enums.EstadoSimulacro;
 import org.springframework.data.repository.query.Param;
 
 public interface ResultadoSimulacroRepository {
-	// Método de negocio 1: Guardar el resultado de un examen completado.
+    // Método de negocio 1: Guardar el resultado de un examen completado.
     ResultadoSimulacro save(ResultadoSimulacro resultado);
 
     // Método de negocio 2: Obtener historial de simulacros de un usuario.
@@ -16,10 +17,22 @@ public interface ResultadoSimulacroRepository {
 
     // Método de negocio 3: Obtener el último resultado de un usuario para una métrica rápida.
     Optional<ResultadoSimulacro> findTopByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
+
     // Métodos para el Ranking (sin @Query aquí)
     List<Object[]> findTop10Global(LocalDateTime fecha);
+
     List<Object[]> findTop10ByArea(Long areaId);
+
     List<Double> findAllPuntajesByArea(@Param("areaId") Long areaId);
+
     //Devuelve los 2 últimos simulacros para comparar tendencias
     List<ResultadoSimulacro> findTop2ByUsuarioIdOrderByFechaEvaluacionDesc(Long usuarioId);
+
+    boolean existsByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado);
+
+    List<ResultadoSimulacro> findByEstadoAndFechaExpiracionBefore(EstadoSimulacro estado, LocalDateTime fecha);
+
+    List<Object[]> findRankingOficialByArea(Long areaId);
+
+    Optional<ResultadoSimulacro> findByUsuarioIdAndEstado(Long usuarioId, EstadoSimulacro estado);
 }

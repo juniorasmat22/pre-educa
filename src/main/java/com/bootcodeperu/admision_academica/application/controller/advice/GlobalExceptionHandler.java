@@ -2,10 +2,7 @@ package com.bootcodeperu.admision_academica.application.controller.advice;
 
 import brave.Tracer;
 import com.bootcodeperu.admision_academica.application.controller.dto.error.ErrorResponse;
-import com.bootcodeperu.admision_academica.domain.exception.ContentLoadingException;
-import com.bootcodeperu.admision_academica.domain.exception.DomainValidationException;
-import com.bootcodeperu.admision_academica.domain.exception.DuplicateResourceException;
-import com.bootcodeperu.admision_academica.domain.exception.ResourceNotFoundException;
+import com.bootcodeperu.admision_academica.domain.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -197,6 +194,21 @@ public class GlobalExceptionHandler {
         log.error("Error cargando contenido", ex);
         return buildResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
+                ex.getMessage(),
+                request
+        );
+    }
+
+    /* =====================================================
+       ERRORES DE NEGOCIO PERSONALIZADOS
+       ===================================================== */
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(
+            BusinessException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(
+                HttpStatus.CONFLICT,
                 ex.getMessage(),
                 request
         );

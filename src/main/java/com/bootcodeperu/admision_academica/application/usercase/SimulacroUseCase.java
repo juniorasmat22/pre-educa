@@ -14,7 +14,9 @@ import com.bootcodeperu.admision_academica.application.controller.dto.analitica.
 import com.bootcodeperu.admision_academica.application.controller.dto.contenido.PreguntaDetalleResponse;
 import com.bootcodeperu.admision_academica.application.controller.dto.resultadosimulacro.ResultadoSimulacroResponse;
 import com.bootcodeperu.admision_academica.application.service.ProgresoService;
+import com.bootcodeperu.admision_academica.domain.exception.BusinessException;
 import com.bootcodeperu.admision_academica.domain.model.*;
+import com.bootcodeperu.admision_academica.domain.model.enums.EstadoSimulacro;
 import com.bootcodeperu.admision_academica.domain.model.enums.QuestionTarget;
 import com.bootcodeperu.admision_academica.domain.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -53,12 +55,20 @@ public class SimulacroUseCase implements SimulacroService {
      * PASO 1: Genera un examen simulacro completo para un área de postulación.
      */
     @Override
-    public List<PreguntaDetalleResponse> generarExamenSimulacro(Long areaId) {
-        // 1. Verificar Área
+    public List<PreguntaDetalleResponse> generarExamenSimulacro(Long usuarioId, Long areaId) {
+        // 1. CONTROL DE INTENTOS: No permitir si ya tiene uno EN_CURSO
+        if (resultadoSimulacroRepository.existsByUsuarioIdAndEstado(usuarioId, EstadoSimulacro.EN_CURSO)) {
+            throw new BusinessException("Ya tienes un simulacro en curso. Debes finalizarlo antes.");
+        }
+        // 2. Verificar Usuario
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", areaId));
+
+        // 2. Verificar Área
         Area area = areaRepository.findById(areaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Área", "id", areaId));
 
-        // 2. Obtener distribución de preguntas (PostgreSQL)
+        // 3. Obtener distribución de preguntas (PostgreSQL)
         List<CursoArea> distribucion = cursoAreaRepository.findAllByAreaId(areaId);
         if (distribucion.isEmpty()) {
             throw new ContentLoadingException("No se encontró distribución de cursos para el área: " + area.getNombre());
@@ -96,7 +106,14 @@ public class SimulacroUseCase implements SimulacroService {
         if (mongoIdsSeleccionados.isEmpty()) {
             throw new ContentLoadingException("No se pudieron cargar preguntas de banco para el simulacro.");
         }
+        ResultadoSimulacro nuevaSesion = new ResultadoSimulacro();
+        nuevaSesion.setUsuario(usuario);
+        nuevaSesion.setAreaEvaluada(area);
+        nuevaSesion.setEstado(EstadoSimulacro.EN_CURSO);
+        nuevaSesion.setFechaEvaluacion(LocalDateTime.now());
+        nuevaSesion.setFechaExpiracion(LocalDateTime.now().plusMinutes(area.getDuracionMinutos()));
 
+        resultadoSimulacroRepository.save(nuevaSesion);
         // 4. Obtener detalles de las preguntas (MongoDB)
         // Se asegura el orden de las preguntas del examen
         Map<String, PreguntaDetalle> preguntasMap = preguntaDetalleMongoRepository
@@ -125,8 +142,24 @@ public class SimulacroUseCase implements SimulacroService {
 
         Area area = areaRepository.findById(areaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Área", "id", areaId));
+        // 2. RECUPERAR SESIÓN ACTIVA (Importante: No creamos una nueva, actualizamos la existente)
+        ResultadoSimulacro sesion = resultadoSimulacroRepository
+                .findByUsuarioIdAndEstado(usuarioId, EstadoSimulacro.EN_CURSO)
+                .orElseThrow(() -> new BusinessException("No tienes un simulacro en curso para evaluar."));
+        LocalDateTime ahora = LocalDateTime.now();
+        // Definimos una gracia de 2 minutos sobre la fecha de expiración original
+        LocalDateTime limiteConGracia = sesion.getFechaExpiracion().plusMinutes(2);
 
-        // 2. Obtener Preguntas Detalle de Mongo (Solo las preguntas respondidas)
+        if (ahora.isAfter(limiteConGracia)) {
+            // Si llega después de la gracia, el Scheduler probablemente ya actuó o el intento es fraudulento
+            throw new BusinessException("El tiempo de envío ha expirado excediendo la tolerancia permitida.");
+        }
+        // Calculamos si hubo retraso real para auditoría
+        if (ahora.isAfter(sesion.getFechaExpiracion())) {
+            //log.warn("Examen recibido con retraso. Usuario: {}, Retraso: {} segundos",
+            //      usuarioId, java.time.Duration.between(sesion.getFechaExpiracion(), ahora).getSeconds());
+        }
+        // 3. Obtener Preguntas Detalle de Mongo (Solo las preguntas respondidas)
         List<String> mongoIdsRespondidos = new ArrayList<>(respuestas.keySet());
         List<PreguntaDetalle> detalles = preguntaDetalleMongoRepository.findAllByIdIn(mongoIdsRespondidos);
 
@@ -135,62 +168,69 @@ public class SimulacroUseCase implements SimulacroService {
             throw new ContentLoadingException("No se encontraron detalles de las preguntas para la evaluación.");
         }
 
-        // 3. Lógica de Puntuación (EJEMPLO SIMPLIFICADO)
+        // 4. Lógica de Puntuación (EJEMPLO SIMPLIFICADO)
         // Obtener los pesos del Área
-        final double pesoCorrecta = area.getPuntajeCorrecta();    // Ej: 4.00
-        final double pesoIncorrecta = area.getPuntajeIncorrecta(); // Ej: -0.25,
-        final double pesoBlanco = area.getPuntajeCorrecta(); // Ej: -0.25,
-        // pero aquí se usa un puntaje base simple.
-        double puntajeTotal = 0.0;
-        int preguntasCorrectas = 0;
 
-        // Crear el JSON para detallesRespuestas
+        final double pesoCorrecta = area.getPuntajeCorrecta();
+        final double pesoIncorrecta = area.getPuntajeIncorrecta();
+        final double pesoEnBlanco = area.getPuntajeBlanco();
+
+        double puntajeTotal = 0.0;
+        int correctas = 0;
+        int incorrectas = 0;
+        int enBlanco = 0;
+
         List<Map<String, Object>> detallesRespuestasList = new ArrayList<>();
+
         for (PreguntaDetalle detalle : detalles) {
             String respuestaDada = respuestas.get(detalle.getId());
             boolean esCorrecta = detalle.getRespuestaCorrecta().equalsIgnoreCase(respuestaDada);
             double puntajePregunta;
 
-            if (esCorrecta) {
+            // Lógica de conteo y puntos
+            if (respuestaDada == null || respuestaDada.trim().isEmpty()) {
+                puntajePregunta = pesoEnBlanco;
+                enBlanco++;
+            } else if (esCorrecta) {
                 puntajePregunta = pesoCorrecta;
-            } else if (respuestaDada != null) {
-                // Si la respuesta no es nula (marcó incorrectamente)
-                puntajePregunta = pesoIncorrecta;
+                correctas++;
             } else {
-                // Pregunta no respondida
-                puntajePregunta = 0.0;
+                puntajePregunta = pesoIncorrecta;
+                incorrectas++;
             }
 
             puntajeTotal += puntajePregunta;
+
+            // Actualizar progreso académico
             if (detalle.getIdTemaSQL() != null) {
-                // Enviamos 1.0 si es correcta, 0.0 si es incorrecta.
-                // El ProgresoService se encarga de promediarlo con los intentos anteriores.
                 progresoService.actualizarPuntajePromedio(usuarioId, detalle.getIdTemaSQL(), esCorrecta ? 1.0 : 0.0);
             }
-            // Construir el objeto de detalle para guardar
-            Map<String, Object> detalleRespuesta = new HashMap<>();
-            detalleRespuesta.put("mongoId", detalle.getId());
-            detalleRespuesta.put("respuestaDada", respuestaDada);
-            detalleRespuesta.put("esCorrecta", esCorrecta);
-            detalleRespuesta.put("puntajeObtenido", puntajePregunta);
-            detallesRespuestasList.add(detalleRespuesta);
+
+            // Detalle JSONB
+            Map<String, Object> d = new HashMap<>();
+            d.put("mongoId", detalle.getId());
+            d.put("respuestaDada", respuestaDada);
+            d.put("esCorrecta", esCorrecta);
+            d.put("puntajeObtenido", puntajePregunta);
+            detallesRespuestasList.add(d);
         }
 
-        // 4. Guardar Resultado en PostgreSQL
-        ResultadoSimulacro resultado = new ResultadoSimulacro();
-        resultado.setUsuario(usuario);
-        resultado.setAreaEvaluada(area);
-        resultado.setTiempoTomado(tiempoTomado);
-        resultado.setPuntajeTotal(puntajeTotal);
+        // 5. ACTUALIZAR CAMPOS DE LA SESIÓN EXISTENTE
+        sesion.setTiempoTomado(tiempoTomado);
+        sesion.setPuntajeTotal(puntajeTotal);
+        sesion.setPreguntasCorrectas(correctas);
+        sesion.setPreguntasIncorrectas(incorrectas);
+        sesion.setPreguntasEnBlanco(enBlanco);
+        sesion.setEstado(EstadoSimulacro.FINALIZADO); // Cerramos el examen
 
         // Mapear la lista de Map a JsonNode usando ObjectMapper para el campo JSONB/JdbcTypeCode(SqlTypes.JSON)
         // Este paso es crucial para persistir el detalle del JSON en PostgreSQL.
         JsonNode detallesJson = objectMapper.valueToTree(detallesRespuestasList);
-        resultado.setDetallesRespuestas(detallesJson);
+        sesion.setDetallesRespuestas(detallesJson);
 
-        ResultadoSimulacro resultadoGuardado = resultadoSimulacroRepository.save(resultado);
-        // Retorna el resultado (asumiendo que los campos están configurados correctamente para JPA)
-        // 5. Devolver DTO (Mapeo)
+        // Guardar cambios
+        ResultadoSimulacro resultadoGuardado = resultadoSimulacroRepository.save(sesion);
+
         return resultadoSimulacroMapper.toResponse(resultadoGuardado); //modelMapper.map(resultadoGuardado, ResultadoSimulacroResponse.class);
     }
 
@@ -219,9 +259,15 @@ public class SimulacroUseCase implements SimulacroService {
         return mapearARanking(resultados);
     }
 
+    //    @Override
+//    public List<RankingUsuarioResponse> obtenerRankingPorArea(Long areaId) {
+//        List<Object[]> resultados = resultadoSimulacroRepository.findTop10ByArea(areaId);
+//        return mapearARanking(resultados);
+//    }
     @Override
     public List<RankingUsuarioResponse> obtenerRankingPorArea(Long areaId) {
-        List<Object[]> resultados = resultadoSimulacroRepository.findTop10ByArea(areaId);
+        // Usamos la nueva query nativa con DENSE_RANK y criterios de desempate
+        List<Object[]> resultados = resultadoSimulacroRepository.findRankingOficialByArea(areaId);
         return mapearARanking(resultados);
     }
 
@@ -325,5 +371,18 @@ public class SimulacroUseCase implements SimulacroService {
         }
 
         return recomendaciones;
+    }
+
+    @Transactional
+    public void guardarProgreso(Long usuarioId, Map<String, String> respuestasParciales) {
+        ResultadoSimulacro sesion = resultadoSimulacroRepository
+                .findByUsuarioIdAndEstado(usuarioId, EstadoSimulacro.EN_CURSO)
+                .orElseThrow(() -> new BusinessException("No hay un examen activo para guardar progreso."));
+
+        // Convertimos el Map de respuestas actuales a JsonNode para actualizar el borrador
+        JsonNode progresoJson = objectMapper.valueToTree(respuestasParciales);
+        sesion.setDetallesRespuestas(progresoJson);
+
+        resultadoSimulacroRepository.save(sesion);
     }
 }
