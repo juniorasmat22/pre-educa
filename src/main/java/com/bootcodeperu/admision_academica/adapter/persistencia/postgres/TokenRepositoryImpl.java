@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.adapter.persistencia.postgres;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,16 @@ public class TokenRepositoryImpl implements TokenRepository {
     @Override
     public Optional<Usuario> findUsuarioByToken(String token) {
         return springTokenRepository.findUsuarioByToken(token);
+    }
+
+    @Override
+    public List<Token> encontrarTokensVencidosPorUsuario(Long usuarioId, LocalDateTime ahora) {
+        return springTokenRepository.encontrarTokensVencidosPorUsuario(usuarioId, ahora);
+    }
+
+    @Override
+    public int eliminarTokensMuertos(LocalDateTime ahora) {
+        return springTokenRepository.eliminarTokensMuertos(ahora);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.adapter.util;
 
+import com.bootcodeperu.admision_academica.domain.exception.InvalidTokenException;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-	private final JwtService jwtService;
+    private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository; // Necesitas un TokenRepository
     private final HandlerExceptionResolver handlerExceptionResolver;
@@ -54,11 +55,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
                 // Verifica que el token exista en BD y no esté revocado/expirado
-                var isTokenValid = tokenRepository.findByToken(jwt)
-                        .map(t -> !t.isExpirado() && !t.isRevocado())
-                        .orElse(false);
+                tokenRepository.findByToken(jwt)
+                        .filter(t -> !t.isExpirado() && !t.isRevocado())
+                        .orElseThrow(() -> new InvalidTokenException("La sesión ha sido revocada, cerrada o es inválida."));
 
-                if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
+                if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
@@ -71,9 +72,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
-        }
-        catch (io.jsonwebtoken.ExpiredJwtException e) {
+        } catch (io.jsonwebtoken.ExpiredJwtException e) {
             // Esto envía la excepción directamente a tu GlobalExceptionHandler
+            handlerExceptionResolver.resolveException(request, response, null, e);
+        } catch (InvalidTokenException e) {
+            // 4. Atrapamos tu excepción personalizada y la mandamos al GlobalExceptionHandler
             handlerExceptionResolver.resolveException(request, response, null, e);
         } catch (Exception e) {
             // Captura otros errores de JWT (firmas inválidas, etc.)

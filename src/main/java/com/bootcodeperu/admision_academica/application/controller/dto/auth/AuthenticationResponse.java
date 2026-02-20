@@ -10,5 +10,6 @@ import lombok.Data;
 @Builder
 public class AuthenticationResponse {
     private String token;
+    private String refreshToken;
     private UsuarioResponse usuario; // O podrías usar un DTO simple de usuario
 }

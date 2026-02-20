@@ -184,6 +184,21 @@ public class GlobalExceptionHandler {
     }
 
     /* =====================================================
+          403 - FORBIDEN
+          ===================================================== */
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidTokenCustomException(
+            InvalidTokenException ex,
+            HttpServletRequest request) {
+
+        return buildResponse(
+                HttpStatus.FORBIDDEN,
+                ex.getMessage(), // Enviará el mensaje exacto que definimos en el AuthService
+                request
+        );
+    }
+
+    /* =====================================================
        500 - ERRORES DE CARGA DE CONTENIDO
        ===================================================== */
     @ExceptionHandler(ContentLoadingException.class)

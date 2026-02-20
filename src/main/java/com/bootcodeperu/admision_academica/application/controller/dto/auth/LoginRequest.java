@@ -1,5 +1,6 @@
 package com.bootcodeperu.admision_academica.application.controller.dto.auth;
 
+import com.bootcodeperu.admision_academica.domain.model.enums.Plataforma;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,5 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
     private String email;
     private String password;
+    Plataforma plataforma;
 }

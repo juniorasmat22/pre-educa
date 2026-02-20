@@ -32,6 +32,8 @@ public class JwtService {
 
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
+    @Value("${application.security.jwt.refresh-token.expiration}")
+    private long refreshExpiration;
 
     @PostConstruct
     public void initMetrics() {
@@ -71,6 +73,12 @@ public class JwtService {
         }
         jwtGeneratedCounter.increment();
         return buildToken(extraClaims, userDetails, jwtExpiration);
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        // Un refresh token no necesita claims extra, solo identifica al usuario
+        jwtGeneratedCounter.increment();
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
     }
 
     private String buildToken(
@@ -122,7 +130,7 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
+    public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 

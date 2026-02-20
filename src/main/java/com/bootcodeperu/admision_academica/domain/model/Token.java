@@ -1,16 +1,12 @@
 package com.bootcodeperu.admision_academica.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.bootcodeperu.admision_academica.domain.model.enums.Plataforma;
+import com.bootcodeperu.admision_academica.domain.model.enums.TipoToken;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "token")
@@ -25,9 +21,12 @@ public class Token {
     @Column(unique = true, length = 500) // Mayor longitud para el token JWT
     private String token;
 
-    @Column(length = 50)
-    private String tipoToken = "BEARER";
-
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private TipoToken tipoToken = TipoToken.ACCESS;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Plataforma plataforma = Plataforma.DESCONOCIDA;
     private boolean revocado;
 
     private boolean expirado;
@@ -35,4 +34,6 @@ public class Token {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
+    @Column(name = "fecha_expiracion")
+    private LocalDateTime fechaExpiracion;
 }

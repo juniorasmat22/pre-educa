@@ -44,8 +44,8 @@ application:
     jwt:
       secret-key: ${JWT_SECRET_KEY}
       expiration: 86400000
-      # refresh-token:
-      #   expiration: 604800000
+      refresh-token:
+        expiration: 604800000
 
 # --------------------------------------------------------------------------
 # 5. Configuración del Servidor
