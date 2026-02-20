@@ -55,6 +55,16 @@ public class AuthenticationService {
         // 4. Revocar todos los tokens anteriores del usuario (mejor práctica de seguridad)
         //revokeAllUserTokens(usuario);
         Plataforma origen = request.getPlataforma() != null ? request.getPlataforma() : Plataforma.DESCONOCIDA;
+        if (origen != Plataforma.DESCONOCIDA) {
+            List<Token> sesionesAnteriores = tokenRepository.encontrarTokensVivosPorPlataforma(usuario.getId(), origen);
+            if (!sesionesAnteriores.isEmpty()) {
+                sesionesAnteriores.forEach(t -> {
+                    t.setRevocado(true);
+                    t.setExpirado(true);
+                });
+                tokenRepository.saveAll(sesionesAnteriores);
+            }
+        }
         // 5. Guardar el nuevo token
         saveUserToken(usuario, jwt, TipoToken.ACCESS, origen);
         saveUserToken(usuario, jwtRefreshToken, TipoToken.REFRESH, origen);
@@ -122,6 +132,7 @@ public class AuthenticationService {
             tokensBasura.forEach(t -> t.setExpirado(true)); // O podrías usar tokenRepository.deleteAll(tokensBasura);
             tokenRepository.saveAll(tokensBasura);
         }
+
         // 4. Generar NUEVO Access Token
         String newAccessToken = jwtService.generateToken(principal);
 

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.bootcodeperu.admision_academica.domain.model.Token;
 import com.bootcodeperu.admision_academica.domain.model.Usuario;
+import com.bootcodeperu.admision_academica.domain.model.enums.Plataforma;
 import org.springframework.data.repository.query.Param;
 
 public interface TokenRepository {
@@ -38,4 +39,6 @@ public interface TokenRepository {
     List<Token> encontrarTokensVencidosPorUsuario(Long usuarioId, LocalDateTime ahora);
 
     int eliminarTokensMuertos(@Param("ahora") LocalDateTime ahora);
+
+    List<Token> encontrarTokensVivosPorPlataforma(Long id, Plataforma plataformaOrigen);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bootcodeperu.admision_academica.domain.model.Usuario;
+import com.bootcodeperu.admision_academica.domain.model.enums.Plataforma;
 import org.springframework.stereotype.Component;
 
 import com.bootcodeperu.admision_academica.adapter.persistencia.postgres.springdata.SpringTokenRepository;
@@ -47,6 +48,11 @@ public class TokenRepositoryImpl implements TokenRepository {
     @Override
     public int eliminarTokensMuertos(LocalDateTime ahora) {
         return springTokenRepository.eliminarTokensMuertos(ahora);
+    }
+
+    @Override
+    public List<Token> encontrarTokensVivosPorPlataforma(Long id, Plataforma plataformaOrigen) {
+        return springTokenRepository.encontrarTokensVivosPorPlataforma(id, plataformaOrigen);
     }
 
     @Override

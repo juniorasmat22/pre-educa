@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bootcodeperu.admision_academica.domain.model.Usuario;
+import com.bootcodeperu.admision_academica.domain.model.enums.Plataforma;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,4 +32,16 @@ public interface SpringTokenRepository extends JpaRepository<Token, Long> {
     @Modifying
     @Query("DELETE FROM Token t WHERE t.fechaExpiracion < :ahora OR t.revocado = true")
     int eliminarTokensMuertos(@Param("ahora") LocalDateTime ahora);
+
+    @Query("""
+                SELECT t FROM Token t 
+                WHERE t.usuario.id = :usuarioId 
+                AND t.plataforma = :plataforma 
+                AND t.revocado = false 
+                AND t.expirado = false
+            """)
+    List<Token> encontrarTokensVivosPorPlataforma(
+            @Param("usuarioId") Long usuarioId,
+            @Param("plataforma") Plataforma plataforma
+    );
 }
