@@ -53,6 +53,18 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.UNAUTHORIZED, message, request);
     }
 
+    @ExceptionHandler(org.springframework.security.core.AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> handleAuthenticationException(
+            org.springframework.security.core.AuthenticationException ex,
+            HttpServletRequest request) {
+
+        return buildResponse(
+                HttpStatus.UNAUTHORIZED,
+                "Debes iniciar sesión para acceder a este recurso.",
+                request
+        );
+    }
+
     /* =====================================================
        404 - RECURSOS NO ENCONTRADOS
        ===================================================== */

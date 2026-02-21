@@ -26,12 +26,15 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
         http
                 // 1. HABILITAR CORS
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // 2. Deshabilitar CSRF (común cuando se usa JWT)
                 .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exc -> exc
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                )
                 .authorizeHttpRequests(authz -> authz
                         // Rutas públicas (registro, login, obtención de estructura inicial)
                         .requestMatchers("/api/v1/auth/**", "/api/v1/estructura/**", "/actuator/**").permitAll()

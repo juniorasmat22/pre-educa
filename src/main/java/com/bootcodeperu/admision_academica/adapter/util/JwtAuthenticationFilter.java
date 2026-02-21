@@ -1,6 +1,7 @@
 package com.bootcodeperu.admision_academica.adapter.util;
 
 import com.bootcodeperu.admision_academica.domain.exception.InvalidTokenException;
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
         try {
+            /*
             final String authHeader = request.getHeader("Authorization");
             final String jwt;
             final String userEmail;
@@ -47,8 +49,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
+            */
+            // =====================================================================
+            // ✅ NUEVO CÓDIGO (BASADO EN COOKIES HTTPONLY)
+            // =====================================================================
+            String jwt = null;
+            final String userEmail;
 
-            jwt = authHeader.substring(7);
+            // Buscamos la cookie que contiene el token de acceso
+            if (request.getCookies() != null) {
+                for (Cookie cookie : request.getCookies()) {
+                    if ("token".equals(cookie.getName())) {
+                        jwt = cookie.getValue();
+                        break;
+                    }
+                }
+            }
+
+            // Si no encontramos el token en las cookies, dejamos pasar la petición
+            // Spring Security se encargará de rechazarla con un 403 si la ruta era privada
+            if (jwt == null) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             userEmail = jwtService.extractUsername(jwt);
 
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
