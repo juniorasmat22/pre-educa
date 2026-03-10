@@ -1,11 +1,6 @@
 package com.bootcodeperu.admision_academica.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +15,10 @@ public class Area extends AuditEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre", nullable = false, unique = true)
+    @Column(name = "nombre", nullable = false)
     private String nombre; // Ej: A. Ciencias de la Vida y la Salud
 
-    @Column(name = "descripcion", nullable = false, unique = true)
+    @Column(name = "descripcion", nullable = false)
     private String descripcion; // Ej: A
 
     private Double puntajeCorrecta; // Ej: 4.00, 5.00, 6.00 (mayor peso)
@@ -31,4 +26,7 @@ public class Area extends AuditEntity {
     private Double puntajeBlanco; // Ej: -0.25
     @Column(name = "duracion_minutos", nullable = false)
     private Integer duracionMinutos;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_universidad", nullable = true)
+    private Universidad universidad;
 }
