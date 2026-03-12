@@ -37,7 +37,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authz -> authz
                         // Rutas públicas (registro, login, obtención de estructura inicial)
-                        .requestMatchers("/api/v1/auth/**", "/api/v1/estructura/**", "/actuator/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/catalogo/**", "/api/v1/estructura/**", "/actuator/**").permitAll()
                         // Rutas que requieren autenticación
                         .anyRequest().authenticated()
                 )
