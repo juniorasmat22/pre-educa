@@ -2,11 +2,14 @@ package com.bootcodeperu.admision_academica.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "carrera")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Carrera extends AuditEntity {
     @Id
