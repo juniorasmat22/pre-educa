@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "area")
 @Data
@@ -29,4 +31,6 @@ public class Area extends AuditEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_universidad", nullable = true)
     private Universidad universidad;
+    @OneToMany(mappedBy = "area", fetch = FetchType.LAZY)
+    private Set<Carrera> carreras;
 }
