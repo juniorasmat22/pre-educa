@@ -7,6 +7,8 @@ public record AreaResponse(
         Double puntajeCorrecta,
         Double puntajeIncorrecta,
         Double puntajeBlanco,
-        Integer duracionMinutos
+        Integer duracionMinutos,
+        Long idUniversidad,
+        String nombreUniversidad
 ) {
 }
