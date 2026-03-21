@@ -28,11 +28,11 @@ public interface SpringResultadoSimulacroRepository extends JpaRepository<Result
     List<Object[]> findTop10ByArea(@Param("areaId") Long areaId);
 
 
-    @Query("SELECT r.usuario.nombre, MAX(r.puntajeTotal) as maxPuntaje, r.usuario.carreraDeseada " +
+    @Query("SELECT r.usuario.nombre, MAX(r.puntajeTotal) as maxPuntaje " +
             "FROM ResultadoSimulacro r " +
             "WHERE r.fechaEvaluacion >= :fecha " +
             "AND r.simulacroProgramado IS NULL " +
-            "GROUP BY r.usuario.id, r.usuario.nombre, r.usuario.carreraDeseada " +
+            "GROUP BY r.usuario.id, r.usuario.nombre " +
             "ORDER BY maxPuntaje DESC LIMIT 10")
     List<Object[]> findTop10GlobalLibres(@Param("fecha") LocalDateTime fecha);
 

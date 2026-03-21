@@ -1,9 +1,12 @@
 package com.bootcodeperu.admision_academica.application.controller;
 
 import com.bootcodeperu.admision_academica.application.controller.dto.common.ApiResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioAdminRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import com.bootcodeperu.admision_academica.application.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +54,7 @@ public class UsuarioAdminController {
         UsuarioResponse usuarioActualizado = usuarioService.activateUser(userId);
         return ResponseEntity.ok(ApiResponse.ok(usuarioActualizado, "Usuario activado"));
     }
+
     // Desactivar un usuario
     @PatchMapping("/{userId}/desactivar")
     public ResponseEntity<ApiResponse<UsuarioResponse>> desactivarUsuario(@PathVariable Long userId) {
@@ -67,11 +71,22 @@ public class UsuarioAdminController {
         UsuarioResponse usuarioActualizado = usuarioService.changePassword(userId, nuevaPassword);
         return ResponseEntity.ok(ApiResponse.ok(usuarioActualizado, "Contraseña actualizada correctamente"));
     }
+
     // Listar todos los usuarios
     @GetMapping
     public ResponseEntity<ApiResponse<List<UsuarioResponse>>> getAllUsuarios() {
         List<UsuarioResponse> usuarios = usuarioService.getAllUsers();
         return ResponseEntity.ok(ApiResponse.ok(usuarios, "Lista de usuarios"));
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<UsuarioResponse>> crearPersonalAdministrativo(
+            @Valid @RequestBody UsuarioAdminRequest request) {
+        
+        UsuarioResponse nuevoAdmin = usuarioService.registerPersonal(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.created(nuevoAdmin, "Personal administrativo creado exitosamente"));
     }
 }
 

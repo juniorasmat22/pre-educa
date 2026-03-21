@@ -5,8 +5,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.bootcodeperu.admision_academica.adapter.mapper.UsuarioMapper;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioAdminRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioRegistroRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
+import com.bootcodeperu.admision_academica.application.service.ObjetivoAcademicoService;
 import com.bootcodeperu.admision_academica.domain.model.Rol;
 import com.bootcodeperu.admision_academica.domain.repository.RolRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,11 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class UsuarioUseCase implements UsuarioService {
-	private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
     // Debes inyectar el Bean de Spring Security para cifrar contraseñas
     private final PasswordEncoder passwordEncoder;
     private final UsuarioMapper usuarioMapper;
+    private final ObjetivoAcademicoService objetivoAcademicoService;
 
     @Override
     public UsuarioResponse registerUser(UsuarioRegistroRequest request) {
@@ -38,18 +41,42 @@ public class UsuarioUseCase implements UsuarioService {
                     "El email ya está registrado. Por favor, inicia sesión."
             );
         }
-
         // 2. Crear el usuario
         Usuario usuario = new Usuario();
         usuario.setNombre(request.nombre());
         usuario.setEmail(request.email());
-
         // 3. Hashear la contraseña
         String hashedPassword = passwordEncoder.encode(request.password());
         usuario.setPasswordHash(hashedPassword);
+        usuario.setRol(rolRepository.findByNombre("ROLE_ESTUDIANTE").orElseThrow());
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
+        // 🌟 5. AHORA SÍ, CREAMOS SU OBJETIVO ACADÉMICO
+        objetivoAcademicoService.establecerNuevoObjetivo(
+                usuarioGuardado, // Pasamos el usuario que ya tiene ID
+                request.idCarrera(),
+                request.idProcesoAdmision()
+        );
 
-        // 6. Guardar
+        // 6. Retornamos la respuesta basada en el usuario guardado
+        return usuarioMapper.toResponse(usuarioGuardado);
+    }
+
+    @Transactional
+    public UsuarioResponse registerPersonal(UsuarioAdminRequest request) {
+
+        if (usuarioRepository.findByEmail(request.email()).isPresent()) {
+            throw new DomainValidationException("El email ya está registrado.");
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre(request.nombre());
+        usuario.setEmail(request.email());
+        usuario.setPasswordHash(passwordEncoder.encode(request.password()));
+        // 1. Buscamos el rol que nos enviaron desde el panel (Ej: ROLE_ADMIN o ROLE_PROFESOR)
+        Rol rol = rolRepository.findById(request.idRol())
+                .orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado"));
+        usuario.setRol(rol);
         return usuarioMapper.toResponse(usuarioRepository.save(usuario));
     }
 
@@ -69,7 +96,7 @@ public class UsuarioUseCase implements UsuarioService {
         if (!passwordEncoder.matches(password, usuario.getPasswordHash())) {
             throw new DomainValidationException("La contraseña es incorrecta."); // Error de autenticación
         }
-        
+
         // Si es correcto, retorna el usuario
         return usuario;
     }

@@ -5,6 +5,7 @@ import com.bootcodeperu.admision_academica.application.controller.dto.token.Logo
 import com.bootcodeperu.admision_academica.application.controller.dto.token.RefreshTokenRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioRegistroRequest;
 import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -32,7 +33,7 @@ public class UsuarioController {
     private long refreshExpiration;
 
     @PostMapping("/registrar")
-    public ResponseEntity<ApiResponse<UsuarioResponse>> registrarUsuario(@RequestBody UsuarioRegistroRequest usuario) {
+    public ResponseEntity<ApiResponse<UsuarioResponse>> registrarUsuario(@Valid @RequestBody UsuarioRegistroRequest usuario) {
         UsuarioResponse nuevoUsuario = usuarioService.registerUser(usuario);
         return ResponseEntity.ok(ApiResponse.ok(nuevoUsuario, "Usuario creado correctamente"));
     }

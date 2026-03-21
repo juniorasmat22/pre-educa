@@ -31,13 +31,7 @@ public class Usuario extends AuditEntity {
 
     @Column(nullable = false)
     private String passwordHash; // Almacenamos el hash de la contraseña
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "areaPostulacion")
-    private Area areaPostulacion;
-
-    private String carreraDeseada;
-
+    
     private LocalDateTime fechaRegistro = LocalDateTime.now();
     @Column(nullable = false)
     private boolean isAccountNonExpired = true;

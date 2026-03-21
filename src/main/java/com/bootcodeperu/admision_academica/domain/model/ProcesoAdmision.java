@@ -1,11 +1,17 @@
 package com.bootcodeperu.admision_academica.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
-public class ProcesoAdmision {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProcesoAdmision extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
