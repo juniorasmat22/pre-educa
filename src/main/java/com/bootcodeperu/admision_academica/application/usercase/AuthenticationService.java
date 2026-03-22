@@ -4,13 +4,17 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
+import com.bootcodeperu.admision_academica.adapter.mapper.ObjetivoAcademicoMapper;
 import com.bootcodeperu.admision_academica.adapter.mapper.UsuarioMapper;
 import com.bootcodeperu.admision_academica.adapter.security.UsuarioPrincipal;
 import com.bootcodeperu.admision_academica.application.controller.dto.auth.LoginRequest;
+import com.bootcodeperu.admision_academica.application.controller.dto.objetivo.ObjetivoAcademicoResponse;
+import com.bootcodeperu.admision_academica.application.controller.dto.usuario.UsuarioResponse;
 import com.bootcodeperu.admision_academica.domain.exception.DomainValidationException;
 import com.bootcodeperu.admision_academica.domain.exception.InvalidTokenException;
 import com.bootcodeperu.admision_academica.domain.model.enums.Plataforma;
 import com.bootcodeperu.admision_academica.domain.model.enums.TipoToken;
+import com.bootcodeperu.admision_academica.domain.repository.ObjetivoAcademicoRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,6 +36,8 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UsuarioMapper usuarioMapper;
+    private final ObjetivoAcademicoRepository objetivoRepository;
+    private final ObjetivoAcademicoMapper objetivoMapper;
 
     @Transactional // Asegura que la DB se actualice correctamente
     public AuthenticationResponse authenticate(LoginRequest request) {
@@ -49,10 +55,16 @@ public class AuthenticationService {
         if (principal.usuario().getRol() == null) {
             throw new DomainValidationException("El usuario no tiene un rol asignado");
         }
-        // 3. Generar el Token JWT
+        //3. BUSCAMOS SU OBJETIVO ACADÉMICO (Si no tiene, será null)
+        ObjetivoAcademicoResponse objetivo = objetivoRepository
+                .findByUsuarioIdAndObjetivoPrincipalTrueAndActivoTrue(usuario.getId())
+                .map(objetivoMapper::toResponse)
+                .orElse(null); // Si es Admin/Profesor, esto será NULL automáticamente
+        UsuarioResponse usuarioResponse = usuarioMapper.toResponseConObjetivo(usuario, objetivo);
+        // 4. Generar el Token JWT
         String jwt = jwtService.generateToken(principal);
         String jwtRefreshToken = jwtService.generateRefreshToken(principal);
-        // 4. Revocar todos los tokens anteriores del usuario (mejor práctica de seguridad)
+        // 4. Revocar todos los tokens anteriores del usuario
         //revokeAllUserTokens(usuario);
         Plataforma origen = request.getPlataforma() != null ? request.getPlataforma() : Plataforma.DESCONOCIDA;
         if (origen != Plataforma.DESCONOCIDA) {
@@ -72,7 +84,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwt)
                 .refreshToken(jwtRefreshToken)
-                .usuario(usuarioMapper.toResponse(usuario))
+                .usuario(usuarioResponse)
                 .build();
     }
 
